@@ -8,12 +8,32 @@
 
 The following are **core** stories:
 
-* [ ] Requestor and Shoppers can sign up and create profile. 
-* [ ] Requestor can create a shopping list and publish it.
-* [ ] Shoppers should be able to get a push notification on his app which contains the shopping list. If the shopper chooses to accept the request, the requestor should be notified back.
+REQUESTER
+* [ ] Requester can sign up and create profile. 
+* [ ] Requester can select from a list of available stores
+* [ ] Requester can create a shopping list and publish it.
+* [ ] Requester can track the status of their order
+* [ ] Requester can receive push notifications when their order is accepted
+* [ ] Requester can initiate a payment to be made to the Shopper
+
+
+SHOPPER
+* [ ] Shopper can sign up and create profile. 
+* [ ] Shopper can share their location via the app for order discovery
+* [ ] Shopper can receive notifications for orders that match based on their proximity to the stores
+* [ ] Shopper can accept or reject a notification/order pickup request
+* [ ] Shopper can take a picture of the purchase receipt and send it to the requester
+* [ ] Shopper can receive a payment from requester
+
 
 The following are **optional** stories:
 
-* [ ] Shopper should be able to share the location to the requestor.
-* [ ] Push notification should be sent based on shoppers proximity to the store.
-* [ ] Rating and feedback system should be available for both the shoppers and requestors.
+REQUESTER
+* [ ] Requester can rate a delivery/shopper
+* [ ] Requester can turn off being a requester (not get notifications for order pickup)
+
+
+SHOPPER
+* [ ] Shopper can rate a requester
+* [ ] Shopper can share their location actively with requester while out for delivery
+* [ ] Shopper can turn off being a requester (not get notifications for order pickup)
