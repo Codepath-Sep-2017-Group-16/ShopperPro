@@ -9,8 +9,8 @@
 The following are **core** stories:
 
 * [ ] Requestor and Shoppers can sign up and create profile. 
-* [ ] Requestor can a grocey list and publish it.
-* [ ] Shoppers should be able to get a push notification on his app which contains the grocery list. If the shopper chooses to accept the request, the requestor should be notified back.
+* [ ] Requestor can create a shopping list and publish it.
+* [ ] Shoppers should be able to get a push notification on his app which contains the shopping list. If the shopper chooses to accept the request, the requestor should be notified back.
 
 The following are **optional** stories:
 
