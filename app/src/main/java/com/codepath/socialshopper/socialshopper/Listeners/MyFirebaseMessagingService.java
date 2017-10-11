@@ -1,4 +1,4 @@
-package com.codepath.socialshopper.socialshopper.listeners;
+package com.codepath.socialshopper.socialshopper.Listeners;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -10,7 +10,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.codepath.socialshopper.socialshopper.R;
-import com.codepath.socialshopper.socialshopper.activities.MainActivity;
+import com.codepath.socialshopper.socialshopper.Activities.MainActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 

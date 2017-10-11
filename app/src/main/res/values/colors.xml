@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <!--<color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>#009688
+    <color name="colorAccent">#FF4081</color>-->
+    <!-- Teal shades -->
+    <!--<color name="colorPrimary">#009688</color>
+    <color name="colorPrimaryDark">#00897b</color>
+    <color name="colorAccent">#616161</color> -->
+
+    <!-- Blue Gray shades shades with accent color from the App icon-->
+    <color name="colorPrimary">#607d8b</color>
+    <color name="colorPrimaryDark">#37474f</color>
+    <color name="colorAccent">#F05228</color>
 </resources>
