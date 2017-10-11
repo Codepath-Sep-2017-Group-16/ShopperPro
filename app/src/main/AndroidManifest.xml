@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,8 +18,24 @@
         </activity>
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="nokeyyet"
+            android:value="3c602e75278b16045ddcaad616b52968712df76a" />16b52968712df76a"
             />
+
+        <service
+            android:name=".listeners.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".listeners.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
+
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

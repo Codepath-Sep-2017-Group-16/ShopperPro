@@ -1,7 +1,9 @@
-package com.codepath.socialshopper.socialshopper;
+package com.codepath.socialshopper.socialshopper.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.codepath.socialshopper.socialshopper.R;
 import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
 
