@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import java.util.List;
 public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableItemsArrayAdapter.ShoppableItemsViewHolder> {
     Context mContext;
     ArrayList<ShoppableItem> shoppableItems;
+    public final String TAG = "SocShpAdap";
 
     public ShoppableItemsArrayAdapter(ArrayList<ShoppableItem> shoppableItems) {
         this.shoppableItems = shoppableItems;
@@ -43,6 +45,7 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
     @Override
     public void onBindViewHolder(ShoppableItemsViewHolder holder, int position) {
         ShoppableItem shoppableItem = shoppableItems.get(position);
+        Log.i(TAG, "onBindViewHolder");
 
         holder.btnShoppableItem.setText(shoppableItem.getmItemName());
         Drawable top = ContextCompat.getDrawable(mContext,mContext.getResources().getIdentifier(shoppableItem.getmItemIconFileName(),"raw",mContext.getPackageName()));

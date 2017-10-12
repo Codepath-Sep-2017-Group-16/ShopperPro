@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,8 @@ public class HorizontalItemsFragment extends Fragment {
     ArrayList<ShoppableItem> shoppableItems;
     ShoppableItemsArrayAdapter adapter;
     RecyclerView rvItems;
+    public final String TAG = "SocShpHorFrag";
+
 
     public HorizontalItemsFragment() {
     }
@@ -38,7 +41,9 @@ public class HorizontalItemsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setArguments(savedInstanceState);
+        if(savedInstanceState!=null) {
+            this.setArguments(savedInstanceState);
+        }
         shoppableItems = new ArrayList<>();
         adapter = new ShoppableItemsArrayAdapter(shoppableItems);
     }
@@ -55,7 +60,24 @@ public class HorizontalItemsFragment extends Fragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvItems.setLayoutManager(linearLayoutManager);
         rvItems.setAdapter(adapter);
-
+        populateDefaultItems();
         return view;
+    }
+
+    private void populateDefaultItems() {
+        Log.i(TAG, "populateDefaultItems");
+        ShoppableItem itemBanana = new ShoppableItem("Banana", "banana_file");
+        shoppableItems.add(itemBanana);
+
+        ShoppableItem itemApple = new ShoppableItem("Apple", "apple_file");
+        shoppableItems.add(itemApple);
+
+        ShoppableItem itemLemon = new ShoppableItem("Lemon", "lemon_file");
+        shoppableItems.add(itemLemon);
+
+        ShoppableItem itemStrawberry = new ShoppableItem("Strawberry", "strawberry_file");
+        shoppableItems.add(itemStrawberry);
+
+        adapter.notifyDataSetChanged();
     }
 }
