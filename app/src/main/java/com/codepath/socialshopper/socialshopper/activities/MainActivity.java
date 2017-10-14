@@ -15,6 +15,7 @@ import com.codepath.socialshopper.socialshopper.Utils.CommonUtils;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.codepath.socialshopper.socialshopper.Utils.FacebookUtils;
 import com.crashlytics.android.Crashlytics;
+import com.facebook.Profile;
 
 import java.util.ArrayList;
 
@@ -31,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements DatabaseUtils.OnA
         setContentView(R.layout.activity_main);
         databaseUtils = new DatabaseUtils(this);
         processIntentAction(getIntent());
-
         setUpInitialScreen();
     }
 
