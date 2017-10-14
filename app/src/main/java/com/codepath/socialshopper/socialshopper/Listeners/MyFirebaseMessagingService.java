@@ -35,8 +35,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         displayNotification(messageContent);
     }
 
-
-
     private void displayNotification(String message){
 
         Intent intent = new Intent(this, MainActivity.class);
@@ -65,11 +63,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentIntent(PendingIntent.getActivity(this, 0, getNotificationIntent(), PendingIntent.FLAG_UPDATE_CURRENT))
                 //TODO Figure out why the action icons aren't showing up
                 .addAction(new NotificationCompat.Action(
-                        R.drawable.ic_alarm,
+                        R.drawable.ic_accept,
                         "Yes",
                         PendingIntent.getActivity(this, 1, yesIntent, PendingIntent.FLAG_UPDATE_CURRENT)))
                 .addAction(new NotificationCompat.Action(
-                        R.drawable.ic_alarm,
+                        R.drawable.ic_deny,
                         "No",
                         PendingIntent.getActivity(this, 0, noIntent, PendingIntent.FLAG_CANCEL_CURRENT)));
 

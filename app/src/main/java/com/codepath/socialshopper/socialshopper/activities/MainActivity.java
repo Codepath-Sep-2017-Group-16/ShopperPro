@@ -1,9 +1,11 @@
 package com.codepath.socialshopper.socialshopper.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.codepath.socialshopper.socialshopper.Fragments.HorizontalItemsFragment;
 import com.codepath.socialshopper.socialshopper.Models.ShoppableItem;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements DatabaseUtils.OnA
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
         databaseUtils = new DatabaseUtils(this);
+        processIntentAction(getIntent());
 
         setUpInitialScreen();
     }
@@ -81,4 +84,23 @@ public class MainActivity extends AppCompatActivity implements DatabaseUtils.OnA
         getActiveLists();
     }
     */
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        processIntentAction(intent);
+        super.onNewIntent(intent);
+    }
+
+    private void processIntentAction(Intent intent) {
+        if (intent.getAction() != null) {
+            switch (intent.getAction()) {
+                case "YES_ACTION":
+                    Toast.makeText(this, "Yes :)", Toast.LENGTH_SHORT).show();
+                    break;
+                case "NO_ACTION":
+                    Toast.makeText(this, "No :(", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    }
 }
