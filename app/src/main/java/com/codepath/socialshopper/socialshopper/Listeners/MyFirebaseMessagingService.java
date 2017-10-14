@@ -23,6 +23,8 @@ import java.util.Map;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
+    private static final String YES_ACTION = "YES_ACTION";
+    private static final String NO_ACTION = "NO_ACTION";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -33,28 +35,54 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         displayNotification(messageContent);
     }
 
-
     private void displayNotification(String message){
 
         Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT);
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Intent yesIntent = getNotificationIntent();
+        yesIntent.setAction(YES_ACTION);
+
+
+        Intent noIntent = getNotificationIntent();
+        noIntent.setAction(NO_ACTION);
 
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_notification)
-                .setContentTitle("FCM Message")
+                .setContentTitle("New Pick Up !")
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                 .setContentText(message)
+                .setWhen(System.currentTimeMillis())
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
-                .setContentIntent(pendingIntent);
+                .setContentIntent(PendingIntent.getActivity(this, 0, getNotificationIntent(), PendingIntent.FLAG_UPDATE_CURRENT))
+                //TODO Figure out why the action icons aren't showing up
+                .addAction(new NotificationCompat.Action(
+                        R.drawable.ic_accept,
+                        "Yes",
+                        PendingIntent.getActivity(this, 1, yesIntent, PendingIntent.FLAG_UPDATE_CURRENT)))
+                .addAction(new NotificationCompat.Action(
+                        R.drawable.ic_deny,
+                        "No",
+                        PendingIntent.getActivity(this, 0, noIntent, PendingIntent.FLAG_CANCEL_CURRENT)));
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+        notificationManager.notify((int)System.currentTimeMillis(), notificationBuilder.build());
 
     }
+
+
+    private Intent getNotificationIntent() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        return intent;
+    }
+
 }

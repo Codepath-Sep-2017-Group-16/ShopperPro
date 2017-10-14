@@ -97,6 +97,10 @@ public class DatabaseUtils {
         // TODO : implement this
     }
 
+    public static void saveGCMRegistrationID(){
+
+    }
+
     public interface OnActiveListsFetchListener {
         void OnListsFetchListener(ArrayList<ShoppingList> shoppingLists);
     }
