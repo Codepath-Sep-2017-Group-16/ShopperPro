@@ -9,8 +9,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Created by rdeshpan on 10/13/2017.
@@ -22,6 +24,7 @@ public class DatabaseUtils {
 
     private static final String USERS = "users";
     private static final String LISTS = "lists";
+    private static final String DEVICE = "device";
     private static final String ACTIVE_LISTS = "active_lists";
     private static final String PAST_LISTS = "past_lists";
     private static final String ITEM = "item";
@@ -97,8 +100,8 @@ public class DatabaseUtils {
         // TODO : implement this
     }
 
-    public static void saveGCMRegistrationID(){
-
+    public static void saveGCMRegistrationID(String fbID){
+        mDatabase.child(DEVICE).child(fbID).setValue(FirebaseInstanceId.getInstance().getToken());
     }
 
     public interface OnActiveListsFetchListener {
