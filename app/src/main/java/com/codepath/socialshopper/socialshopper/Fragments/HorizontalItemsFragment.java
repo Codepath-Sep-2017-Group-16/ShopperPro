@@ -66,16 +66,16 @@ public class HorizontalItemsFragment extends Fragment {
 
     private void populateDefaultItems() {
         Log.i(TAG, "populateDefaultItems");
-        ShoppableItem itemBanana = new ShoppableItem("Banana", "banana_file");
+        ShoppableItem itemBanana = new ShoppableItem("1", "Banana", "banana_file");
         shoppableItems.add(itemBanana);
 
-        ShoppableItem itemApple = new ShoppableItem("Apple", "apple_file");
+        ShoppableItem itemApple = new ShoppableItem("2", "Apple", "apple_file");
         shoppableItems.add(itemApple);
 
-        ShoppableItem itemLemon = new ShoppableItem("Lemon", "lemon_file");
+        ShoppableItem itemLemon = new ShoppableItem("3", "Lemon", "lemon_file");
         shoppableItems.add(itemLemon);
 
-        ShoppableItem itemStrawberry = new ShoppableItem("Strawberry", "strawberry_file");
+        ShoppableItem itemStrawberry = new ShoppableItem("4", "Strawberry", "strawberry_file");
         shoppableItems.add(itemStrawberry);
 
         adapter.notifyDataSetChanged();

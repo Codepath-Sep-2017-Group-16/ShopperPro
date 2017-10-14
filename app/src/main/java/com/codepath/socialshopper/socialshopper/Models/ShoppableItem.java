@@ -7,6 +7,8 @@ import org.parceler.Parcel;
  */
 @Parcel(analyze={ShoppableItem.class})
 public class ShoppableItem {
+
+    String itemId;
     String mItemName;
     String mItemIconFileName;
 
@@ -26,10 +28,19 @@ public class ShoppableItem {
         this.mItemIconFileName = mItemIconFileName;
     }
 
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
+    }
+
     public ShoppableItem() {
     }
 
-    public ShoppableItem(String mItemName, String mItemIconFileName) {
+    public ShoppableItem(String itemId, String mItemName, String mItemIconFileName) {
+        this.itemId = itemId;
         this.mItemName = mItemName;
         this.mItemIconFileName = mItemIconFileName;
     }

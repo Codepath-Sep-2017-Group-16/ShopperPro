@@ -1,6 +1,7 @@
 package com.codepath.socialshopper.socialshopper.Utils;
 
 import com.facebook.AccessToken;
+import com.facebook.Profile;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +20,11 @@ public class FacebookUtils {
         return AccessToken.getCurrentAccessToken() != null && !AccessToken.getCurrentAccessToken().isExpired();
     }
 
-    public void logout() {
+    public static void logout() {
         // TODO : Implement this
+    }
+
+    public static String getFacebookId() {
+        return Profile.getCurrentProfile().getId();
     }
 }
