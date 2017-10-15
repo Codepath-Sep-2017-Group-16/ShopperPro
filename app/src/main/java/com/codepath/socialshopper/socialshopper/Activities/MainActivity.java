@@ -4,9 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.codepath.socialshopper.socialshopper.Fragments.AddItemDetailsDialogFragment;
 import com.codepath.socialshopper.socialshopper.Fragments.HorizontalItemsFragment;
 import com.codepath.socialshopper.socialshopper.Models.ShoppableItem;
 import com.codepath.socialshopper.socialshopper.Models.ShoppingList;
@@ -15,15 +20,19 @@ import com.codepath.socialshopper.socialshopper.Utils.CommonUtils;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.codepath.socialshopper.socialshopper.Utils.FacebookUtils;
 import com.crashlytics.android.Crashlytics;
-import com.facebook.Profile;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
 import io.fabric.sdk.android.Fabric;
 
-public class MainActivity extends AppCompatActivity implements DatabaseUtils.OnActiveListsFetchListener, DatabaseUtils.OnListFetchListener {
+public class MainActivity extends AppCompatActivity implements
+        DatabaseUtils.OnActiveListsFetchListener, DatabaseUtils.OnListFetchListener, AddItemDetailsDialogFragment.AddItemDetailsDialogListener {
     public final String TAG = "SocShpMainAct";
     private DatabaseUtils databaseUtils;
+    static ShoppingList shoppingList = new ShoppingList();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +41,21 @@ public class MainActivity extends AppCompatActivity implements DatabaseUtils.OnA
         setContentView(R.layout.activity_main);
         databaseUtils = new DatabaseUtils(this);
         processIntentAction(getIntent());
+        setUpToolBar();
         setUpInitialScreen();
+        shoppingList.setListId(CommonUtils.getUuid());
+    }
+
+    private void setUpToolBar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(getDrawable(R.drawable.ic_menu_black_24dp));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setElevation(0);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     private void setUpInitialScreen() {
@@ -42,8 +65,26 @@ public class MainActivity extends AppCompatActivity implements DatabaseUtils.OnA
         ft.commit();
     }
 
-    private void saveList(ShoppingList shoppingList) {
-        DatabaseUtils.saveList(FacebookUtils.getFacebookId(), shoppingList);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        Log.i(TAG, "inflatingmenu");
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_view_shoppinglist) {
+            Toast.makeText(this, "action_view_shoppinglist", Toast.LENGTH_LONG).show();
+            Log.i(TAG, "action_view_shoppinglist");
+            Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void getActiveLists() {
@@ -101,6 +142,19 @@ public class MainActivity extends AppCompatActivity implements DatabaseUtils.OnA
                     Toast.makeText(this, "No :(", Toast.LENGTH_SHORT).show();
                     break;
             }
+        }
+    }
+
+    @Override
+    public void onFinishAddItemDetailsDialog(Bundle bundle) {
+        if (bundle != null) {
+            ShoppableItem item = (ShoppableItem) Parcels.unwrap(bundle.getParcelable("AddedItem"));
+            Log.i(TAG, "from bundle");
+            shoppingList.addItems(item);
+            Log.i(TAG, " added to shopping list");
+            Log.i(TAG, item.getmItemBrand());
+            Log.i(TAG, item.getmItemName());
+            Log.i(TAG, item.getmItemQty());
         }
     }
 }

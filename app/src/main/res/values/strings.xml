@@ -3,4 +3,10 @@
 
     <string name="facebook_app_id">2037357553218133</string>
     <string name="fb_login_protocol_scheme">fb2037357553218133</string>
+    <string name="search_label">Shopping Cart</string>
+    <string name="item_name_label">Item Name</string>
+    <string name="item_brand_label">Brand Name</string>
+    <string name="item_qty_label">Item Quantity</string>
+    <string name="add_item_label">Add Item</string>
+    <string name="submit_shp_list">Submit Shopping List</string>
 </resources>

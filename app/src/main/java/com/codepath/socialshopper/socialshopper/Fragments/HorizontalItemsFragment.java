@@ -10,11 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.HorizontalScrollView;
 
 import com.codepath.socialshopper.socialshopper.Adapters.ShoppableItemsArrayAdapter;
 import com.codepath.socialshopper.socialshopper.Models.ShoppableItem;
 import com.codepath.socialshopper.socialshopper.R;
+import com.codepath.socialshopper.socialshopper.Utils.CommonUtils;
 
 import java.util.ArrayList;
 
@@ -66,17 +66,29 @@ public class HorizontalItemsFragment extends Fragment {
 
     private void populateDefaultItems() {
         Log.i(TAG, "populateDefaultItems");
-        ShoppableItem itemBanana = new ShoppableItem("1", "Banana", "banana_file");
+        ShoppableItem itemBanana = new ShoppableItem(CommonUtils.getUuid(), "Banana", "@drawable/banana_file","1lb","DelMonte");
         shoppableItems.add(itemBanana);
 
-        ShoppableItem itemApple = new ShoppableItem("2", "Apple", "apple_file");
+        ShoppableItem itemApple = new ShoppableItem(CommonUtils.getUuid(), "Apple", "@drawable/apple_file","1lb","DelMonte");
         shoppableItems.add(itemApple);
 
-        ShoppableItem itemLemon = new ShoppableItem("3", "Lemon", "lemon_file");
+        ShoppableItem itemLemon = new ShoppableItem(CommonUtils.getUuid(), "Lemon", "@drawable/lemon_file","1lb","DelMonte");
         shoppableItems.add(itemLemon);
 
-        ShoppableItem itemStrawberry = new ShoppableItem("4", "Strawberry", "strawberry_file");
+        ShoppableItem itemStrawberry = new ShoppableItem(CommonUtils.getUuid(), "Strawberry", "@drawable/strawberry_file","1lb","DelMonte");
         shoppableItems.add(itemStrawberry);
+
+        ShoppableItem itemBanana1 = new ShoppableItem(CommonUtils.getUuid(), "Banana", "@drawable/banana_file","1lb","DelMonte");
+        shoppableItems.add(itemBanana1);
+
+        ShoppableItem itemApple2 = new ShoppableItem(CommonUtils.getUuid(), "Apple", "@drawable/apple_file","1lb","DelMonte");
+        shoppableItems.add(itemApple2);
+
+        ShoppableItem itemLemon3 = new ShoppableItem(CommonUtils.getUuid(), "Lemon", "@drawable/lemon_file","1lb","DelMonte");
+        shoppableItems.add(itemLemon3);
+
+        ShoppableItem itemStrawberry4 = new ShoppableItem(CommonUtils.getUuid(), "Strawberry", "@drawable/strawberry_file","1lb","DelMonte");
+        shoppableItems.add(itemStrawberry4);
 
         adapter.notifyDataSetChanged();
     }

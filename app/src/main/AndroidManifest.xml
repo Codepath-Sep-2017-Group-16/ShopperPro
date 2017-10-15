@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -42,7 +42,6 @@
             </intent-filter>
         </activity>
 
-
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="3c602e75278b16045ddcaad616b52968712df76a" />
@@ -60,15 +59,13 @@
 
         <activity android:name=".Activities.SplashScreenActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity android:name=".Activities.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
         </activity>
+        <activity android:name=".Activities.ShoppingListActivity"></activity>
     </application>
 
 </manifest>

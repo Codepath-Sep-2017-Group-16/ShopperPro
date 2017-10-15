@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="20dp"
+    android:layout_margin="10dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tvItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="@string/item_name_label"
+        android:textSize="20sp"
+        android:padding="15dp"
+        tools:text="@string/item_name_label"/>
+    <EditText
+        android:id="@+id/etItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Banana"
+        android:padding="15dp"
+        android:layout_alignTop="@id/tvItemName"
+        android:layout_alignBottom="@id/tvItemName"
+        android:layout_toEndOf="@id/tvItemName"
+        android:textSize="20sp"
+        android:hint="@string/item_name_label"
+        android:layout_alignParentTop="true" />
+
+    <TextView
+        android:id="@+id/tvItemBrand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvItemName"
+        android:text="@string/item_brand_label"
+        android:textSize="20sp"
+        android:padding="15dp"
+        tools:text="@string/item_brand_label"/>
+    <EditText
+        android:id="@+id/etItemBrand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="DelMonte"
+        android:padding="15dp"
+        android:layout_alignTop="@id/tvItemBrand"
+        android:layout_alignBottom="@id/tvItemBrand"
+        android:layout_toEndOf="@id/tvItemBrand"
+        android:textSize="20sp"
+        android:hint="@string/item_brand_label" />
+
+    <TextView
+        android:id="@+id/tvItemQty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvItemBrand"
+        android:text="@string/item_qty_label"
+        android:textSize="20sp"
+        android:padding="15dp"
+        tools:text="@string/item_qty_label"/>
+    <EditText
+        android:id="@+id/etItemQty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="2lb"
+        android:padding="15dp"
+        android:layout_alignTop="@id/tvItemQty"
+        android:layout_alignBottom="@id/tvItemQty"
+        android:layout_toEndOf="@id/tvItemQty"
+        android:textSize="20sp"
+        android:hint="@string/item_qty_label" />
+
+    <Button
+        android:id="@+id/btnAddItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvItemQty"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:elevation="5dp"
+        android:text="@string/add_item_label"/>
+</RelativeLayout>

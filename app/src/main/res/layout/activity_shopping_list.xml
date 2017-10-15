@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.codepath.socialshopper.socialshopper.Activities.ShoppingListActivity">
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvShoppingListItems"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar" />
+    <Button
+        android:id="@+id/btnSubmitShoppingList"
+        android:layout_width="match_parent"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/submit_shp_list"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:onClick="submitShoppingList"
+        android:textAllCaps="false"/>
+</RelativeLayout>

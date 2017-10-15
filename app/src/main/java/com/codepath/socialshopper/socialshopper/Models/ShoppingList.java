@@ -1,5 +1,7 @@
 package com.codepath.socialshopper.socialshopper.Models;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -7,30 +9,39 @@ import java.util.ArrayList;
  */
 
 public class ShoppingList {
-    String listId;
-    ArrayList<ShoppableItem> items;
+    String mListId;
+    public final String TAG = "SocShpMainAct";
+    ArrayList<ShoppableItem> mShoppableItems;
 
-    public ShoppingList(String listId, ArrayList<ShoppableItem> items) {
-        this.listId = listId;
-        this.items = items;
+    public ShoppingList(String listId, ArrayList<ShoppableItem> shoppableItems) {
+        this.mListId = listId;
+        this.mShoppableItems = shoppableItems;
     }
 
     public String getListId() {
-        return listId;
+        return mListId;
     }
 
     public ShoppingList() {
     }
 
     public void setListId(String listId) {
-        this.listId = listId;
+        this.mListId = listId;
     }
 
     public ArrayList<ShoppableItem> getItems() {
-        return items;
+        return mShoppableItems;
     }
 
-    public void setItems(ArrayList<ShoppableItem> items) {
-        this.items = items;
+    public void setItems(ArrayList<ShoppableItem> shoppableItems) {
+        this.mShoppableItems = shoppableItems;
+    }
+
+    public void addItems(ShoppableItem item) {
+        if(mShoppableItems == null) {
+            this.mShoppableItems = new ArrayList<>();
+        }
+        this.mShoppableItems.add(item);
+        Log.i(TAG, "Added " + item.getmItemName());
     }
 }

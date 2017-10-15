@@ -8,9 +8,35 @@ import org.parceler.Parcel;
 @Parcel(analyze={ShoppableItem.class})
 public class ShoppableItem {
 
-    String itemId;
+    String mItemId;
     String mItemName;
     String mItemIconFileName;
+    String mItemQty;
+    String mItemBrand;
+
+    public String getmItemId() {
+        return mItemId;
+    }
+
+    public void setmItemId(String mItemId) {
+        this.mItemId = mItemId;
+    }
+
+    public String getmItemQty() {
+        return mItemQty;
+    }
+
+    public void setmItemQty(String mItemQty) {
+        this.mItemQty = mItemQty;
+    }
+
+    public String getmItemBrand() {
+        return mItemBrand;
+    }
+
+    public void setmItemBrand(String mItemBrand) {
+        this.mItemBrand = mItemBrand;
+    }
 
     public String getmItemName() {
         return mItemName;
@@ -28,20 +54,14 @@ public class ShoppableItem {
         this.mItemIconFileName = mItemIconFileName;
     }
 
-    public String getItemId() {
-        return itemId;
-    }
-
-    public void setItemId(String itemId) {
-        this.itemId = itemId;
-    }
-
     public ShoppableItem() {
     }
 
-    public ShoppableItem(String itemId, String mItemName, String mItemIconFileName) {
-        this.itemId = itemId;
+    public ShoppableItem(String mItemId, String mItemName, String mItemIconFileName, String mItemQty, String mItemBrand) {
+        this.mItemId = mItemId;
         this.mItemName = mItemName;
         this.mItemIconFileName = mItemIconFileName;
+        this.mItemQty = mItemQty;
+        this.mItemBrand = mItemBrand;
     }
 }
