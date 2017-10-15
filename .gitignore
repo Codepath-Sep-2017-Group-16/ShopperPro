@@ -4,10 +4,10 @@
 
 .DS_Store
 .idea/vcs.xml
-
+*.idea
 # Files for the ART/Dalvik VM
 *.dex
-
+ .idea/misc.xml
 # Java class files
 *.class
 

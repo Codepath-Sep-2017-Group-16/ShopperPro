@@ -2,6 +2,7 @@ package com.codepath.socialshopper.socialshopper.Listeners;
 
 import android.content.SharedPreferences;
 import android.text.format.DateUtils;
+import android.util.Log;
 
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -22,7 +23,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService{
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
 
         REGISTRATION_ID = FirebaseInstanceId.getInstance().getToken();
-        //Log.d(TAG, "Token: " + refreshedToken);
+        Log.d(TAG, "Token: " + refreshedToken);
         sendRegistrationToServer(refreshedToken);
     }
 

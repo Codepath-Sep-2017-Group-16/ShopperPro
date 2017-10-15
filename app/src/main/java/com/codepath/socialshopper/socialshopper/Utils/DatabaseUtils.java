@@ -24,6 +24,7 @@ public class DatabaseUtils {
 
     private static final String USERS = "users";
     private static final String LISTS = "lists";
+    private static final String GCMID = "gcmid";
     private static final String DEVICE = "device";
     private static final String ACTIVE_LISTS = "active_lists";
     private static final String PAST_LISTS = "past_lists";
@@ -101,7 +102,7 @@ public class DatabaseUtils {
     }
 
     public static void saveGCMRegistrationID(String fbID){
-        mDatabase.child(DEVICE).child(fbID).setValue(FirebaseInstanceId.getInstance().getToken());
+        mDatabase.child(USERS).child(fbID).child(GCMID).setValue(FirebaseInstanceId.getInstance().getToken());
     }
 
     public interface OnActiveListsFetchListener {
