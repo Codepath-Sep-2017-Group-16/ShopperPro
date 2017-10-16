@@ -9,31 +9,39 @@
 The following are **core** stories:
 
 REQUESTER
-* [ ] Requester can sign up and create profile. 
+* [X] Requester can login/register using their Facebook account 
 * [ ] Requester can select from a list of available stores
-* [ ] Requester can create a shopping list and publish it.
+* [X] Requester can create a shopping list and publish it.
 * [ ] Requester can track the status of their order
 * [ ] Requester can receive push notifications when their order is accepted
-* [ ] Requester can initiate a payment to be made to the Shopper
+
 
 
 SHOPPER
-* [ ] Shopper can sign up and create profile. 
+* [X] Shopper can login/register using their Facebook account 
 * [ ] Shopper can share their location via the app for order discovery
-* [ ] Shopper can receive notifications for orders that match based on their proximity to the stores
-* [ ] Shopper can accept or reject a notification/order pickup request
+* [X] Shopper can receive notifications for orders that match based on their proximity to the stores
+* [X] Shopper can accept or reject a notification/order pickup request
 * [ ] Shopper can take a picture of the purchase receipt and send it to the requester
-* [ ] Shopper can receive a payment from requester
+
 
 
 The following are **optional** stories:
 
 REQUESTER
-* [ ] Requester can rate a delivery/shopper
-* [ ] Requester can turn off being a requester (not get notifications for order pickup)
+* [ ] Requester can initiate a payment to be made to the Shopper
 
 
 SHOPPER
-* [ ] Shopper can rate a requester
 * [ ] Shopper can share their location actively with requester while out for delivery
 * [ ] Shopper can turn off being a requester (not get notifications for order pickup)
+* [ ] Shopper can receive a payment from requester
+
+
+## Video Walkthrough
+
+### Requester
+<img src='Walkthroughs/Demo_1_Requester.gif' title='Requester Experience' width='' alt='Requester Experience' />
+
+### Shopper
+<img src='Walkthroughs/Demo_1_Shopper.gif' title='Shopper Experience' width='' alt='Shopper Experience' />
