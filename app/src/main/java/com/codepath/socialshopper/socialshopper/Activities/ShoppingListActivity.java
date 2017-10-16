@@ -1,11 +1,13 @@
 package com.codepath.socialshopper.socialshopper.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.codepath.socialshopper.socialshopper.Adapters.ShoppingListArrayAdapter;
 import com.codepath.socialshopper.socialshopper.Models.ShoppingList;
@@ -38,6 +40,9 @@ public class ShoppingListActivity extends AppCompatActivity {
     public void submitShoppingList(View view) {
         Log.i(TAG, "submitting list");
         saveList(shoppingList);
+        Toast.makeText(view.getContext(), "Published the shopping list", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(ShoppingListActivity.this, TrackStatusActivity.class);
+        startActivity(intent);
     }
     private void saveList(ShoppingList shoppingList) {
         DatabaseUtils.saveList(FacebookUtils.getFacebookId(), shoppingList);
