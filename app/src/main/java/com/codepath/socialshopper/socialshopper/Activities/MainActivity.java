@@ -20,6 +20,7 @@ import com.codepath.socialshopper.socialshopper.Utils.CommonUtils;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.codepath.socialshopper.socialshopper.Utils.FacebookUtils;
 import com.crashlytics.android.Crashlytics;
+import com.facebook.Profile;
 
 import org.parceler.Parcels;
 
@@ -40,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
         databaseUtils = new DatabaseUtils(this);
-        processIntentAction(getIntent());
         setUpToolBar();
         setUpInitialScreen();
         shoppingList.setListId(CommonUtils.getUuid());
@@ -126,24 +126,7 @@ public class MainActivity extends AppCompatActivity implements
     }
     */
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        processIntentAction(intent);
-        super.onNewIntent(intent);
-    }
 
-    private void processIntentAction(Intent intent) {
-        if (intent.getAction() != null) {
-            switch (intent.getAction()) {
-                case "YES_ACTION":
-                    Toast.makeText(this, "Yes :)", Toast.LENGTH_SHORT).show();
-                    break;
-                case "NO_ACTION":
-                    Toast.makeText(this, "No :(", Toast.LENGTH_SHORT).show();
-                    break;
-            }
-        }
-    }
 
     @Override
     public void onFinishAddItemDetailsDialog(Bundle bundle) {

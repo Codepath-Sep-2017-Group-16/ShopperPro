@@ -44,4 +44,13 @@ public class ShoppingList {
         this.mShoppableItems.add(item);
         Log.i(TAG, "Added " + item.getmItemName());
     }
+
+    @Override
+    public String toString() {
+        return "ShoppingList{" +
+                "mListId='" + mListId + '\'' +
+                ", TAG='" + TAG + '\'' +
+                ", mShoppableItems=" + mShoppableItems +
+                '}';
+    }
 }

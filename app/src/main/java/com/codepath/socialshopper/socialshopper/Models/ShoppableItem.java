@@ -64,4 +64,15 @@ public class ShoppableItem {
         this.mItemQty = mItemQty;
         this.mItemBrand = mItemBrand;
     }
+
+    @Override
+    public String toString() {
+        return "ShoppableItem{" +
+                "mItemId='" + mItemId + '\'' +
+                ", mItemName='" + mItemName + '\'' +
+                ", mItemIconFileName='" + mItemIconFileName + '\'' +
+                ", mItemQty='" + mItemQty + '\'' +
+                ", mItemBrand='" + mItemBrand + '\'' +
+                '}';
+    }
 }

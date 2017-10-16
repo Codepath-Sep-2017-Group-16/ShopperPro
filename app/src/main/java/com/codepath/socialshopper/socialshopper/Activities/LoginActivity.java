@@ -79,7 +79,6 @@ public class LoginActivity extends AppCompatActivity {
                     FacebookUtils.fbID = profile.getId();
                     Log.v("facebook - profile", profile.getFirstName());
                 }
-
                 showHomeScreen();
             }
 

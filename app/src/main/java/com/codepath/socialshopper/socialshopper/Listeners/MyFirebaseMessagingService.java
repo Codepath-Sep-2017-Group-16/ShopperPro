@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.codepath.socialshopper.socialshopper.Activities.PickUpList;
 import com.codepath.socialshopper.socialshopper.R;
 import com.codepath.socialshopper.socialshopper.Activities.MainActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -32,12 +33,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Map<String,String> data = remoteMessage.getData();
         Log.i("Push received", data.toString());
         String messageContent = data.get("payload");
-        displayNotification(messageContent);
+        String listId = data.get("listid");
+        displayNotification(messageContent, listId);
     }
 
-    private void displayNotification(String message){
+    private void displayNotification(String message, String listId){
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, PickUpList.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
 
@@ -45,6 +47,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         Intent yesIntent = getNotificationIntent();
+        yesIntent.putExtra("list_id", listId);
         yesIntent.setAction(YES_ACTION);
 
 
@@ -80,7 +83,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
     private Intent getNotificationIntent() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, PickUpList.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         return intent;
     }
