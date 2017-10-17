@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -13,4 +13,35 @@
         android:layout_alignParentTop="true"
         android:id="@+id/rvShoppingListItems" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/btnCompletePurchase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/circular_button"
+        android:text="Complete Purchase"
+        android:textColor="@color/colorWhite"
+        android:layout_alignBottom="@+id/ibCaptureReceipt"
+        android:layout_alignParentEnd="true" />
+
+    <ImageButton
+        android:id="@+id/ibCaptureReceipt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/rvShoppingListItems"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/colorWhite"
+        android:onClick="takePhoto"
+        app:srcCompat="@mipmap/ic_camera" />
+
+    <ImageView
+        android:id="@+id/ivReceipt"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/ibCaptureReceipt"
+        android:layout_marginBottom="45dp" />
+
+</RelativeLayout>

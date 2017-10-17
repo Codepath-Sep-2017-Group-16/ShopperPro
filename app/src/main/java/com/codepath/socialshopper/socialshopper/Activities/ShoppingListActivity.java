@@ -14,6 +14,7 @@ import com.codepath.socialshopper.socialshopper.Models.ShoppingList;
 import com.codepath.socialshopper.socialshopper.R;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.codepath.socialshopper.socialshopper.Utils.FacebookUtils;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import static com.codepath.socialshopper.socialshopper.Activities.MainActivity.shoppingList;
 

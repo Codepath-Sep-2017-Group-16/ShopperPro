@@ -63,12 +63,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setWhen(System.currentTimeMillis())
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
-                .setContentIntent(PendingIntent.getActivity(this, 0, getNotificationIntent(), PendingIntent.FLAG_UPDATE_CURRENT))
+                .setContentIntent(PendingIntent.getActivity(this, 0, getNotificationIntent(), PendingIntent.FLAG_CANCEL_CURRENT))
                 //TODO Figure out why the action icons aren't showing up
                 .addAction(new NotificationCompat.Action(
                         R.drawable.ic_accept,
                         "Yes",
-                        PendingIntent.getActivity(this, 1, yesIntent, PendingIntent.FLAG_UPDATE_CURRENT)))
+                        PendingIntent.getActivity(this, 1, yesIntent, PendingIntent.FLAG_CANCEL_CURRENT)))
                 .addAction(new NotificationCompat.Action(
                         R.drawable.ic_deny,
                         "No",
