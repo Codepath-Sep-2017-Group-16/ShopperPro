@@ -1,6 +1,5 @@
 package com.codepath.socialshopper.socialshopper.Listeners;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -11,9 +10,8 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.codepath.socialshopper.socialshopper.Activities.NotificationActivity;
-import com.codepath.socialshopper.socialshopper.Activities.PickUpList;
+import com.codepath.socialshopper.socialshopper.Activities.PickUpListActivity;
 import com.codepath.socialshopper.socialshopper.R;
-import com.codepath.socialshopper.socialshopper.Activities.MainActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -42,7 +40,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private void displayNotification(String message, String listId){
 
-//        Intent intent = new Intent(this, PickUpList.class);
+//        Intent intent = new Intent(this, PickUpListActivity.class);
 //        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 //
         Intent yesIntent = getNotificationIntent();
@@ -73,7 +71,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .addAction(new NotificationCompat.Action(
                         R.drawable.ic_deny,
                         "No",
-                        PendingIntent.getActivity(this, NOTIFICATION_ID, new Intent(this, NotificationActivity.class), PendingIntent.FLAG_CANCEL_CURRENT)));
+                        PendingIntent.getActivity(this, 0, new Intent(this, NotificationActivity.class), 0)));
 
 
         NotificationManager notificationManager =
@@ -85,7 +83,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
     private Intent getNotificationIntent() {
-        Intent intent = new Intent(this, PickUpList.class);
+        Intent intent = new Intent(this, PickUpListActivity.class);
       //  intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         return intent;
     }
