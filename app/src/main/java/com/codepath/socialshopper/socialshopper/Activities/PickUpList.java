@@ -1,5 +1,7 @@
 package com.codepath.socialshopper.socialshopper.Activities;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -75,6 +77,11 @@ public class PickUpList extends AppCompatActivity implements DatabaseUtils.OnLis
     }
 
     private void processIntentAction(Intent intent) {
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        notificationManager.cancelAll();
 
         String id = intent.getStringExtra("list_id");
 

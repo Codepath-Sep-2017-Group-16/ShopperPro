@@ -21,17 +21,8 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService{
     public void onTokenRefresh() {
         // Get updated InstanceID token.
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-
         REGISTRATION_ID = FirebaseInstanceId.getInstance().getToken();
         Log.d(TAG, "Token: " + refreshedToken);
-        sendRegistrationToServer(refreshedToken);
-    }
-
-
-    private void sendRegistrationToServer(String token) {
-     //   DatabaseUtils.saveGCMRegistrationID(token);
-
-        // TODO: Implement this method to send token to your app server.
     }
 
 }

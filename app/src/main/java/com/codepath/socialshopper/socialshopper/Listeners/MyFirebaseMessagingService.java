@@ -1,5 +1,6 @@
 package com.codepath.socialshopper.socialshopper.Listeners;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -9,6 +10,7 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.codepath.socialshopper.socialshopper.Activities.NotificationActivity;
 import com.codepath.socialshopper.socialshopper.Activities.PickUpList;
 import com.codepath.socialshopper.socialshopper.R;
 import com.codepath.socialshopper.socialshopper.Activities.MainActivity;
@@ -26,6 +28,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String YES_ACTION = "YES_ACTION";
     private static final String NO_ACTION = "NO_ACTION";
+    private static int NOTIFICATION_ID = (int) System.currentTimeMillis();
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -39,20 +42,19 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private void displayNotification(String message, String listId){
 
-        Intent intent = new Intent(this, PickUpList.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-
+//        Intent intent = new Intent(this, PickUpList.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//
         Intent yesIntent = getNotificationIntent();
         yesIntent.putExtra("list_id", listId);
         yesIntent.setAction(YES_ACTION);
 
 
         Intent noIntent = getNotificationIntent();
+        noIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         noIntent.setAction(NO_ACTION);
+
+        int NOTIFICATION_ID = (int) System.currentTimeMillis();
 
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
@@ -63,8 +65,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setWhen(System.currentTimeMillis())
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
-                .setContentIntent(PendingIntent.getActivity(this, 0, getNotificationIntent(), PendingIntent.FLAG_CANCEL_CURRENT))
-                //TODO Figure out why the action icons aren't showing up
+    //            .setContentIntent(PendingIntent.getActivity(this, 0, getNotificationIntent(), PendingIntent.FLAG_CANCEL_CURRENT))
                 .addAction(new NotificationCompat.Action(
                         R.drawable.ic_accept,
                         "Yes",
@@ -72,19 +73,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .addAction(new NotificationCompat.Action(
                         R.drawable.ic_deny,
                         "No",
-                        PendingIntent.getActivity(this, 0, noIntent, PendingIntent.FLAG_CANCEL_CURRENT)));
+                        PendingIntent.getActivity(this, NOTIFICATION_ID, new Intent(this, NotificationActivity.class), PendingIntent.FLAG_CANCEL_CURRENT)));
+
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify((int)System.currentTimeMillis(), notificationBuilder.build());
 
+        notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
     }
 
 
     private Intent getNotificationIntent() {
         Intent intent = new Intent(this, PickUpList.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+      //  intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         return intent;
     }
 

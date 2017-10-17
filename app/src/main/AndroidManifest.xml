@@ -79,6 +79,7 @@
         </activity>
         <activity android:name=".Activities.ShoppingListActivity" />
         <activity android:name=".Activities.TrackStatusActivity" />
+        <activity android:name=".Activities.NotificationActivity"/>
         <activity android:name=".Activities.PickUpList"></activity>
     </application>
 
