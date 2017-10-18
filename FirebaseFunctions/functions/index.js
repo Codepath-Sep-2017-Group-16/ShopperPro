@@ -69,7 +69,7 @@ exports.sendFollowerNotification = functions.database.ref('/users/{userId}/{loca
     // Notification details.
     const payload = {
       data: {
-        payload: 'You have a grocery match!',
+        payload: 'One of your friends needs to pick up something from ' + location,
         listid: listIds.toString(),        
       }
     };
