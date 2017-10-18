@@ -60,3 +60,4 @@ freeline_project_description.json
 
 # NodeJS Files
 Server/node_modules
+FirebaseFunctions/functions/node_modules
