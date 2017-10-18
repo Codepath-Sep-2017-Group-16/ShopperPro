@@ -2,13 +2,17 @@ package com.codepath.socialshopper.socialshopper.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.codepath.socialshopper.socialshopper.Fragments.AddItemDetailsDialogFragment;
@@ -26,14 +30,17 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
 import io.fabric.sdk.android.Fabric;
+
+import static com.codepath.socialshopper.socialshopper.Activities.ChooseStoreActivity.shoppingList;
 
 public class MainActivity extends AppCompatActivity implements
         DatabaseUtils.OnActiveListsFetchListener, DatabaseUtils.OnListFetchListener, AddItemDetailsDialogFragment.AddItemDetailsDialogListener {
     public final String TAG = "SocShpMainAct";
     private DatabaseUtils databaseUtils;
-    static ShoppingList shoppingList = new ShoppingList();
-
+    @BindView(R.id.nvView) NavigationView nvDrawer;
+    @BindView(R.id.drawer_layout) DrawerLayout mDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements
         setUpToolBar();
         setUpInitialScreen();
         shoppingList.setListId(CommonUtils.getUuid());
+        setupDrawerContent(nvDrawer);
+
     }
 
     private void setUpToolBar() {
@@ -84,8 +93,55 @@ public class MainActivity extends AppCompatActivity implements
             Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
             startActivity(intent);
         }
+        if(id == R.id.home) {
+            mDrawer.openDrawer(GravityCompat.START);
+            return true;
+
+        }
         return super.onOptionsItemSelected(item);
     }
+
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        selectDrawerItem(menuItem);
+                        return true;
+                    }
+                });
+    }
+    public void selectDrawerItem(MenuItem menuItem) {
+        // Create a new fragment and specify the fragment to show based on nav item clicked
+        switch(menuItem.getItemId()) {
+            case R.id.nav_choose_store:
+                Toast.makeText(this, "Choose store clicked", Toast.LENGTH_LONG).show();
+                Log.i(TAG, "Choose store clicked");
+                break;
+            case R.id.nav_old_orders:
+                Toast.makeText(this, "Old orders clicked", Toast.LENGTH_LONG).show();
+                Log.i(TAG, "Old orders clicked");
+                break;
+            case R.id.nav_settings:
+                Toast.makeText(this, "Settings clicked", Toast.LENGTH_LONG).show();
+                Log.i(TAG, "Settings clicked");
+                break;
+            default:
+        }
+
+        try {
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Highlight the selected item has been done by NavigationView
+        menuItem.setChecked(true);
+        // Set action bar title
+        setTitle(menuItem.getTitle());
+        // Close the navigation drawer
+        mDrawer.closeDrawers();
+    }
+
 
     private void getActiveLists() {
         databaseUtils.getActiveLists(this, FacebookUtils.getFacebookId());
@@ -105,30 +161,7 @@ public class MainActivity extends AppCompatActivity implements
         // Update UI here
     }
 
-    /*
-    private void SaveItemSample() {
-        ShoppingList shoppingList = new ShoppingList();
-        shoppingList.setListId(CommonUtils.getUuid());
-        shoppingList.setItems(new ArrayList<ShoppableItem>());
-
-        ShoppableItem shoppableItem = new ShoppableItem();
-        shoppableItem.setItemId(CommonUtils.getUuid());
-        shoppableItem.setmItemIconFileName("TestItem1");
-        shoppingList.getItems().add(shoppableItem);
-
-        shoppableItem = new ShoppableItem();
-        shoppableItem.setItemId(CommonUtils.getUuid());
-        shoppableItem.setmItemIconFileName("TestItem2");
-        shoppingList.getItems().add(shoppableItem);
-
-        saveList(shoppingList);
-        getActiveLists();
-    }
-    */
-
-
-
-    @Override
+   @Override
     public void onFinishAddItemDetailsDialog(Bundle bundle) {
         if (bundle != null) {
             ShoppableItem item = (ShoppableItem) Parcels.unwrap(bundle.getParcelable("AddedItem"));

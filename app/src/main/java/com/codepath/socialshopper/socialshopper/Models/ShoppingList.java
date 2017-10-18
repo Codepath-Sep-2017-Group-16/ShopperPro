@@ -12,6 +12,7 @@ public class ShoppingList {
     String mListId;
     public final String TAG = "SocShpMainAct";
     ArrayList<ShoppableItem> mShoppableItems;
+    String mStore;
 
     public ShoppingList(String listId, ArrayList<ShoppableItem> shoppableItems) {
         this.mListId = listId;
@@ -35,6 +36,14 @@ public class ShoppingList {
 
     public void setItems(ArrayList<ShoppableItem> shoppableItems) {
         this.mShoppableItems = shoppableItems;
+    }
+
+    public String getStore() {
+        return mStore;
+    }
+
+    public void setStore(String store) {
+        this.mStore = store;
     }
 
     public void addItems(ShoppableItem item) {

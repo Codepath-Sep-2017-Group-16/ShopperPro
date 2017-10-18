@@ -9,4 +9,7 @@
     <string name="item_qty_label">Item Quantity</string>
     <string name="add_item_label">Add Item</string>
     <string name="submit_shp_list">Submit Shopping List</string>
+    <string name="choose_store">Choose Store</string>
+    <string name="check_orders">Check Old Orders</string>
+    <string name="settings">Settings</string>
 </resources>
