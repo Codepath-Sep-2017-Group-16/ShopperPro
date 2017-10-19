@@ -5,12 +5,15 @@
     android:layout_height="wrap_content"
     android:id="@+id/item_list">
 
-    <CheckBox
-        android:id="@+id/cbItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/ivItemImage"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginRight="10dp"
+        app:srcCompat="@drawable/apple"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        />
 
     <TextView
         android:id="@+id/tvItemName"
@@ -18,9 +21,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:layout_alignBottom="@+id/cbItem"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/cbItem"
+        android:layout_toEndOf="@+id/ivItemImage"
+        android:textColor="@color/colorPrimaryDark"
         android:text="TextView" />
 
     <TextView
@@ -29,7 +32,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:layout_alignBottom="@+id/tvItemName"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/tvItemName"
          />
@@ -42,15 +44,14 @@
         android:layout_marginLeft="5dp"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/tvItemBrand"
-        android:layout_alignBottom="@+id/tvItemBrand" />
+         />
 
-    <ImageView
-        android:id="@+id/ivItemImage"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginRight="10dp"
-        app:srcCompat="@drawable/apple"
+    <CheckBox
+        android:id="@+id/cbItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
+
 
 </RelativeLayout>

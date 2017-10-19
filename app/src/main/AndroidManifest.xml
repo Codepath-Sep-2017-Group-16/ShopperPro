@@ -86,7 +86,8 @@
         </activity>
         <activity android:name=".Activities.ShoppingListActivity" />
         <activity android:name=".Activities.TrackStatusActivity" />
-        <activity android:name=".Activities.NotificationActivity" />
+        <activity android:name=".Activities.NotificationActivity"
+            android:launchMode="singleTask"/>
         <activity android:name=".Activities.PickUpListActivity" />
         <activity android:name=".Activities.ChooseStoreActivity"></activity>
     </application>

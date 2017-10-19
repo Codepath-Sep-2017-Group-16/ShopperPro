@@ -10,6 +10,8 @@ import com.codepath.socialshopper.socialshopper.R;
 public class SplashScreenActivity extends AppCompatActivity {
     private final int SPLASH_DISPLAY_LENGTH = 2000;
 
+
+    //TODO We need to considering implementing something like this --> https://github.com/ykabaran/TwitterSplash
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
