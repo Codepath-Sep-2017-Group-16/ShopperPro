@@ -40,9 +40,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private void displayNotification(String message, String listId){
 
-//        Intent intent = new Intent(this, PickUpListActivity.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//
+        //TODO Use LocalBroadcastManager to display notification as a dialog box when the app is in foreground(makes more sense)
+
         Intent yesIntent = getNotificationIntent();
         yesIntent.putExtra("list_id", listId);
         yesIntent.setAction(YES_ACTION);
@@ -84,7 +83,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private Intent getNotificationIntent() {
         Intent intent = new Intent(this, PickUpListActivity.class);
-      //  intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         return intent;
     }
 

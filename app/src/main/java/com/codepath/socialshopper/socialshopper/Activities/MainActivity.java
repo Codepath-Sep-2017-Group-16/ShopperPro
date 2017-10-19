@@ -220,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements
     public void OnLocationFetchListener(ArrayList<String> locations) {
         for(String location: locations) {
             Toast.makeText(this, location, Toast.LENGTH_SHORT).show();
-            databaseUtils.setUserLocation(FacebookUtils.getFacebookId(), location);
+            databaseUtils.setUserLocation(FacebookUtils.getFacebookId(), Profile.getCurrentProfile().getFirstName(), location);
         }
     }
 }

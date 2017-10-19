@@ -34,7 +34,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         LinearLayoutManager manager = new LinearLayoutManager(getBaseContext());
         rvShoppingListItems.setLayoutManager(manager);
         Log.i(TAG, "shopping list activity");
-        Log.i(TAG, "number of items in the list" +String.valueOf(shoppingList.getItems().size()));
+     //   Log.i(TAG, "number of items in the list" +String.valueOf(shoppingList.getItems().size()));
 
     }
 

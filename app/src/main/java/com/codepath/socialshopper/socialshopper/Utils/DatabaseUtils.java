@@ -1,7 +1,6 @@
 package com.codepath.socialshopper.socialshopper.Utils;
 
 import android.app.Activity;
-import android.util.Log;
 
 import com.codepath.socialshopper.socialshopper.Models.ShoppingList;
 import com.google.firebase.database.DataSnapshot;
@@ -12,7 +11,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 /**
  * Created by rdeshpan on 10/13/2017.
@@ -33,6 +31,7 @@ public class DatabaseUtils {
     private static final String ITEM = "item";
     private static final String TAG = "DatabaseUtils";
     private static final String OPEN = "open";
+    private static final String FIRST_NAME = "first_name";
     private OnActiveListsFetchListener mListenerLists;
     private OnListFetchListener mListenerList;
     private static final String STORE_SAFEWAY = "Safeway";
@@ -88,8 +87,8 @@ public class DatabaseUtils {
         });
     }
 
-    public static void setUserLocation(String userId, String location) {
-        saveGCMRegistrationID(userId);
+    public static void setUserLocation(String userId, String firstName, String location) {
+        saveGCMRegistrationIDAndUserInfo(userId, firstName);
         mDatabase.child(USERS).child(userId).child(LOCATION).setValue(location);
     }
 
@@ -112,8 +111,9 @@ public class DatabaseUtils {
         // TODO : implement this
     }
 
-    public static void saveGCMRegistrationID(String userId) {
+    public static void saveGCMRegistrationIDAndUserInfo(String userId, String profileName) {
         mDatabase.child(USERS).child(userId).child(GCMID).setValue(FirebaseInstanceId.getInstance().getToken());
+        mDatabase.child(USERS).child(userId).child(FIRST_NAME).setValue(profileName);
     }
 
     public interface OnActiveListsFetchListener {
