@@ -1,8 +1,11 @@
 package com.codepath.socialshopper.socialshopper.Activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -22,7 +25,17 @@ import com.codepath.socialshopper.socialshopper.R;
 import com.codepath.socialshopper.socialshopper.Utils.CommonUtils;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.codepath.socialshopper.socialshopper.Utils.FacebookUtils;
+import com.codepath.socialshopper.socialshopper.Utils.LocationUtils;
 import com.crashlytics.android.Crashlytics;
+
+import com.facebook.Profile;
+import com.google.android.gms.location.places.PlaceDetectionClient;
+import com.google.android.gms.location.places.PlaceLikelihood;
+import com.google.android.gms.location.places.PlaceLikelihoodBufferResponse;
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import org.parceler.Parcels;
 
@@ -35,11 +48,14 @@ import io.fabric.sdk.android.Fabric;
 import static com.codepath.socialshopper.socialshopper.Activities.ChooseStoreActivity.shoppingList;
 
 public class MainActivity extends AppCompatActivity implements
-        DatabaseUtils.OnActiveListsFetchListener, DatabaseUtils.OnListFetchListener, AddItemDetailsDialogFragment.AddItemDetailsDialogListener {
+        DatabaseUtils.OnActiveListsFetchListener, DatabaseUtils.OnListFetchListener, AddItemDetailsDialogFragment.AddItemDetailsDialogListener,
+        LocationUtils.OnLocationFetchListener{
     public final String TAG = "SocShpMainAct";
     private DatabaseUtils databaseUtils;
-    @BindView(R.id.nvView) NavigationView nvDrawer;
-    @BindView(R.id.drawer_layout) DrawerLayout mDrawer;
+    static ShoppingList shoppingList = new ShoppingList();
+    private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1;
+    private LocationUtils locationUtils;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements
         ButterKnife.bind(this);
 
         databaseUtils = new DatabaseUtils(this);
+        locationUtils = new LocationUtils();
+        locationUtils.initializePlaces(this);
         setUpToolBar();
         setUpInitialScreen();
         shoppingList.setListId(CommonUtils.getUuid());
@@ -172,6 +190,33 @@ public class MainActivity extends AppCompatActivity implements
             Log.i(TAG, item.getmItemBrand());
             Log.i(TAG, item.getmItemName());
             Log.i(TAG, item.getmItemQty());
+        }
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    locationUtils.getCurrentPlace(this);
+                } else {
+                    Log.d(TAG, "permission denied");
+                }
+                return;
+            }
+        }
+    }
+
+
+    @Override
+    public void OnLocationFetchListener(ArrayList<String> locations) {
+        for(String location: locations) {
+            Toast.makeText(this, location, Toast.LENGTH_SHORT).show();
+            databaseUtils.setUserLocation(FacebookUtils.getFacebookId(), location);
         }
     }
 }

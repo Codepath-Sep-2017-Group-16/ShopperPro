@@ -24,15 +24,18 @@ public class DatabaseUtils {
 
     private static final String USERS = "users";
     private static final String LISTS = "lists";
+    private static final String STORES = "stores";
     private static final String GCMID = "gcmid";
     private static final String DEVICE = "device";
     private static final String ACTIVE_LISTS = "active_lists";
+    private static final String LOCATION = "location";
     private static final String PAST_LISTS = "past_lists";
     private static final String ITEM = "item";
     private static final String TAG = "DatabaseUtils";
     private static final String OPEN = "open";
     private OnActiveListsFetchListener mListenerLists;
     private OnListFetchListener mListenerList;
+    private static final String STORE_SAFEWAY = "Safeway";
 
     public DatabaseUtils(Activity activity) {
         mListenerLists = (OnActiveListsFetchListener) activity;
@@ -85,12 +88,20 @@ public class DatabaseUtils {
         });
     }
 
+    public static void setUserLocation(String userId, String location) {
+        saveGCMRegistrationID(userId);
+        mDatabase.child(USERS).child(userId).child(LOCATION).setValue(location);
+    }
+
     public static void saveList(String userId, ShoppingList shoppingList) {
         // Save list instance
         mDatabase.child(LISTS).child(shoppingList.getListId()).setValue(shoppingList);
 
         // Attach list to user active lists
         mDatabase.child(USERS).child(userId).child(ACTIVE_LISTS).child(shoppingList.getListId()).setValue(OPEN);
+
+        // Attach list to store
+        mDatabase.child(STORES).child(STORE_SAFEWAY).child(shoppingList.getListId()).setValue(OPEN);
     }
 
     public static void deleteList() {
@@ -101,8 +112,8 @@ public class DatabaseUtils {
         // TODO : implement this
     }
 
-    public static void saveGCMRegistrationID(String fbID){
-        mDatabase.child(USERS).child(fbID).child(GCMID).setValue(FirebaseInstanceId.getInstance().getToken());
+    public static void saveGCMRegistrationID(String userId) {
+        mDatabase.child(USERS).child(userId).child(GCMID).setValue(FirebaseInstanceId.getInstance().getToken());
     }
 
     public interface OnActiveListsFetchListener {
