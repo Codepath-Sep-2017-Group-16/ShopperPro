@@ -161,5 +161,10 @@ public class PickUpListActivity extends AppCompatActivity implements DatabaseUti
     }
 
 
-
+    public void notifyRequestor(View view) {
+        //TODO do a post to server with image of receipt and this should trigger a push notification for requestor.
+        Intent intent = new Intent(this, ShareLocationActivity.class);
+        startActivity(intent);
+       // finish();
+    }
 }

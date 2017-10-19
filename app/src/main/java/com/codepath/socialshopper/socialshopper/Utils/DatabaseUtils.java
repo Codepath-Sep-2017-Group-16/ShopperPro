@@ -116,6 +116,12 @@ public class DatabaseUtils {
         mDatabase.child(USERS).child(userId).child(FIRST_NAME).setValue(profileName);
     }
 
+    public static void saveLocationOfShopper(Double latitude, Double longitude){
+        mDatabase.child(LOCATION).child("latitude").setValue(latitude);
+        mDatabase.child(LOCATION).child("longitude").setValue(longitude);
+
+    }
+
     public interface OnActiveListsFetchListener {
         void OnListsFetchListener(ArrayList<ShoppingList> shoppingLists);
     }

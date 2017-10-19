@@ -3,11 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.codepath.socialshopper.socialshopper">
 
-    <permission android:name="android.permission.ACCESS_FINE_LOCATION" android:protectionLevel="dangerous"/>
-    <permission android:name="android.permission.ACCESS_COARSE_LOCATION" android:protectionLevel="dangerous"/>
+    <permission
+        android:name="android.permission.ACCESS_FINE_LOCATION"
+        android:protectionLevel="dangerous" />
+    <permission
+        android:name="android.permission.ACCESS_COARSE_LOCATION"
+        android:protectionLevel="dangerous" />
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -32,16 +36,16 @@
             </intent-filter>
         </activity>
 
-        <uses-library android:required="true" android:name="com.google.android.maps" />
+        <uses-library
+            android:name="com.google.android.maps"
+            android:required="true" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_api_key" />
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"
@@ -88,9 +92,9 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+        <service android:name=".Receivers.LocationService" />
 
-        <activity android:name=".Activities.SplashScreenActivity" >
-        </activity>
+        <activity android:name=".Activities.SplashScreenActivity"></activity>
         <activity android:name=".Activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -100,10 +104,12 @@
         </activity>
         <activity android:name=".Activities.ShoppingListActivity" />
         <activity android:name=".Activities.TrackStatusActivity" />
-        <activity android:name=".Activities.NotificationActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".Activities.NotificationActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".Activities.PickUpListActivity" />
-        <activity android:name=".Activities.ChooseStoreActivity"></activity>
+        <activity android:name=".Activities.ChooseStoreActivity" />
+        <activity android:name=".Activities.ShareLocationActivity"></activity>
     </application>
 
 </manifest>
