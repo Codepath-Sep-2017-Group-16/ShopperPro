@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     private void showHomeScreen() {
-        Intent intent = new Intent(this, ChooseStoreActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 }
