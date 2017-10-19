@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.codepath.socialshopper.socialshopper.Fragments.AddItemDetailsDialogFragment;
@@ -24,13 +23,13 @@ import com.codepath.socialshopper.socialshopper.Utils.CommonUtils;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.codepath.socialshopper.socialshopper.Utils.FacebookUtils;
 import com.crashlytics.android.Crashlytics;
-import com.facebook.Profile;
 
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.fabric.sdk.android.Fabric;
 
 import static com.codepath.socialshopper.socialshopper.Activities.ChooseStoreActivity.shoppingList;
@@ -47,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+
         databaseUtils = new DatabaseUtils(this);
         setUpToolBar();
         setUpInitialScreen();
