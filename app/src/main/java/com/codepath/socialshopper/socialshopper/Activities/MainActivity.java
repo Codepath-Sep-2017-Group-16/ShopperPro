@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -55,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements
     static ShoppingList shoppingList = new ShoppingList();
     private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1;
     private LocationUtils locationUtils;
+    @BindView(R.id.nvView) NavigationView nvDrawer;
+    @BindView(R.id.drawer_layout) DrawerLayout mDrawer;
 
 
     @Override
@@ -70,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements
         setUpToolBar();
         setUpInitialScreen();
         shoppingList.setListId(CommonUtils.getUuid());
+
         setupDrawerContent(nvDrawer);
 
     }
