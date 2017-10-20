@@ -50,7 +50,6 @@ public class LocationService extends Service {
         }
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 4000, 0, listener);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 4000, 0, listener);
-
     }
 
     @Override

@@ -87,7 +87,12 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
 
             //TODO Get location updates for the requestor and map it
 
-            LatLng sydney = new LatLng(-33.867, 151.206);
+            LatLng myLocation = new LatLng(37.24055935, -121.80645531);
+
+            map.addMarker(new MarkerOptions().position(myLocation).title("Shopper"));
+            map.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
+            map.animateCamera(CameraUpdateFactory.zoomTo(10));
+
 
         } else {
             Toast.makeText(this, "Error - Map was null!!", Toast.LENGTH_SHORT).show();
