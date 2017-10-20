@@ -18,7 +18,8 @@ public class ChooseStoreActivity extends AppCompatActivity {
     }
 
     private void showMainScreen() {
-        Intent intent = new Intent(this, MainActivity.class);
+        //Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, TrackStatusActivity.class);
         startActivity(intent);
     }
 

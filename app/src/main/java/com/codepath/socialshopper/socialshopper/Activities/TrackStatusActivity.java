@@ -91,7 +91,7 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
 
             map.addMarker(new MarkerOptions().position(myLocation).title("Shopper"));
             map.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
-            map.animateCamera(CameraUpdateFactory.zoomTo(10));
+            map.animateCamera(CameraUpdateFactory.zoomTo(12));
 
 
         } else {
