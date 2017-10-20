@@ -111,6 +111,8 @@
         <activity android:name=".Activities.ChooseStoreActivity" />
         <activity android:name=".Activities.ShareLocationActivity" />
         <activity android:name=".Activities.PreviousOrdersActivity"></activity>
+
+        <service android:name=".Services.LocationService" android:process=":ss_location_service" />
     </application>
 
 </manifest>

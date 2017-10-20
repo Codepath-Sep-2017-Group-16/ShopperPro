@@ -2,6 +2,7 @@ package com.codepath.socialshopper.socialshopper.Utils;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -51,9 +52,68 @@ public class LocationUtils {
         getCurrentPlace(activity);
     }
 
+    public void initializePlaces(Context context) {
+        mListenerLocation =  (OnLocationFetchListener) context;
+        mPlaceDetectionClient = Places.getPlaceDetectionClient(context, null);
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+    }
+
     public void getCurrentPlace(final Activity activity) {
         mListenerLocation =  (OnLocationFetchListener) activity;
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+            Task<PlaceLikelihoodBufferResponse> placeResult =
+                    mPlaceDetectionClient.getCurrentPlace(null);
+            placeResult.addOnCompleteListener
+                    (new OnCompleteListener<PlaceLikelihoodBufferResponse>() {
+                        @Override
+                        public void onComplete(@NonNull Task<PlaceLikelihoodBufferResponse> task) {
+                            ArrayList<String> locations = new ArrayList<String>();
+                            if (task.isSuccessful() && task.getResult() != null) {
+                                PlaceLikelihoodBufferResponse likelyPlaces = task.getResult();
+
+                                // Set the count, handling cases where less than 5 entries are returned.
+                                int count;
+                                if (likelyPlaces.getCount() < M_MAX_ENTRIES) {
+                                    count = likelyPlaces.getCount();
+                                } else {
+                                    count = M_MAX_ENTRIES;
+                                }
+
+                                int i = 0;
+
+                                for (PlaceLikelihood placeLikelihood : likelyPlaces) {
+                                    // Build a list of likely places to show the user.
+                                    String place = placeLikelihood.getPlace().getName().toString();
+                                    Log.d(TAG, place);
+                                    if (place.equals(STORE_SAFEWAY))
+                                        locations.add(place);
+                                    i++;
+                                    if (i > (count - 1)) {
+                                        break;
+                                    }
+                                }
+
+                                // Release the place likelihood buffer, to avoid memory leaks.
+                                likelyPlaces.release();
+
+                            } else {
+                                Log.e(TAG, "Exception: %s", task.getException());
+                            }
+
+                            mListenerLocation.OnLocationFetchListener(locations);
+                        }
+                    });
+        }
+
+    }
+
+    public void getCurrentPlace(final Context context) {
+        mListenerLocation =  (OnLocationFetchListener) context;
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
             Task<PlaceLikelihoodBufferResponse> placeResult =
                     mPlaceDetectionClient.getCurrentPlace(null);

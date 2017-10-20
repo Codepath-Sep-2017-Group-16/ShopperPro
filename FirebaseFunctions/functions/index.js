@@ -64,18 +64,19 @@ exports.sendFollowerNotification = functions.database.ref('/users/{userId}/{loca
     console.log('There are', lists.numChildren(), 'lists available.');
 
     const listIds = Object.keys(lists.val());
+    const names = Object.values(lists.val());
     console.log(listIds.toString());
 
     // Notification details.
     const payload = {
       data: {
-        payload: 'One of your friends needs to pick up something from ' + location,
-        listid: listIds.toString(),        
+        payload: 'Your friend ' + names.toString() +' needs a few things from ' + location,
+        listid: listIds.toString(),              
       }
     };
 
     // Listing all tokens.
-    const tokens = Object.keys(tokensSnapshot.val());
+    const tokens = Object.keys(tokensSnapshot.val());    
     const token = tokensSnapshot.val();
 
     // Send notifications to all tokens.
