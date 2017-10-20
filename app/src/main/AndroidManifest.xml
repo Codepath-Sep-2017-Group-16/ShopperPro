@@ -94,14 +94,14 @@
         </service>
         <service android:name=".Receivers.LocationService" />
 
-        <activity android:name=".Activities.SplashScreenActivity"></activity>
-        <activity android:name=".Activities.LoginActivity">
+        <activity android:name=".Activities.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activities.LoginActivity"></activity>
         <activity android:name=".Activities.ShoppingListActivity" />
         <activity android:name=".Activities.TrackStatusActivity" />
         <activity
@@ -109,7 +109,8 @@
             android:launchMode="singleTask" />
         <activity android:name=".Activities.PickUpListActivity" />
         <activity android:name=".Activities.ChooseStoreActivity" />
-        <activity android:name=".Activities.ShareLocationActivity"></activity>
+        <activity android:name=".Activities.ShareLocationActivity" />
+        <activity android:name=".Activities.PreviousOrdersActivity"></activity>
     </application>
 
 </manifest>

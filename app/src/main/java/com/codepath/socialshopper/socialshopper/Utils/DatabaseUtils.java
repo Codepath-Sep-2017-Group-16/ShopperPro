@@ -11,6 +11,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by rdeshpan on 10/13/2017.
@@ -34,6 +35,7 @@ public class DatabaseUtils {
     private static final String FIRST_NAME = "first_name";
     private OnActiveListsFetchListener mListenerLists;
     private OnListFetchListener mListenerList;
+    private OnAllListFetchListener mListenerListAll;
     private static final String STORE_SAFEWAY = "Safeway";
 
     public DatabaseUtils(Activity activity) {
@@ -64,12 +66,24 @@ public class DatabaseUtils {
         });
     }
 
-    public static ArrayList<ShoppingList> getPastLists() {
+    public void getPastLists() {
         ArrayList<ShoppingList> pastLists = new ArrayList<>();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(LISTS);
+        ref.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        //Get map of shoppinglists in datasnapshot
+                        //ArrayList<ShoppingList> pastLists = (ArrayList<ShoppingList>) dataSnapshot.getValue();
+                        mListenerListAll.OnAllListFetchListener((Map<String,Object>) dataSnapshot.getValue());
+                        //collectShippingList((Map<String, Object>) dataSnapshot.getValue());
+                    }
 
-        // TODO : implement this
-
-        return pastLists;
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                    }
+                });
     }
 
     public void getShoppingListByListId(String listId) {
@@ -128,5 +142,9 @@ public class DatabaseUtils {
 
     public interface OnListFetchListener {
         void OnListFetchListener(ShoppingList shoppingList);
+    }
+
+    public  interface OnAllListFetchListener {
+        void OnAllListFetchListener(Map<String,Object> allShoppingLists);
     }
 }
