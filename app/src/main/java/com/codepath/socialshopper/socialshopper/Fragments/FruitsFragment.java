@@ -22,18 +22,15 @@ import java.util.ArrayList;
  * Created by gumapathi on 10/11/2017.
  */
 
-public class HorizontalItemsFragment extends Fragment {
-    ArrayList<ShoppableItem> shoppableItems;
-    ShoppableItemsArrayAdapter adapter;
-    RecyclerView rvItems;
+public class FruitsFragment extends ItemsFragment {
     public final String TAG = "SocShpHorFrag";
 
 
-    public HorizontalItemsFragment() {
+    public FruitsFragment() {
     }
 
-    public static HorizontalItemsFragment newInstance(@Nullable Bundle savedInstanceState) {
-        HorizontalItemsFragment fragment = new HorizontalItemsFragment();
+    public static FruitsFragment newInstance(@Nullable Bundle savedInstanceState) {
+        FruitsFragment fragment = new FruitsFragment();
         fragment.setArguments(savedInstanceState);
         return fragment;
     }
@@ -44,27 +41,9 @@ public class HorizontalItemsFragment extends Fragment {
         if(savedInstanceState!=null) {
             this.setArguments(savedInstanceState);
         }
-        shoppableItems = new ArrayList<>();
-        adapter = new ShoppableItemsArrayAdapter(shoppableItems);
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_items, container, false);
-        rvItems = (RecyclerView) view.findViewById(R.id.rvItems);
-        shoppableItems = new ArrayList<>();
-
-        adapter = new ShoppableItemsArrayAdapter(shoppableItems);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        rvItems.setLayoutManager(linearLayoutManager);
-        rvItems.setAdapter(adapter);
-        populateDefaultItems();
-        return view;
-    }
-
-    private void populateDefaultItems() {
+    public void populateDefaultItems() {
         Log.i(TAG, "populateDefaultItems");
         ShoppableItem itemBanana = new ShoppableItem(CommonUtils.getUuid(), "Banana", "@drawable/banana_file","1lb","DelMonte");
         shoppableItems.add(itemBanana);

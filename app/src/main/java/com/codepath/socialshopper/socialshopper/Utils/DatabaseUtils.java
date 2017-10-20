@@ -33,18 +33,23 @@ public class DatabaseUtils {
     private static final String TAG = "DatabaseUtils";
     private static final String OPEN = "open";
     private static final String FIRST_NAME = "first_name";
-    private OnActiveListsFetchListener mListenerLists;
-    private OnListFetchListener mListenerList;
-    private OnAllListFetchListener mListenerListAll;
+    //private OnActiveListsFetchListener mListenerLists;
+    //private OnListFetchListener mListenerList;
+    //private OnAllListFetchListener mListenerListAll;
     private static final String STORE_SAFEWAY = "Safeway";
 
-    public DatabaseUtils(Activity activity) {
-        mListenerLists = (OnActiveListsFetchListener) activity;
-        mListenerList = (OnListFetchListener) activity;
+    public DatabaseUtils() {
+        /*
+        * All activities don't necessarily implement all these listeners.
+        * Hence moving to individual functions
+        */
+        //mListenerLists = (OnActiveListsFetchListener) activity;
+        //mListenerList = (OnListFetchListener) activity;
+        //mListenerListAll = (OnAllListFetchListener) activity;
     }
 
     public void getActiveLists(Activity activity, String userId) {
-
+        final OnActiveListsFetchListener mListenerLists = (OnActiveListsFetchListener) activity;
         mDatabase.child(USERS).child(userId).child(ACTIVE_LISTS).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -66,17 +71,21 @@ public class DatabaseUtils {
         });
     }
 
-    public void getPastLists() {
-        ArrayList<ShoppingList> pastLists = new ArrayList<>();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(LISTS);
+    public void getPastLists(Activity activity) {
+        final OnAllListFetchListener mListenerListAll = (OnAllListFetchListener) activity;
+        DatabaseReference ref = mDatabase.child(LISTS);
         ref.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        //Get map of shoppinglists in datasnapshot
-                        //ArrayList<ShoppingList> pastLists = (ArrayList<ShoppingList>) dataSnapshot.getValue();
-                        mListenerListAll.OnAllListFetchListener((Map<String,Object>) dataSnapshot.getValue());
-                        //collectShippingList((Map<String, Object>) dataSnapshot.getValue());
+                        ArrayList<ShoppingList> pastLists = new ArrayList<>();
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                            ShoppingList shoppingList = new ShoppingList();
+                            shoppingList.setListId(snapshot.getKey());
+                            pastLists.add(shoppingList);
+                        }
+                        mListenerListAll.OnAllListsFetchListener(pastLists);
                     }
 
                     @Override
@@ -86,7 +95,8 @@ public class DatabaseUtils {
                 });
     }
 
-    public void getShoppingListByListId(String listId) {
+    public void getShoppingListByListId(Activity activity, String listId) {
+        final OnListFetchListener mListenerList = (OnListFetchListener) activity;
         mDatabase.child(LISTS).child(listId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -145,6 +155,6 @@ public class DatabaseUtils {
     }
 
     public  interface OnAllListFetchListener {
-        void OnAllListFetchListener(Map<String,Object> allShoppingLists);
+        void OnAllListsFetchListener(ArrayList<ShoppingList> allShoppingLists);
     }
 }

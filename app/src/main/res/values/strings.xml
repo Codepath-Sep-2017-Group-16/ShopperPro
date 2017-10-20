@@ -16,4 +16,8 @@
     <string name="google_maps_api_key">AIzaSyCbshrDoUFiWNVYMTqPeT9687NABAgFAjs</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="label_fruits">Fruits</string>
+    <string name="label_vege">Vegetables</string>
+    <string name="label_dairy">Dairy</string>
+    <string name="label_meat">Meat</string>
 </resources>

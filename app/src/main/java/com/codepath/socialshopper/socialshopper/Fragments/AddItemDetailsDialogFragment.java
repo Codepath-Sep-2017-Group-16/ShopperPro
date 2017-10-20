@@ -30,7 +30,6 @@ public class AddItemDetailsDialogFragment extends DialogFragment implements View
     @BindView(R.id.etItemBrand) EditText etItemBrand;
     @BindView(R.id.etItemQty) EditText etItemQty;
     @BindView(R.id.btnAddItem) Button btnAddItem;
-    ShoppableItem mShoppableItem;
 
     public interface AddItemDetailsDialogListener {
         void onFinishAddItemDetailsDialog(Bundle bundle);
@@ -56,6 +55,7 @@ public class AddItemDetailsDialogFragment extends DialogFragment implements View
         Log.i(TAG, "onCreateView");
         View view = inflater.inflate(R.layout.fragment_add_item_details, container);
         ButterKnife.bind(this,view);
+        ShoppableItem mShoppableItem;
         mShoppableItem = Parcels.unwrap(getArguments().getParcelable("item"));
         etItemName.setText(mShoppableItem.getmItemName());
         etItemBrand.setText(mShoppableItem.getmItemBrand());
@@ -78,6 +78,14 @@ public class AddItemDetailsDialogFragment extends DialogFragment implements View
         Log.i(TAG, "onclick");
         Toast.makeText(v.getContext(),"clicked",Toast.LENGTH_LONG).show();
         final Bundle bundle = new Bundle();
+        Log.i(TAG, " added to shopping list");
+        ShoppableItem mShoppableItem = new ShoppableItem();
+        mShoppableItem.setmItemBrand(etItemBrand.getText().toString());
+        mShoppableItem.setmItemName(etItemName.getText().toString());
+        mShoppableItem.setmItemQty(etItemQty.getText().toString());
+        Log.i(TAG, mShoppableItem.getmItemBrand());
+        Log.i(TAG, mShoppableItem.getmItemName());
+        Log.i(TAG, mShoppableItem.getmItemQty());
         bundle.putParcelable("AddedItem", Parcels.wrap(mShoppableItem));
         final AddItemDetailsDialogListener listener = (AddItemDetailsDialogListener) getActivity(); //getTargetFragment();//
         listener.onFinishAddItemDetailsDialog(bundle);

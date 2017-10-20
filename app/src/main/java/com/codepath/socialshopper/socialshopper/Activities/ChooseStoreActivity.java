@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.codepath.socialshopper.socialshopper.Models.ShoppingList;
 import com.codepath.socialshopper.socialshopper.R;
+import com.codepath.socialshopper.socialshopper.Utils.CommonUtils;
 
 public class ChooseStoreActivity extends AppCompatActivity {
     static ShoppingList shoppingList = new ShoppingList();
@@ -15,11 +16,13 @@ public class ChooseStoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_store);
+        shoppingList.setListId(CommonUtils.getUuid());
+
     }
 
     private void showMainScreen() {
-        //Intent intent = new Intent(this, MainActivity.class);
-        Intent intent = new Intent(this, TrackStatusActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
+        //Intent intent = new Intent(this, TrackStatusActivity.class);
         startActivity(intent);
     }
 

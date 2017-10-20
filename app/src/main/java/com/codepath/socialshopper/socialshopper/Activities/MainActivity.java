@@ -1,13 +1,10 @@
 package com.codepath.socialshopper.socialshopper.Activities;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,28 +15,22 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.codepath.socialshopper.socialshopper.Fragments.AddItemDetailsDialogFragment;
-import com.codepath.socialshopper.socialshopper.Fragments.HorizontalItemsFragment;
+import com.codepath.socialshopper.socialshopper.Fragments.DairyFragment;
+import com.codepath.socialshopper.socialshopper.Fragments.FruitsFragment;
+import com.codepath.socialshopper.socialshopper.Fragments.MeatFragment;
+import com.codepath.socialshopper.socialshopper.Fragments.VegetableFragment;
 import com.codepath.socialshopper.socialshopper.Models.ShoppableItem;
 import com.codepath.socialshopper.socialshopper.Models.ShoppingList;
 import com.codepath.socialshopper.socialshopper.R;
-import com.codepath.socialshopper.socialshopper.Utils.CommonUtils;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.codepath.socialshopper.socialshopper.Utils.FacebookUtils;
 import com.codepath.socialshopper.socialshopper.Utils.LocationUtils;
 import com.crashlytics.android.Crashlytics;
 
 import com.facebook.Profile;
-import com.google.android.gms.location.places.PlaceDetectionClient;
-import com.google.android.gms.location.places.PlaceLikelihood;
-import com.google.android.gms.location.places.PlaceLikelihoodBufferResponse;
-import com.google.android.gms.location.places.Places;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 
 import org.parceler.Parcels;
 
@@ -56,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements
         LocationUtils.OnLocationFetchListener{
     public final String TAG = "SocShpMainAct";
     private DatabaseUtils databaseUtils;
-    static ShoppingList shoppingList = new ShoppingList();
     private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1;
     private LocationUtils locationUtils;
     @BindView(R.id.nvView) NavigationView nvDrawer;
@@ -71,12 +61,11 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        databaseUtils = new DatabaseUtils(this);
+        databaseUtils = new DatabaseUtils();
         locationUtils = new LocationUtils();
         locationUtils.initializePlaces(this);
         setUpToolBar();
         setUpInitialScreen();
-        shoppingList.setListId(CommonUtils.getUuid());
 
         setupDrawerContent(nvDrawer);
 
@@ -113,9 +102,21 @@ public class MainActivity extends AppCompatActivity implements
 
     private void setUpInitialScreen() {
         Log.i(TAG, "starting initial set-up");
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.flItems, new HorizontalItemsFragment());
-        ft.commit();
+        FragmentTransaction ftFruit = getSupportFragmentManager().beginTransaction();
+        ftFruit.replace(R.id.fruitFragment, new FruitsFragment());
+        ftFruit.commit();
+
+        FragmentTransaction ftVege = getSupportFragmentManager().beginTransaction();
+        ftVege.replace(R.id.vegeFragment, new VegetableFragment());
+        ftVege.commit();
+
+        FragmentTransaction ftDairy = getSupportFragmentManager().beginTransaction();
+        ftDairy.replace(R.id.dairyFragment, new DairyFragment());
+        ftDairy.commit();
+
+        FragmentTransaction ftMeat = getSupportFragmentManager().beginTransaction();
+        ftMeat.replace(R.id.meatFragment, new MeatFragment());
+        ftMeat.commit();
     }
 
     @Override
@@ -176,6 +177,8 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.nav_old_orders:
                 Toast.makeText(this, "Old orders clicked", Toast.LENGTH_LONG).show();
                 Log.i(TAG, "Old orders clicked");
+                Intent intent = new Intent(MainActivity.this, PreviousOrdersActivity.class);
+                startActivity(intent);
                 break;
             case R.id.nav_settings:
                 Toast.makeText(this, "Settings clicked", Toast.LENGTH_LONG).show();
@@ -203,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void getListByListId(String listId) {
-        databaseUtils.getShoppingListByListId(listId);
+        databaseUtils.getShoppingListByListId(this,listId);
     }
 
     @Override

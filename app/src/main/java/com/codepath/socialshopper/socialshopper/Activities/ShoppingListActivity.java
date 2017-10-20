@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.codepath.socialshopper.socialshopper.Adapters.ShoppingListArrayAdapter;
+import com.codepath.socialshopper.socialshopper.Models.ShoppableItem;
 import com.codepath.socialshopper.socialshopper.Models.ShoppingList;
 import com.codepath.socialshopper.socialshopper.R;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
@@ -34,7 +35,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         LinearLayoutManager manager = new LinearLayoutManager(getBaseContext());
         rvShoppingListItems.setLayoutManager(manager);
         Log.i(TAG, "shopping list activity");
-     //   Log.i(TAG, "number of items in the list" +String.valueOf(shoppingList.getItems().size()));
+        Log.i(TAG, "number of items in the list" +String.valueOf(shoppingList.getItems().size()));
 
     }
 
@@ -46,6 +47,11 @@ public class ShoppingListActivity extends AppCompatActivity {
         startActivity(intent);
     }
     private void saveList(ShoppingList shoppingList) {
+        Log.i(TAG, "SavingList with these items:");
+        for (ShoppableItem item :
+                shoppingList.getItems()) {
+            Log.i(TAG, item.getmItemName());
+        }
         DatabaseUtils.saveList(FacebookUtils.getFacebookId(), shoppingList);
     }
 }

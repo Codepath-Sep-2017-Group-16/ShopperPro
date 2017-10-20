@@ -52,7 +52,7 @@ public class PickUpListActivity extends AppCompatActivity implements DatabaseUti
         rvItems.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL));
 
-        dbUtils = new DatabaseUtils(this);
+        dbUtils = new DatabaseUtils();
         processIntentAction(getIntent());
     }
 
@@ -71,7 +71,7 @@ public class PickUpListActivity extends AppCompatActivity implements DatabaseUti
         notificationManager.cancelAll();
 
         String id = intent.getStringExtra("list_id");
-        dbUtils.getShoppingListByListId(id);
+        dbUtils.getShoppingListByListId(this,id);
     }
 
     @Override
