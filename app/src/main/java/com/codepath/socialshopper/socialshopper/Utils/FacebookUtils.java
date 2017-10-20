@@ -33,6 +33,10 @@ public class FacebookUtils {
         return Profile.getCurrentProfile().getId();
     }
 
+    public static String getFacebookName() {
+        return Profile.getCurrentProfile().getName();
+    }
+
     public String getFBID(){
 
         return "";
