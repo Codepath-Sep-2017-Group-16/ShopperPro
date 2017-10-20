@@ -3,6 +3,7 @@ package com.codepath.socialshopper.socialshopper.Activities;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -10,12 +11,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.codepath.socialshopper.socialshopper.Fragments.AddItemDetailsDialogFragment;
@@ -58,7 +61,8 @@ public class MainActivity extends AppCompatActivity implements
     private LocationUtils locationUtils;
     @BindView(R.id.nvView) NavigationView nvDrawer;
     @BindView(R.id.drawer_layout) DrawerLayout mDrawer;
-
+    @BindView((R.id.toolbar)) Toolbar toolbar;
+    ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,10 +80,27 @@ public class MainActivity extends AppCompatActivity implements
 
         setupDrawerContent(nvDrawer);
 
+        drawerToggle = setupDrawerToggle();
+        mDrawer.addDrawerListener(drawerToggle);
+
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        drawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Pass any configuration change to the drawer toggles
+        drawerToggle.onConfigurationChanged(newConfig);
     }
 
     private void setUpToolBar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(getDrawable(R.drawable.ic_menu_black_24dp));
@@ -116,10 +137,15 @@ public class MainActivity extends AppCompatActivity implements
             Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
             startActivity(intent);
         }
-        if(id == R.id.home) {
+        if(id == android.R.id.home) {
+            Toast.makeText(this, "home clicked", Toast.LENGTH_LONG).show();
+            Log.i(TAG, "home clicked");
             mDrawer.openDrawer(GravityCompat.START);
             return true;
 
+        }
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -134,6 +160,12 @@ public class MainActivity extends AppCompatActivity implements
                     }
                 });
     }
+
+    private ActionBarDrawerToggle setupDrawerToggle() {
+        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
+
+    }
+
     public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         switch(menuItem.getItemId()) {
