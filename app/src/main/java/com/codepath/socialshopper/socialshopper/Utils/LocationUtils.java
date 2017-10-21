@@ -116,7 +116,7 @@ public class LocationUtils {
                                     // Build a list of likely places to show the user.
                                     String place = placeLikelihood.getPlace().getName().toString();
                                     Log.d(TAG, place);
-                                    if (IsStoreSupported(place))
+                                    if (IsPlaceSupported(place))
                                         locations.add(place);
                                 }
 
