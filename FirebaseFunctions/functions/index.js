@@ -63,9 +63,14 @@ exports.sendFollowerNotification = functions.database.ref('/users/{userId}/{loca
     }
     console.log('There are', lists.numChildren(), 'lists available.');
 
-    const listIds = Object.keys(lists.val());
-    const names = Object.values(lists.val());
+    var listMap = lists.val();
+    const listIds = Object.keys(listMap);    
+    var names = Object.keys(listMap).map(function(key){
+      return listMap[key];
+    });
+    
     console.log(listIds.toString());
+    console.log(names.toString());
 
     // Notification details.
     const payload = {

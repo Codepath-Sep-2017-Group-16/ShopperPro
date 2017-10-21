@@ -28,6 +28,8 @@ import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class PickUpListActivity extends AppCompatActivity implements DatabaseUtils.OnListFetchListener, DatabaseUtils.OnActiveListsFetchListener{
 
@@ -70,8 +72,13 @@ public class PickUpListActivity extends AppCompatActivity implements DatabaseUti
 
         notificationManager.cancelAll();
 
-        String id = intent.getStringExtra("list_id");
-        dbUtils.getShoppingListByListId(this,id);
+        String listIds = intent.getStringExtra("list_id");
+        Log.d(TAG, listIds);
+        List<String> lists = Arrays.asList(listIds.split("\\s*,\\s*"));
+        Log.d(TAG, lists.get(0));
+        // TODO: Retrieve individual shopping list for all the list IDs passed in the intent. Need to see how to display that
+        // Currently getting the first list in item to avoid ezception
+        dbUtils.getShoppingListByListId(this,lists.get(0));
     }
 
     @Override

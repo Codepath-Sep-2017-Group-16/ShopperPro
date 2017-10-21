@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class ShoppingList {
     String mListId;
-    public final String TAG = "SocShpMainAct";
+    private final String TAG = "ShoppingList";
     ArrayList<ShoppableItem> mShoppableItems;
     String mStore;
 

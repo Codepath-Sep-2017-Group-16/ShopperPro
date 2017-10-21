@@ -11,7 +11,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * Created by rdeshpan on 10/13/2017.
@@ -33,19 +32,10 @@ public class DatabaseUtils {
     private static final String TAG = "DatabaseUtils";
     private static final String OPEN = "open";
     private static final String FIRST_NAME = "first_name";
-    //private OnActiveListsFetchListener mListenerLists;
-    //private OnListFetchListener mListenerList;
-    //private OnAllListFetchListener mListenerListAll;
     private static final String STORE_SAFEWAY = "Safeway";
 
     public DatabaseUtils() {
-        /*
-        * All activities don't necessarily implement all these listeners.
-        * Hence moving to individual functions
-        */
-        //mListenerLists = (OnActiveListsFetchListener) activity;
-        //mListenerList = (OnListFetchListener) activity;
-        //mListenerListAll = (OnAllListFetchListener) activity;
+
     }
 
     public void getActiveLists(Activity activity, String userId) {
