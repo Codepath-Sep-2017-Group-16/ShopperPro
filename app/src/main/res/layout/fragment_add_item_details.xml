@@ -20,6 +20,9 @@
         android:layout_height="wrap_content"
         tools:text="Banana"
         android:inputType="none"
+        android:editable="false"
+        android:focusable="false"
+        android:clickable="false"
         android:padding="15dp"
         android:layout_alignTop="@id/tvItemName"
         android:layout_alignBottom="@id/tvItemName"
@@ -58,7 +61,22 @@
         android:textSize="20sp"
         android:padding="15dp"
         tools:text="@string/item_qty_label"/>
-    <EditText
+    <NumberPicker
+        android:id="@+id/npItemQty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/tvItemQty"
+        android:layout_alignBottom="@id/tvItemQty"
+        android:layout_toEndOf="@id/tvItemQty" />
+    <Spinner
+        android:id="@+id/spItemQty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:layout_alignTop="@id/npItemQty"
+        android:layout_alignBottom="@id/npItemQty"
+        android:layout_toEndOf="@id/npItemQty" />
+    <!--<EditText
         android:id="@+id/etItemQty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,7 +86,7 @@
         android:layout_alignBottom="@id/tvItemQty"
         android:layout_toEndOf="@id/tvItemQty"
         android:textSize="20sp"
-        android:hint="@string/item_qty_label" />
+        android:hint="@string/item_qty_label" />-->
 
     <Button
         android:id="@+id/btnAddItem"

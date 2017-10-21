@@ -9,8 +9,6 @@ import com.codepath.socialshopper.socialshopper.R;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class PreviousOrdersActivity extends AppCompatActivity implements DatabaseUtils.OnAllListFetchListener {
     private DatabaseUtils dbUtils;
@@ -30,7 +28,8 @@ public class PreviousOrdersActivity extends AppCompatActivity implements Databas
         try {
             for (ShoppingList list :
                     allShoppingLists) {
-                Log.i(TAG, "Store "+list.getListId());
+                Log.i(TAG, "List ID "+list.getListId());
+                Log.i(TAG, "List store "+list.getStore());
             }
         }
         catch (Exception e){

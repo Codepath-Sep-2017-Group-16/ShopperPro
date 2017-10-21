@@ -8,8 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.codepath.socialshopper.socialshopper.Models.ShoppableItem;
@@ -28,8 +31,10 @@ public class AddItemDetailsDialogFragment extends DialogFragment implements View
     public final String TAG = "SocShpAdItm";
     @BindView(R.id.etItemName) EditText etItemName;
     @BindView(R.id.etItemBrand) EditText etItemBrand;
-    @BindView(R.id.etItemQty) EditText etItemQty;
+    //@BindView(R.id.etItemQty) EditText etItemQty;
     @BindView(R.id.btnAddItem) Button btnAddItem;
+    @BindView(R.id.spItemQty) Spinner spItemQty;
+    @BindView(R.id.npItemQty) NumberPicker npItemQty;
 
     public interface AddItemDetailsDialogListener {
         void onFinishAddItemDetailsDialog(Bundle bundle);
@@ -59,10 +64,18 @@ public class AddItemDetailsDialogFragment extends DialogFragment implements View
         mShoppableItem = Parcels.unwrap(getArguments().getParcelable("item"));
         etItemName.setText(mShoppableItem.getmItemName());
         etItemBrand.setText(mShoppableItem.getmItemBrand());
-        etItemQty.setText(mShoppableItem.getmItemQty());
+        //etItemQty.setText(mShoppableItem.getmItemQty());
 
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(view.getContext(), R.array.qty_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spItemQty.setAdapter(adapter);
+
+        npItemQty.setMinValue(0);
+        npItemQty.setMaxValue(10);
         return view;
-    }
+    }//1LOXkqVmH0GlcAA78gn5C61+Vlo=
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -82,7 +95,9 @@ public class AddItemDetailsDialogFragment extends DialogFragment implements View
         ShoppableItem mShoppableItem = new ShoppableItem();
         mShoppableItem.setmItemBrand(etItemBrand.getText().toString());
         mShoppableItem.setmItemName(etItemName.getText().toString());
-        mShoppableItem.setmItemQty(etItemQty.getText().toString());
+        String qty = spItemQty.getSelectedItem().toString();
+        String num = String.valueOf(npItemQty.getValue());
+        mShoppableItem.setmItemQty(num+qty);
         Log.i(TAG, mShoppableItem.getmItemBrand());
         Log.i(TAG, mShoppableItem.getmItemName());
         Log.i(TAG, mShoppableItem.getmItemQty());
