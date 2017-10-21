@@ -114,7 +114,7 @@ public class DatabaseUtils {
         mDatabase.child(USERS).child(userId).child(ACTIVE_LISTS).child(shoppingList.getListId()).setValue(OPEN);
 
         // Attach list to store
-        mDatabase.child(STORES).child(STORE_SAFEWAY).child(shoppingList.getListId()).setValue(FacebookUtils.getFacebookName());
+        mDatabase.child(STORES).child(STORE_SAFEWAY).child(shoppingList.getListId()).setValue(FacebookUtils.getFacebookId());
     }
 
     public static void deleteList() {
