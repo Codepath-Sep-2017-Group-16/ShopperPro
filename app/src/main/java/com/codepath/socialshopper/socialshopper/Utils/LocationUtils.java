@@ -76,9 +76,10 @@ public class LocationUtils {
                                 for (PlaceLikelihood placeLikelihood : likelyPlaces) {
                                     // Build a list of likely places to show the user.
                                     String place = placeLikelihood.getPlace().getName().toString();
-                                    if (IsStoreSupported(place))
+                                    if (IsPlaceSupported(place)) {
                                         Log.d(TAG, "Location added: " + place);
                                         locations.add(place);
+                                    }
                                 }
 
                                 // Release the place likelihood buffer, to avoid memory leaks.
@@ -137,7 +138,7 @@ public class LocationUtils {
         void OnLocationFetchListener(ArrayList<String> locations);
     }
 
-    private boolean IsStoreSupported(String storeName) {
+    private boolean IsPlaceSupported(String storeName) {
         return STORES.contains(storeName);
     }
 }
