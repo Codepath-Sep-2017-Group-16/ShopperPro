@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.Task;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by rdeshpan on 10/17/2017.
@@ -30,12 +31,9 @@ public class LocationUtils {
 
     public static final String TAG = "LocationUtils";
     private PlaceDetectionClient mPlaceDetectionClient;
-    private final int M_MAX_ENTRIES = 5;
     private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1;
     private OnLocationFetchListener mListenerLocation;
-    private final String STORE_SAFEWAY = "Safeway";
-    private final String STORE_COSTCO = "Costco Wholesale";
-
+    private final List<String> STORES = Arrays.asList("Safeway","Costco Wholesale","Walmart","Lucky","Whole Foods Market","Target");
 
     public void initializePlaces(Activity activity) {
         mListenerLocation =  (OnLocationFetchListener) activity;
@@ -75,26 +73,12 @@ public class LocationUtils {
                             if (task.isSuccessful() && task.getResult() != null) {
                                 PlaceLikelihoodBufferResponse likelyPlaces = task.getResult();
 
-                                // Set the count, handling cases where less than 5 entries are returned.
-                                int count;
-                                if (likelyPlaces.getCount() < M_MAX_ENTRIES) {
-                                    count = likelyPlaces.getCount();
-                                } else {
-                                    count = M_MAX_ENTRIES;
-                                }
-
-                                int i = 0;
-
                                 for (PlaceLikelihood placeLikelihood : likelyPlaces) {
                                     // Build a list of likely places to show the user.
                                     String place = placeLikelihood.getPlace().getName().toString();
-                                    Log.d(TAG, place);
-                                    if (place.equals(STORE_SAFEWAY))
+                                    if (IsStoreSupported(place))
+                                        Log.d(TAG, "Location added: " + place);
                                         locations.add(place);
-                                    i++;
-                                    if (i > (count - 1)) {
-                                        break;
-                                    }
                                 }
 
                                 // Release the place likelihood buffer, to avoid memory leaks.
@@ -126,25 +110,13 @@ public class LocationUtils {
                                 PlaceLikelihoodBufferResponse likelyPlaces = task.getResult();
 
                                 // Set the count, handling cases where less than 5 entries are returned.
-                                int count;
-                                if (likelyPlaces.getCount() < M_MAX_ENTRIES) {
-                                    count = likelyPlaces.getCount();
-                                } else {
-                                    count = M_MAX_ENTRIES;
-                                }
-
-                                int i = 0;
 
                                 for (PlaceLikelihood placeLikelihood : likelyPlaces) {
                                     // Build a list of likely places to show the user.
                                     String place = placeLikelihood.getPlace().getName().toString();
                                     Log.d(TAG, place);
-                                    if (place.equals(STORE_SAFEWAY))
+                                    if (IsStoreSupported(place))
                                         locations.add(place);
-                                    i++;
-                                    if (i > (count - 1)) {
-                                        break;
-                                    }
                                 }
 
                                 // Release the place likelihood buffer, to avoid memory leaks.
@@ -163,5 +135,9 @@ public class LocationUtils {
 
     public interface OnLocationFetchListener {
         void OnLocationFetchListener(ArrayList<String> locations);
+    }
+
+    private boolean IsStoreSupported(String storeName) {
+        return STORES.contains(storeName);
     }
 }
