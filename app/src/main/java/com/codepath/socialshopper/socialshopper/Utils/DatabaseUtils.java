@@ -78,7 +78,7 @@ public class DatabaseUtils {
         });
     }
 
-    public void getPastLists(Activity activity) {
+     public void getPastLists(Activity activity) {
         final OnAllListFetchListener mListenerListAll = (OnAllListFetchListener) activity;
         DatabaseReference ref = mDatabase.child(LISTS);
         ref.addListenerForSingleValueEvent(
@@ -95,6 +95,27 @@ public class DatabaseUtils {
                             pastLists.add(shoppingList);
                         }
                         mListenerListAll.OnAllListsFetchListener(pastLists);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                    }
+                });
+    }
+
+    public void getImageForList(Activity activity, String listID) {
+        final OnImageFetchListenerInterface imageFetchListenerInterface = (OnImageFetchListenerInterface) activity;
+        DatabaseReference ref = mDatabase.child(LISTS).child(listID).child(IMAGE_URL);
+        ref.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Log.i(TAG,"Snapshot" + dataSnapshot.toString());
+                        String image;
+                        image = (String) dataSnapshot.getValue();
+                        Log.i(TAG,"Image is" +image);
+                        imageFetchListenerInterface.OnImageFetchListener(image);
                     }
 
                     @Override
@@ -232,5 +253,9 @@ public class DatabaseUtils {
 
     public  interface OnAllListFetchListener {
         void OnAllListsFetchListener(ArrayList<ShoppingList> allShoppingLists);
+    }
+
+    public  interface OnImageFetchListenerInterface {
+        void OnImageFetchListener(String imageURL);
     }
 }

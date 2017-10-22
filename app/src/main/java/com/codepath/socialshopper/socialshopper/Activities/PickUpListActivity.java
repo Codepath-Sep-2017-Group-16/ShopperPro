@@ -39,7 +39,7 @@ public class PickUpListActivity extends AppCompatActivity implements DatabaseUti
     private RecyclerView rvItems;
     private String savedPhotoPath;
     private static final int REQUEST_CODE_TAKE_PICTURE = 1000;
-    private static final String TAG = "SocShpPickUpListActivity";
+    private static final String TAG = "SocShpPkUpAct";
     private static String listId;
 
     @Override

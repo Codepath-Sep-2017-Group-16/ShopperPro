@@ -43,14 +43,36 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             displayNotification(messageContent, listId);
         }
         else if(recipient.equals("REQUESTER")) {
-            displayStatusTrackingNotification();
+            displayStatusTrackingNotification(data.get("payload"),data.get("listid"),data.get("status"));
         }
     }
 
-    private void displayStatusTrackingNotification() {
+    private void displayStatusTrackingNotification(String message, String listID, String status) {
         Intent intent = getStatusTrackingNotificationIntent();
-        intent.putExtra("Status", "test");
+        intent.putExtra("status", status);
+        Log.i(TAG,"Status from notif " + status);
+        intent.putExtra("listId", listID);
         intent.setAction(VIEW_ACTION);
+
+        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.ic_notification)
+                .setContentTitle("Tracking update.!")
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
+                .setContentText(message)
+                .setWhen(System.currentTimeMillis())
+                .setAutoCancel(true)
+                .setSound(defaultSoundUri)
+                .addAction(new NotificationCompat.Action(
+                        R.drawable.ic_notification,
+                        "View",
+                        PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_ONE_SHOT)));
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+
+        notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
     }
 
     private Intent getStatusTrackingNotificationIntent() {
