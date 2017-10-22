@@ -43,7 +43,6 @@ public class ShoppersListArrayAdapter  extends RecyclerView.Adapter<ShoppersList
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         ShoppableItem item = list.get(position);
-        holder.getCbItem().setChecked(false);
 
         holder.getIvItemImage().setImageResource(R.drawable.apple);
 
@@ -68,10 +67,6 @@ public class ShoppersListArrayAdapter  extends RecyclerView.Adapter<ShoppersList
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public CheckBox getCbItem() {
-            return cbItem;
-        }
-
         public TextView getTvItemName() {
             return tvItemName;
         }
@@ -88,7 +83,6 @@ public class ShoppersListArrayAdapter  extends RecyclerView.Adapter<ShoppersList
             return ivItemImage;
         }
 
-        private CheckBox cbItem;
         private TextView tvItemName;
         private TextView tvItemBrand;
         private TextView tvItemQuantity;
@@ -96,7 +90,6 @@ public class ShoppersListArrayAdapter  extends RecyclerView.Adapter<ShoppersList
 
         public ViewHolder(View itemView) {
             super(itemView);
-            cbItem = (CheckBox) itemView.findViewById(R.id.cbItem);
             tvItemName = (TextView) itemView.findViewById(R.id.tvItemName);
             tvItemQuantity = (TextView) itemView.findViewById(R.id.tvItemQuantity);
             tvItemBrand = (TextView) itemView.findViewById(R.id.tvItemBrand);

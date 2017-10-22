@@ -100,21 +100,14 @@ exports.sendFollowerNotification = functions.database.ref('/users/{userId}/{loca
     const token = tokensSnapshot.val();
 
     // Send notifications to all tokens.
-    return admin.messaging().sendToDevice(token, payload).then(response => {
-      // For each message check if there was an error.
-      const tokensToRemove = [];
+    return admin.messaging().sendToDevice(token, payload).then(response => {      
       response.results.forEach((result, index) => {
         const error = result.error;
         if (error) {
-          console.error('Failure sending notification to', tokens[index], error);
-          // Cleanup the tokens who are not registered anymore.
-          if (error.code === 'messaging/invalid-registration-token' ||
-              error.code === 'messaging/registration-token-not-registered') {
-            tokensToRemove.push(tokensSnapshot.ref.child(tokens[index]).remove());
-          }
+          console.error('Failure sending notification to', tokens[index], error);          
         }
       });
-      return Promise.all(tokensToRemove);
+      return 1;
     });
   });
 });
@@ -125,7 +118,7 @@ exports.sendFollowerNotification = functions.database.ref('/users/{userId}/{loca
 exports.sendListStatusUpdateNotification = functions.database.ref('/lists/{listId}').onWrite(event => {
   const listId = event.params.listId;
   const listData = event.data.val();
-  const recipient = "SHOPPER";
+  const recipient = "REQUESTER";
   
 
   if (!event.data.val()) {
@@ -138,21 +131,25 @@ exports.sendListStatusUpdateNotification = functions.database.ref('/lists/{listI
 
   var status = listData["status"];
   var notificationMessage = "";
-  if (status == 'PICKED_UP') {
-    notificationMessage = shopperName + " has picked up your items from " + storeName;
-  } else if (status == "COMPLETED") {
-    notificationMessage = shopperName + " has paid for your items from " + storeName;
-  } else if (status == "OUT_FOR_DELIVERY") {
-    notificationMessage = shopperName + " is on the way with your items from " + storeName;
-  } else {
-    console.log ("No action needed. Status: " + status);
-    return -1;
-  }
 
+  switch(status) {
+    case 'PICKED_UP':
+      notificationMessage = shopperName + " has picked up your items from " + storeName;
+      break;
+    case 'COMPLETED':
+      notificationMessage = shopperName + " has paid for your items from " + storeName;
+      break;
+    case 'OUT_FOR_DELIVERY':
+      notificationMessage = shopperName + " is on the way with your items from " + storeName;
+      break;
+    default:
+      console.log ("No action needed. Status: " + status);
+      return 1;
+  }
+  
   // Get the notification token for the user
   var userId = listData["userId"];
   const getDeviceTokensPromise = admin.database().ref(`/users/${userId}/gcmid`).once('value');
-
 
   
   return Promise.all([getDeviceTokensPromise]).then(results => {
@@ -165,7 +162,8 @@ exports.sendListStatusUpdateNotification = functions.database.ref('/lists/{listI
       data: {
         payload: notificationMessage,
         listid: listId,
-        recipient : recipient
+        recipient : recipient,
+        status : status
       }
     };
 
@@ -174,20 +172,13 @@ exports.sendListStatusUpdateNotification = functions.database.ref('/lists/{listI
 
     // Send notifications to all tokens.
     return admin.messaging().sendToDevice(token, payload).then(response => {
-      // For each message check if there was an error.
-      const tokensToRemove = [];
       response.results.forEach((result, index) => {
         const error = result.error;
         if (error) {
-          console.error('Failure sending notification to', tokens[index], error);
-          // Cleanup the tokens who are not registered anymore.
-          if (error.code === 'messaging/invalid-registration-token' ||
-              error.code === 'messaging/registration-token-not-registered') {
-            tokensToRemove.push(tokensSnapshot.ref.child(tokens[index]).remove());
-          }
+          console.error('Failure sending notification to', token, error);          
         }
       });
-      return Promise.all(tokensToRemove);
+      return 1;
     });
   });
 });

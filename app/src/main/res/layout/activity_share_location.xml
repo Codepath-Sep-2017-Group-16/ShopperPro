@@ -13,5 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="214dp"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/circular_button"
         android:text="Start location sharing" />
 </RelativeLayout>
