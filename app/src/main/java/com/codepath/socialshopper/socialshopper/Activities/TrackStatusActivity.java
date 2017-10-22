@@ -26,6 +26,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -43,6 +45,7 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
 
     private SupportMapFragment mapFragment;
     private GoogleMap map;
+    private Marker currentLocationMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +81,10 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
             // Map is ready
             Toast.makeText(this, "Map Fragment was loaded properly!", Toast.LENGTH_SHORT).show();
 
-            DatabaseUtils.getShoppersLocation(this, getIntent().getStringExtra("list_id"));
+//            String list = "0747f2ff-a631-42fa-a07c-b875d793e0a7";
 
+            DatabaseUtils.getShoppersLocation(this, getIntent().getStringExtra("list_id"));
+            //DatabaseUtils.getShoppersLocation(this, list);
         } else {
             Toast.makeText(this, "Error - Map was null!!", Toast.LENGTH_SHORT).show();
         }
@@ -108,9 +113,17 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
 
     @Override
     public void OnLocationFetchListener(com.codepath.socialshopper.socialshopper.Models.Location location) {
-        LatLng myLocation = new LatLng(location.getLatitude(), location.getLongitude());
-        map.addMarker(new MarkerOptions().position(myLocation).title("Shopper"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
-        map.animateCamera(CameraUpdateFactory.zoomTo(14));
+        LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
+
+        if(currentLocationMarker !=null)
+            currentLocationMarker.remove();
+
+        currentLocationMarker = map.addMarker(new MarkerOptions()
+                .position(currentLocation)
+                .title("Shopper")
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_car)));
+
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(currentLocation).zoom(14).tilt(30).build();
+        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 }
