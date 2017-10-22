@@ -91,6 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                     FacebookUtils.fbID = profile.getId();
                     Log.i("facebook - profile", profile.getFirstName());
                 }
+                FacebookUtils.getFacebookFriendsMembers();
                 showHomeScreen();
             }
 

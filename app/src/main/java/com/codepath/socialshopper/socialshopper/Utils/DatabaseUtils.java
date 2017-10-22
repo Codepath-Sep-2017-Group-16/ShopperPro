@@ -31,16 +31,13 @@ public class DatabaseUtils {
     private static final String LATITUDE = "latitude";
     private static final String LONGITUDE = "longitude";
     private static final String GCMID = "gcmid";
-    private static final String DEVICE = "device";
     private static final String ACTIVE_LISTS = "active_lists";
     private static final String LOCATION = "location";
     private static final String CURRENT_LOCATION = "current_location";
-    private static final String PAST_LISTS = "past_lists";
-    private static final String ITEM = "item";
     private static final String TAG = "SocShpDbUtls";
     private static final String OPEN = "open";
     private static final String FIRST_NAME = "first_name";
-    private static final String STORE_SAFEWAY = "Safeway";
+    private static final String FRIENDS = "friends";
 
     public DatabaseUtils() {
 
@@ -124,7 +121,7 @@ public class DatabaseUtils {
         mDatabase.child(USERS).child(userId).child(ACTIVE_LISTS).child(shoppingList.getListId()).setValue(OPEN);
 
         // Attach list to store
-        mDatabase.child(STORES).child(STORE_SAFEWAY).child(shoppingList.getListId()).setValue(FacebookUtils.getFacebookId());
+        mDatabase.child(STORES).child(shoppingList.getStore()).child(shoppingList.getListId()).setValue(FacebookUtils.getFacebookId());
 
         mDatabase.child(SHOPPER_LOCATION).child(LATITUDE).child(shoppingList.getListId()).setValue(FacebookUtils.getFacebookId());
     }
@@ -140,6 +137,10 @@ public class DatabaseUtils {
     public static void saveGCMRegistrationIDAndUserInfo(String userId, String profileName) {
         mDatabase.child(USERS).child(userId).child(GCMID).setValue(FirebaseInstanceId.getInstance().getToken());
         mDatabase.child(USERS).child(userId).child(FIRST_NAME).setValue(profileName);
+    }
+
+    public static void setUserFriends(String friends) {
+        mDatabase.child(USERS).child(FacebookUtils.getFacebookId()).child(FRIENDS).setValue(friends);
     }
 
     public static void saveLocationOfShopper(String listId, Double latitude, Double longitude){

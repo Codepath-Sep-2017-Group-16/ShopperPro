@@ -10,6 +10,10 @@ import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.widget.ProfilePictureView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,12 +51,26 @@ public class FacebookUtils {
         Log.d(TAG, "Facebook ID: " +  getFacebookId());
         new GraphRequest(
                 AccessToken.getCurrentAccessToken(),
-                "/"+ getFacebookId() +"/friends",
+                "/me/friends",
                 null,
                 HttpMethod.GET,
                 new GraphRequest.Callback() {
                     public void onCompleted(GraphResponse response) {
+                        StringBuilder friendIds = new StringBuilder();
                         Log.d(TAG, response.toString());
+                        try {
+
+                            JSONArray jsonArray = response.getJSONObject().getJSONArray("data");
+
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                friendIds.append(jsonArray.getJSONObject(i).getString("id")).append(",");
+                            }
+                            DatabaseUtils.setUserFriends(friendIds.toString());
+                            Log.d(TAG, friendIds.toString());
+                        } catch (JSONException e) {
+                            Log.e(TAG, e.getMessage());
+                            e.printStackTrace();
+                        }
                     }
                 }
         ).executeAsync();
