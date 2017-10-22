@@ -37,15 +37,18 @@ exports.sendFollowerNotification = functions.database.ref('/users/{userId}/{loca
   console.log('User :', userId, ' updated location:', location);
 
 
-  // Get the list of device notification tokens.
+  // Get the notification token for the user
   const getDeviceTokensPromise = admin.database().ref(`/users/${userId}/gcmid`).once('value');
 
-  // Get the follower profile.
+  // Get the lists associated to the current user location
   const getStoreListsPromise = admin.database().ref(`/stores/${location}`).once('value');
 
-  return Promise.all([getDeviceTokensPromise, getStoreListsPromise]).then(results => {
+  // Get the user's friend list
+  const getUserFriendsPromise = admin.database().ref(`/users/${userId}/friends`).once('value');
 
-	/*
+  return Promise.all([getDeviceTokensPromise, getStoreListsPromise, getUserFriendsPromise]).then(results => {
+
+	 /*
       LOGIC:
       1. For each open list in the store:
           - Get User Id
@@ -54,34 +57,49 @@ exports.sendFollowerNotification = functions.database.ref('/users/{userId}/{loca
     */
 
     const tokensSnapshot = results[0];
-    const lists = results[1];
+    const listsSnapshot = results[1];
+    const friendsSnapshot = results[2];
+    
     console.log(tokensSnapshot.val());
+    console.log(listsSnapshot.val());
+    console.log(friendsSnapshot.val());
     
-	// Check if there are any lists attached to the store
-    if (!lists.hasChildren()) {
-      console.log('There are no lists attached to this store.');
+	  // Check if there are any lists attached to the store    
+    console.log('There are', listsSnapshot.numChildren(), 'lists available.');
+    
+    
+    // Check if userIds belong to the current user's friend list 
+    // Entry Format=> KEY: ListId format: listId, VALUE: userId-status   
+    var matchedListIds = [];
+    var listMap = listsSnapshot.val();    
+    var friends = friendsSnapshot.val();
+
+    for(var key in listMap) {
+        var listId = key;
+        var userId = listMap[key];
+        
+        if (friends.indexOf(userId) > -1) {
+          matchedListIds.push(listId);
+        }
     }
-    console.log('There are', lists.numChildren(), 'lists available.');
 
-    var listMap = lists.val();
-    const listIds = Object.keys(listMap);    
-    var names = Object.keys(listMap).map(function(key){
-      return listMap[key];
-    });
+    console.log("Matched Lists: " + matchedListIds.toString());
+    console.log("Matched Lists Count: " + matchedListIds.length);
+
+    if (matchedListIds.length == 0) {
+      console.log("Exiting: No List Match");
+      return;
+    }
     
-    console.log(listIds.toString());
-    console.log(names.toString());
-
-    // Notification details.
+    // Notification details
     const payload = {
       data: {
-        payload: 'Your friend ' + names.toString() +' needs a few things from ' + location,
-        listid: listIds.toString(),              
+        payload: 'Some of your friends need a few things from ' + location + '. Would you like to pick those up?',
+        listid: matchedListIds.toString(),              
       }
     };
 
-    // Listing all tokens.
-    const tokens = Object.keys(tokensSnapshot.val());    
+    // Listing all tokens.    
     const token = tokensSnapshot.val();
 
     // Send notifications to all tokens.
