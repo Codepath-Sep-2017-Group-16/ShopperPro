@@ -44,6 +44,9 @@ public class ShoppersListArrayAdapter  extends RecyclerView.Adapter<ShoppersList
 
         ShoppableItem item = list.get(position);
         holder.getCbItem().setChecked(false);
+
+        holder.getIvItemImage().setImageResource(R.drawable.apple);
+
         if(item.getmItemIconFileName().contains("banana"))
             holder.getIvItemImage().setImageResource(R.drawable.banana);
         else if(item.getmItemIconFileName().contains("apple")){
