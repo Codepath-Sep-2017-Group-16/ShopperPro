@@ -22,7 +22,7 @@
     <string name="label_meat">Meat</string>
     <string name="label_submitted">Your shopping list has been submitted. Check back here for the status.</string>
     <string name="receipt_label">Receipt</string>
-    <string name="label_pickedup">Your Shopping list had been picked up by a Shopper.</string>
+    <string name="label_pickedup">Your Shopping list has been picked up by a Shopper.</string>
     <string name="label_completed">The shopping of all the items in the list has been completed. Here is the receipt.</string>
     <string name="label_outfordel">The items in the shopping list are out for delivery. Please check tracking status below.</string>
 </resources>
