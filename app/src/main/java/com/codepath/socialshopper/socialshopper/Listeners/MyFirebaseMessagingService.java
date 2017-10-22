@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.codepath.socialshopper.socialshopper.Activities.NotificationActivity;
 import com.codepath.socialshopper.socialshopper.Activities.PickUpListActivity;
+import com.codepath.socialshopper.socialshopper.Activities.TrackStatusActivity;
 import com.codepath.socialshopper.socialshopper.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -26,16 +27,34 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String YES_ACTION = "YES_ACTION";
     private static final String NO_ACTION = "NO_ACTION";
+    private static final String VIEW_ACTION = "VIEW_ACTION";
     private static int NOTIFICATION_ID = (int) System.currentTimeMillis();
+    public final String TAG = "SocShpMsg";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         String from = remoteMessage.getFrom();
         Map<String,String> data = remoteMessage.getData();
-        Log.i("Push received", data.toString());
-        String messageContent = data.get("payload");
-        String listId = data.get("listid");
-        displayNotification(messageContent, listId);
+        Log.i(TAG+"Pshrcv", data.toString());
+        String recipient = data.get("recipient");
+        if(recipient.equals("SHOPPER")) {
+            String messageContent = data.get("payload");
+            String listId = data.get("listid");
+            displayNotification(messageContent, listId);
+        }
+        else if(recipient.equals("REQUESTER")) {
+            displayStatusTrackingNotification();
+        }
+    }
+
+    private void displayStatusTrackingNotification() {
+        Intent intent = getStatusTrackingNotificationIntent();
+        intent.putExtra("Status", "test");
+        intent.setAction(VIEW_ACTION);
+    }
+
+    private Intent getStatusTrackingNotificationIntent() {
+        return new Intent(this, TrackStatusActivity.class);
     }
 
     private void displayNotification(String message, String listId){
