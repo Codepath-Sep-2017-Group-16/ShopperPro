@@ -35,6 +35,7 @@ public class AddItemDetailsDialogFragment extends DialogFragment implements View
     @BindView(R.id.btnAddItem) Button btnAddItem;
     @BindView(R.id.spItemQty) Spinner spItemQty;
     @BindView(R.id.npItemQty) NumberPicker npItemQty;
+    ShoppableItem globalItem;
 
     public interface AddItemDetailsDialogListener {
         void onFinishAddItemDetailsDialog(Bundle bundle);
@@ -62,6 +63,7 @@ public class AddItemDetailsDialogFragment extends DialogFragment implements View
         ButterKnife.bind(this,view);
         ShoppableItem mShoppableItem;
         mShoppableItem = Parcels.unwrap(getArguments().getParcelable("item"));
+        globalItem = mShoppableItem;
         etItemName.setText(mShoppableItem.getmItemName());
         etItemBrand.setText(mShoppableItem.getmItemBrand());
         //etItemQty.setText(mShoppableItem.getmItemQty());
@@ -95,6 +97,7 @@ public class AddItemDetailsDialogFragment extends DialogFragment implements View
         ShoppableItem mShoppableItem = new ShoppableItem();
         mShoppableItem.setmItemBrand(etItemBrand.getText().toString());
         mShoppableItem.setmItemName(etItemName.getText().toString());
+        mShoppableItem.setmItemIconFileName(globalItem.getmItemIconFileName());
         String qty = spItemQty.getSelectedItem().toString();
         String num = String.valueOf(npItemQty.getValue());
         mShoppableItem.setmItemQty(num+qty);
