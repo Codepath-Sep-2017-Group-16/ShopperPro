@@ -73,6 +73,7 @@ public class ShareLocationActivity extends AppCompatActivity {
                     Intent intent = new Intent(ShareLocationActivity.this, LocationService.class);
                     startService(intent);
                     btnLocationSharing.setText("Stop location sharing");
+                    DatabaseUtils.updateListStatus(getIntent().getStringExtra("list_id"), Status.OUT_FOR_DELIVERY);
 
                 } else {
                     Toast.makeText(getApplicationContext(),"Permission Denied", Toast.LENGTH_SHORT).show();
@@ -90,7 +91,6 @@ public class ShareLocationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(btnLocationSharing.getText().toString().equalsIgnoreCase("Start location sharing")){
-                    DatabaseUtils.updateListStatus(getIntent().getStringExtra("list_id"), Status.OUT_FOR_DELIVERY);
                     ActivityCompat.requestPermissions(ShareLocationActivity.this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
                 }else{
                     btnLocationSharing.setText("Start location sharing");
