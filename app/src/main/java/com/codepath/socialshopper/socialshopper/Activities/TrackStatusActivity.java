@@ -64,7 +64,7 @@ public class TrackStatusActivity extends AppCompatActivity
             String listId = intent.getStringExtra("listId");
             Log.d(TAG, "status is " + status);
             TextView tvCheckBackStatus = (TextView) findViewById(R.id.tvCheckBackStatus);
-            ImageView ivReceiptImg = (ImageView) findViewById(ivReceiptImg);
+            ImageView ivReceiptImg = (ImageView) findViewById(R.id.ivReceiptImg);
             Button btnRequestLocation = (Button) findViewById(R.id.btnRequestLocation);
             ivReceiptImg.setVisibility(View.GONE);
             //PICKED_UP, COMPLETED and OUT_FOR_DELIVERY
