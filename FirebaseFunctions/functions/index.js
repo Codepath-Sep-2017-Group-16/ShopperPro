@@ -20,10 +20,7 @@ const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
 /**
- * Triggers when a user gets a new follower and sends a notification.
- *
- * Followers add a flag to `/followers/{followedUid}/{followerUid}`.
- * Users save their device notification tokens to `/users/{followedUid}/notificationTokens/{notificationToken}`.
+ * Triggers when a user location is updated
  */
 exports.sendFollowerNotification = functions.database.ref('/users/{userId}/{location}').onWrite(event => {
   const userId = event.params.userId;
@@ -90,12 +87,81 @@ exports.sendFollowerNotification = functions.database.ref('/users/{userId}/{loca
       console.log("Exiting: No List Match");
       return;
     }
-    
+
     // Notification details
     const payload = {
       data: {
         payload: 'Some of your friends need a few things from ' + location + '. Would you like to pick those up?',
         listid: matchedListIds.toString(),              
+      }
+    };
+
+    // Listing all tokens.    
+    const token = tokensSnapshot.val();
+
+    // Send notifications to all tokens.
+    return admin.messaging().sendToDevice(token, payload).then(response => {
+      // For each message check if there was an error.
+      const tokensToRemove = [];
+      response.results.forEach((result, index) => {
+        const error = result.error;
+        if (error) {
+          console.error('Failure sending notification to', tokens[index], error);
+          // Cleanup the tokens who are not registered anymore.
+          if (error.code === 'messaging/invalid-registration-token' ||
+              error.code === 'messaging/registration-token-not-registered') {
+            tokensToRemove.push(tokensSnapshot.ref.child(tokens[index]).remove());
+          }
+        }
+      });
+      return Promise.all(tokensToRemove);
+    });
+  });
+});
+
+/**
+ * Triggers when a Shopper accepts an order
+ */
+exports.sendListStatusUpdateNotification = functions.database.ref('/lists/{listId}').onWrite(event => {
+  const listId = event.params.listId;
+  const listData = event.data.val();
+  const recipient = "SHOPPER";
+  
+
+  if (!event.data.val()) {
+    return console.log('List data not available');
+  }
+  console.log('List Data :', listData.toString());
+
+  var status = listData["status"];
+  var notificationMessage = "";
+  if (status == 'PICKED_UP') {
+    notificationMessage = "Your order has been picked up by one of your friends";
+  } else if (status == "COMPLETED") {
+    notificationMessage = "Your order has been completed by one of your friends";
+  } else if (status == "OUT_FOR_DELIVERY") {
+    notificationMessage = "Your order is out for delivery by one of your friends";
+  } else {
+    console.log ("No action needed. Status: " + status);
+    return -1;
+  }
+
+  // Get the notification token for the user
+  var userId = listData["userId"];
+  const getDeviceTokensPromise = admin.database().ref(`/users/${userId}/gcmid`).once('value');
+
+  
+  return Promise.all([getDeviceTokensPromise]).then(results => {
+
+    const tokensSnapshot = results[0];
+    console.log(tokensSnapshot.val());
+   
+    // Notification details
+    const payload = {
+      data: {
+        payload: notificationMessage,
+        listid: listId,
+        recipient : recipient
       }
     };
 
