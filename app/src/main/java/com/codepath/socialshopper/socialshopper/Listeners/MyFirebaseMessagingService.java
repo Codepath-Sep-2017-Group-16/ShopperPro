@@ -35,14 +35,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         String from = remoteMessage.getFrom();
         Map<String,String> data = remoteMessage.getData();
-        Log.i(TAG+"Pshrcv", data.toString());
+        Log.i(TAG+"Push received", data.toString());
         String recipient = data.get("recipient");
-        if(recipient.equals("SHOPPER")) {
+        if(recipient==null) { // Implies the first push notification for the shopper
             String messageContent = data.get("payload");
             String listId = data.get("listid");
             displayNotification(messageContent, listId);
         }
-        else if(recipient.equals("REQUESTER")) {
+        else if(recipient!=null && recipient.equals("REQUESTER")) {
             displayStatusTrackingNotification();
         }
     }
