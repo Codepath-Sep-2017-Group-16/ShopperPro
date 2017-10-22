@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    android:orientation="horizontal" >
+    android:orientation="horizontal">
     <TextView
         android:id="@+id/tvItemQtyList"
         android:layout_height="match_parent"
@@ -12,7 +13,7 @@
         android:gravity="top"
         android:padding="5dp"
         android:textSize="20sp"
-        android:text="Qty" />
+        tools:text="Qty" />
     <TextView
         android:id="@+id/tvItemNameList"
         android:layout_height="match_parent"
@@ -20,7 +21,7 @@
         android:padding="5dp"
         android:textSize="20sp"
         android:gravity="top"
-        android:text="apple" />
+        tools:text="apple" />
     <TextView
         android:id="@+id/tvItemBrandList"
         android:layout_width="0dp"
@@ -29,5 +30,5 @@
         android:textSize="20sp"
         android:layout_weight="1"
         android:gravity="top"
-        android:text="fuji apples" />
+        tools:text="fuji apples" />
 </LinearLayout>

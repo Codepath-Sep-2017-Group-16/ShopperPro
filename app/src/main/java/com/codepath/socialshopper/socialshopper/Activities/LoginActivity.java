@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
                 else {
                     Profile profile = Profile.getCurrentProfile();
                     FacebookUtils.fbID = profile.getId();
-                    Log.i("facebook - profile", profile.getFirstName());
+                    Log.i(TAG+"fb-prof", profile.getFirstName());
                 }
                 FacebookUtils.getFacebookFriendsMembers();
                 showHomeScreen();

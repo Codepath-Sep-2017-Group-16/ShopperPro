@@ -3,17 +3,25 @@ package com.codepath.socialshopper.socialshopper.Activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ExpandableListView;
 
+import com.codepath.socialshopper.socialshopper.Adapters.ExpandableListAdapter;
 import com.codepath.socialshopper.socialshopper.Models.ShoppableItem;
 import com.codepath.socialshopper.socialshopper.Models.ShoppingList;
 import com.codepath.socialshopper.socialshopper.R;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class PreviousOrdersActivity extends AppCompatActivity implements DatabaseUtils.OnAllListFetchListener {
-    private DatabaseUtils dbUtils;
     public final String TAG = "SocShpPrvOrd";
+    ExpandableListAdapter listAdapter;
+    ExpandableListView expListView;
+    List<String> listDataHeader;
+    HashMap<String, List<ShoppableItem>> listDataChild;
+    private DatabaseUtils dbUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,21 +32,82 @@ public class PreviousOrdersActivity extends AppCompatActivity implements Databas
         dbUtils.getPastLists(this);
     }
 
+
+    private void prepareListData(ArrayList<ShoppingList> allShoppingLists) {
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<ShoppableItem>>();
+
+        int i = 0;
+        for (ShoppingList list :
+                allShoppingLists) {
+            String store = list.getStore().isEmpty() ? "-" : list.getStore();
+            listDataHeader.add("List from " + store);
+            List<ShoppableItem> items = list.getItems();
+
+            listDataChild.put(listDataHeader.get(i), items); // Header, Child data
+
+        }
+        /*// Adding child data
+        listDataHeader.add("Top 250");
+        listDataHeader.add("Now Showing");
+        listDataHeader.add("Coming Soon..");
+
+        // Adding child data
+        List<String> top250 = new ArrayList<String>();
+        top250.add("The Shawshank Redemption");
+        top250.add("The Godfather");
+        top250.add("The Godfather: Part II");
+        top250.add("Pulp Fiction");
+        top250.add("The Good, the Bad and the Ugly");
+        top250.add("The Dark Knight");
+        top250.add("12 Angry Men");
+
+        List<String> nowShowing = new ArrayList<String>();
+        nowShowing.add("The Conjuring");
+        nowShowing.add("Despicable Me 2");
+        nowShowing.add("Turbo");
+        nowShowing.add("Grown Ups 2");
+        nowShowing.add("Red 2");
+        nowShowing.add("The Wolverine");
+
+        List<String> comingSoon = new ArrayList<String>();
+        comingSoon.add("2 Guns");
+        comingSoon.add("The Smurfs 2");
+        comingSoon.add("The Spectacular Now");
+        comingSoon.add("The Canyons");
+        comingSoon.add("Europa Report");
+
+        listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
+        listDataChild.put(listDataHeader.get(1), nowShowing);
+        listDataChild.put(listDataHeader.get(2), comingSoon);
+        */
+    }
+
     @Override
     public void OnAllListsFetchListener(ArrayList<ShoppingList> allShoppingLists) {
         try {
             for (ShoppingList list :
                     allShoppingLists) {
-                Log.i(TAG, "List ID "+list.getListId());
-                Log.i(TAG, "List store "+list.getStore());
-                for (ShoppableItem item:
+                Log.i(TAG, "List ID " + list.getListId());
+                Log.i(TAG, "List store " + list.getStore());
+                for (ShoppableItem item :
                         list.getItems()) {
-                    Log.i(TAG, "List items "+item.getmItemName());
+                    Log.i(TAG, "List items " + item.getmItemName());
                 }
             }
-            Log.i(TAG, "List number "+ String.valueOf(allShoppingLists.size()));
-        }
-        catch (Exception e){
+
+            // get the listview
+            expListView = (ExpandableListView) findViewById(R.id.lvExp);
+
+            // preparing list data
+            prepareListData(allShoppingLists);
+
+            listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+
+            // setting list adapter
+            expListView.setAdapter(listAdapter);
+            Log.i(TAG, "List number " + String.valueOf(allShoppingLists.size()));
+        } catch (Exception e) {
             Log.i(TAG, "Exception" + e.getMessage());
         }
 
