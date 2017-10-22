@@ -40,6 +40,7 @@ public class TrackStatusActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track_status);
+        dbUtils = new DatabaseUtils();
         processIntentAction(getIntent());
     }
 
@@ -110,7 +111,7 @@ public class TrackStatusActivity extends AppCompatActivity
 
 //            String list = "0747f2ff-a631-42fa-a07c-b875d793e0a7";
 
-            DatabaseUtils.getShoppersLocation(this, getIntent().getStringExtra("list_id"));
+            DatabaseUtils.getShoppersLocation(this, getIntent().getStringExtra("listId"));
             //DatabaseUtils.getShoppersLocation(this, list);
         } else {
             Toast.makeText(this, "Error - Map was null!!", Toast.LENGTH_SHORT).show();
