@@ -77,7 +77,7 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
         map = googleMap;
         if (map != null) {
             // Map is ready
-            Toast.makeText(this, "Map Fragment was loaded properly!", Toast.LENGTH_SHORT).show();
+        //    Toast.makeText(this, "Map Fragment was loaded properly!", Toast.LENGTH_SHORT).show();
 
 //            String list = "0747f2ff-a631-42fa-a07c-b875d793e0a7";
 
