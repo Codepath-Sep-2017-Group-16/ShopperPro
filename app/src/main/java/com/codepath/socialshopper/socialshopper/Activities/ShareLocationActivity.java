@@ -33,7 +33,7 @@ public class ShareLocationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share_location);
-
+        btnLocationSharing = (Button) findViewById(R.id.btnShareLocation);
         initListener();
 
 
