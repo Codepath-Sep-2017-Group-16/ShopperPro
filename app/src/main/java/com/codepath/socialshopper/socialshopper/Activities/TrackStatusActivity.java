@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.codepath.socialshopper.socialshopper.R;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -24,15 +25,18 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.Map;
+import static com.codepath.socialshopper.socialshopper.R.id.ivReceiptImg;
 
 
-public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.OnMapLongClickListener, GoogleMap.OnMarkerDragListener, DatabaseUtils.OnLocationFetchListener {
+public class TrackStatusActivity extends AppCompatActivity
+        implements GoogleMap.OnMapLongClickListener, GoogleMap.OnMarkerDragListener, DatabaseUtils.OnLocationFetchListener,DatabaseUtils.OnImageFetchListenerInterface {
 
     private SupportMapFragment mapFragment;
     private GoogleMap map;
     private static final String TAG = "SocShpTrkAct";
     private Marker currentLocationMarker;
+    private DatabaseUtils dbUtils;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +57,15 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.cancelAll();
-        if(intent.getStringExtra("Status")  != null) {
-            String status = intent.getStringExtra("Status");
-            Log.d(TAG, status);
+        Log.d(TAG, "status is " + intent.getStringExtra("status"));
+
+        if(intent.getStringExtra("status")  != null) {
+            String status = intent.getStringExtra("status");
+            String listId = intent.getStringExtra("listId");
+            Log.d(TAG, "status is " + status);
             TextView tvCheckBackStatus = (TextView) findViewById(R.id.tvCheckBackStatus);
-            ImageView ivReceiptImg = (ImageView) findViewById(R.id.ivReceiptImg);
+            ImageView ivReceiptImg = (ImageView) findViewById(ivReceiptImg);
             Button btnRequestLocation = (Button) findViewById(R.id.btnRequestLocation);
-            Map map = (Map) findViewById(R.id.map);
             ivReceiptImg.setVisibility(View.GONE);
             //PICKED_UP, COMPLETED and OUT_FOR_DELIVERY
             if (status.equals("PICKED_UP")) {
@@ -69,6 +75,7 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
                 tvCheckBackStatus.setText(R.string.label_completed);
                 //getimage; draw it into ivReceiptImg
                 ivReceiptImg.setVisibility(View.VISIBLE);
+                dbUtils.getImageForList(this,listId);
             }
             if (status.equals("OUT_FOR_DELIVERY")) {
                 tvCheckBackStatus.setText(R.string.label_outfordel);
@@ -147,5 +154,16 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
 
         CameraPosition cameraPosition = new CameraPosition.Builder().target(currentLocation).zoom(14).tilt(30).build();
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+    }
+
+    @Override
+    public void OnImageFetchListener(String imageURL) {
+        if(!imageURL.isEmpty()) {
+            Log.i(TAG,"Image is " + imageURL);
+            ImageView ivReceiptImg = (ImageView) findViewById(R.id.ivReceiptImg);
+            Glide.with(this.getBaseContext())
+                    .load(imageURL)
+                    .into(ivReceiptImg);
+        }
     }
 }
