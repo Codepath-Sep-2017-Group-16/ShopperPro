@@ -12,8 +12,8 @@ REQUESTER
 * [X] Requester can login/register using their Facebook account 
 * [X] Requester can select from a list of available stores
 * [X] Requester can create a shopping list and publish it.
-* [ ] Requester can track the status of their order
-* [ ] Requester can receive push notifications when their order is accepted
+* [X] Requester can track the status of their order
+* [X] Requester can receive push notifications when their order is accepted
 
 
 
@@ -23,7 +23,7 @@ SHOPPER
 * [X] Shopper can receive notifications for orders that match based on their proximity to the stores
 * [X] Shopper can accept or reject a notification/order pickup request
 * [X] Shopper can take a picture of the purchase receipt 
-* [ ] Shopper can send it to the requester
+* [X] Shopper can send the receipt to the requester
 
 
 
@@ -34,7 +34,7 @@ REQUESTER
 
 
 SHOPPER
-* [ ] Shopper can share their location actively with requester while out for delivery
+* [X] Shopper can share their location actively with requester while out for delivery
 * [ ] Shopper can turn off being a requester (not get notifications for order pickup)
 * [ ] Shopper can receive a payment from requester
 
