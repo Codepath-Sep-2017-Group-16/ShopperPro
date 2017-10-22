@@ -42,7 +42,7 @@ SHOPPER
 ## Video Walkthrough
 
 ### Requester
-<img src='Walkthroughs/Demo_1_Requester.gif' title='Requester Experience' width='' alt='Requester Experience' />
+<img src='Walkthroughs/Demo_2_Requester.gif' title='Requester Experience' width='' alt='Requester Experience' />
 
 ### Shopper
-<img src='Walkthroughs/Demo_1_Shopper.gif' title='Shopper Experience' width='' alt='Shopper Experience' />
+<img src='Walkthroughs/Demo_2_Shopper.gif' title='Shopper Experience' width='' alt='Shopper Experience' />
