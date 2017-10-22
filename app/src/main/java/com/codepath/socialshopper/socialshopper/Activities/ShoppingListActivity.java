@@ -47,6 +47,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         saveList(shoppingList);
         Toast.makeText(view.getContext(), "Published the shopping list", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(ShoppingListActivity.this, TrackStatusActivity.class);
+        intent.putExtra("list_id", shoppingList.getListId());
         startActivity(intent);
     }
 

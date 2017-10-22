@@ -43,10 +43,12 @@ public class ShareLocationActivity extends AppCompatActivity {
                     provider = intent.getStringExtra("provider");
                     latitude = (Double)intent.getExtras().get("latitude");
                     longitude = (Double)intent.getExtras().get("longitude");
-                   // Log.i("provider : ", provider);
+
+
+
                     if(latitude!=null) {
                         Log.i("Coordinates", "Lat:" + latitude + " ,Long:" + longitude);
-                        DatabaseUtils.saveLocationOfShopper(latitude, longitude);
+                        DatabaseUtils.saveLocationOfShopper(getIntent().getStringExtra("list_id"), latitude, longitude);
                     }
 
                 }

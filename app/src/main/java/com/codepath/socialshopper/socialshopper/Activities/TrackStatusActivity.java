@@ -78,15 +78,7 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
             // Map is ready
             Toast.makeText(this, "Map Fragment was loaded properly!", Toast.LENGTH_SHORT).show();
 
-            //TODO Get location updates for the requestor and map it
-
-//            LatLng myLocation = new LatLng(37.24055935, -121.80645531);
-//
-//            map.addMarker(new MarkerOptions().position(myLocation).title("Shopper"));
-//            map.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
-//            map.animateCamera(CameraUpdateFactory.zoomTo(12));
-
-            DatabaseUtils.getShoppersLocation(this, "");
+            DatabaseUtils.getShoppersLocation(this, getIntent().getStringExtra("list_id"));
 
         } else {
             Toast.makeText(this, "Error - Map was null!!", Toast.LENGTH_SHORT).show();
@@ -117,10 +109,8 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
     @Override
     public void OnLocationFetchListener(com.codepath.socialshopper.socialshopper.Models.Location location) {
         LatLng myLocation = new LatLng(location.getLatitude(), location.getLongitude());
-
         map.addMarker(new MarkerOptions().position(myLocation).title("Shopper"));
         map.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
-        map.animateCamera(CameraUpdateFactory.zoomTo(12));
-
+        map.animateCamera(CameraUpdateFactory.zoomTo(14));
     }
 }

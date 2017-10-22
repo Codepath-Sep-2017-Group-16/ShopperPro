@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.codepath.socialshopper.socialshopper.Models.Location;
 import com.codepath.socialshopper.socialshopper.Models.ShoppingList;
+import com.facebook.Profile;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,15 +21,20 @@ import java.util.ArrayList;
 
 public class DatabaseUtils {
 
+
     private static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     private static final String USERS = "users";
     private static final String LISTS = "lists";
     private static final String STORES = "stores";
+    private static final String SHOPPER_LOCATION = "shopper_location";
+    private static final String LATITUDE = "latitude";
+    private static final String LONGITUDE = "longitude";
     private static final String GCMID = "gcmid";
     private static final String DEVICE = "device";
     private static final String ACTIVE_LISTS = "active_lists";
     private static final String LOCATION = "location";
+    private static final String CURRENT_LOCATION = "current_location";
     private static final String PAST_LISTS = "past_lists";
     private static final String ITEM = "item";
     private static final String TAG = "SocShpDbUtls";
@@ -119,6 +125,8 @@ public class DatabaseUtils {
 
         // Attach list to store
         mDatabase.child(STORES).child(STORE_SAFEWAY).child(shoppingList.getListId()).setValue(FacebookUtils.getFacebookId());
+
+        mDatabase.child(SHOPPER_LOCATION).child(LATITUDE).child(shoppingList.getListId()).setValue(FacebookUtils.getFacebookId());
     }
 
     public static void deleteList() {
@@ -134,14 +142,15 @@ public class DatabaseUtils {
         mDatabase.child(USERS).child(userId).child(FIRST_NAME).setValue(profileName);
     }
 
-    public static void saveLocationOfShopper(Double latitude, Double longitude){
-        mDatabase.child(LOCATION).child("latitude").setValue(latitude);
-        mDatabase.child(LOCATION).child("longitude").setValue(longitude);
+    public static void saveLocationOfShopper(String listId, Double latitude, Double longitude){
+        mDatabase.child(LISTS).child(listId).child(CURRENT_LOCATION).child(LATITUDE).setValue(latitude);
+        mDatabase.child(LISTS).child(listId).child(CURRENT_LOCATION).child(LONGITUDE).setValue(longitude);
     }
 
     public static void getShoppersLocation(Activity activity, final String listId) {
         final OnLocationFetchListener mListenerList = (OnLocationFetchListener) activity;
-        mDatabase.child(LOCATION).child(listId).addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference ref = mDatabase.child(LISTS).child(listId).child(CURRENT_LOCATION);
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Location location = dataSnapshot.getValue(Location.class);
@@ -150,6 +159,7 @@ public class DatabaseUtils {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }

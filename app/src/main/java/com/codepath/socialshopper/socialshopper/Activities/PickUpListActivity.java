@@ -17,7 +17,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.codepath.socialshopper.socialshopper.Adapters.ShoppersListArrayAdapter;
 import com.codepath.socialshopper.socialshopper.Models.ShoppableItem;
@@ -40,6 +39,7 @@ public class PickUpListActivity extends AppCompatActivity implements DatabaseUti
     private String savedPhotoPath;
     private static final int REQUEST_CODE_TAKE_PICTURE = 1000;
     private static final String TAG = "PickUpListActivity";
+    private static String listId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +83,7 @@ public class PickUpListActivity extends AppCompatActivity implements DatabaseUti
 
     @Override
     public void OnListFetchListener(ShoppingList shoppingList) {
+        listId = shoppingList.getListId();
         list.addAll(shoppingList.getItems());
         updateAdapter();
     }
@@ -171,7 +172,7 @@ public class PickUpListActivity extends AppCompatActivity implements DatabaseUti
     public void notifyRequestor(View view) {
         //TODO do a post to server with image of receipt and this should trigger a push notification for requestor.
         Intent intent = new Intent(this, ShareLocationActivity.class);
+        intent.putExtra("list_id", listId);
         startActivity(intent);
-       // finish();
     }
 }
