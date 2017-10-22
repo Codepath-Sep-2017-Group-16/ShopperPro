@@ -30,6 +30,7 @@ import java.util.ArrayList;
 public class DatabaseUtils {
 
 
+    private static final String SHOPPER_NAME = "shopper_name";
     private static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     private static final String USERS = "users";
@@ -157,6 +158,10 @@ public class DatabaseUtils {
     public static void saveLocationOfShopper(String listId, Double latitude, Double longitude){
         mDatabase.child(LISTS).child(listId).child(CURRENT_LOCATION).child(LATITUDE).setValue(latitude);
         mDatabase.child(LISTS).child(listId).child(CURRENT_LOCATION).child(LONGITUDE).setValue(longitude);
+    }
+
+    public static void saveNameOfShopperAfterPickUp(String listId){
+        mDatabase.child(LISTS).child(listId).child(SHOPPER_NAME).setValue(Profile.getCurrentProfile().getFirstName());
     }
 
     public static void getShoppersLocation(Activity activity, final String listId) {
