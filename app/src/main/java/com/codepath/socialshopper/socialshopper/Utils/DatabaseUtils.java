@@ -1,6 +1,7 @@
 package com.codepath.socialshopper.socialshopper.Utils;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.codepath.socialshopper.socialshopper.Models.ShoppingList;
 import com.google.firebase.database.DataSnapshot;
@@ -29,7 +30,7 @@ public class DatabaseUtils {
     private static final String LOCATION = "location";
     private static final String PAST_LISTS = "past_lists";
     private static final String ITEM = "item";
-    private static final String TAG = "DatabaseUtils";
+    private static final String TAG = "SocShpDbUtls";
     private static final String OPEN = "open";
     private static final String FIRST_NAME = "first_name";
     private static final String STORE_SAFEWAY = "Safeway";
@@ -70,9 +71,11 @@ public class DatabaseUtils {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         ArrayList<ShoppingList> pastLists = new ArrayList<>();
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
-                            ShoppingList shoppingList = new ShoppingList();
-                            shoppingList.setListId(snapshot.getKey());
+                            ShoppingList shoppingList = snapshot.getValue(ShoppingList.class);
+                            Log.i(TAG,"Store " + shoppingList.getStore());
+                            Log.i(TAG,"List #" + shoppingList.getItems().size());
+//                            shoppingList.setListId(snapshot.getKey());
+//                            shoppingList.setItems(snapshot.getValue;
                             pastLists.add(shoppingList);
                         }
                         mListenerListAll.OnAllListsFetchListener(pastLists);

@@ -9,57 +9,94 @@ import java.util.ArrayList;
  */
 
 public class ShoppingList {
-    String mListId;
-    private final String TAG = "ShoppingList";
-    ArrayList<ShoppableItem> mShoppableItems;
-    String mStore;
+    String listId;
+    private final String TAG = "SocShpShpLt";
+    ArrayList<ShoppableItem> shoppableItems;
+    String store;
+    String userId;
+    String status;
+    String receiptImageURL;
+    String createdTimeStamp;
+
 
     public ShoppingList(String listId, ArrayList<ShoppableItem> shoppableItems) {
-        this.mListId = listId;
-        this.mShoppableItems = shoppableItems;
+        this.listId = listId;
+        this.shoppableItems = shoppableItems;
     }
 
     public String getListId() {
-        return mListId;
+        return listId;
     }
 
     public ShoppingList() {
     }
 
     public void setListId(String listId) {
-        this.mListId = listId;
+        this.listId = listId;
     }
 
     public ArrayList<ShoppableItem> getItems() {
-        return mShoppableItems;
+        return shoppableItems;
     }
 
     public void setItems(ArrayList<ShoppableItem> shoppableItems) {
-        this.mShoppableItems = shoppableItems;
+        this.shoppableItems = shoppableItems;
     }
 
     public String getStore() {
-        return mStore;
+        return store;
     }
 
     public void setStore(String store) {
-        this.mStore = store;
+        this.store = store;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getReceiptImageURL() {
+        return receiptImageURL;
+    }
+
+    public void setReceiptImageURL(String receiptImageURL) {
+        this.receiptImageURL = receiptImageURL;
+    }
+
+    public String getCreatedTimeStamp() {
+        return createdTimeStamp;
+    }
+
+    public void setCreatedTimeStamp(String createdTimeStamp) {
+        this.createdTimeStamp = createdTimeStamp;
     }
 
     public void addItems(ShoppableItem item) {
-        if(mShoppableItems == null) {
-            this.mShoppableItems = new ArrayList<>();
+        if(shoppableItems == null) {
+            this.shoppableItems = new ArrayList<>();
         }
-        this.mShoppableItems.add(item);
+        this.shoppableItems.add(item);
         Log.i(TAG, "Added " + item.getmItemName());
     }
 
     @Override
     public String toString() {
         return "ShoppingList{" +
-                "mListId='" + mListId + '\'' +
+                "mListId='" + listId + '\'' +
                 ", TAG='" + TAG + '\'' +
-                ", mShoppableItems=" + mShoppableItems +
+                ", mShoppableItems=" + shoppableItems +
                 '}';
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.codepath.socialshopper.socialshopper.Models.ShoppableItem;
 import com.codepath.socialshopper.socialshopper.Models.ShoppingList;
 import com.codepath.socialshopper.socialshopper.R;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
@@ -30,7 +31,12 @@ public class PreviousOrdersActivity extends AppCompatActivity implements Databas
                     allShoppingLists) {
                 Log.i(TAG, "List ID "+list.getListId());
                 Log.i(TAG, "List store "+list.getStore());
+                for (ShoppableItem item:
+                        list.getItems()) {
+                    Log.i(TAG, "List items "+item.getmItemName());
+                }
             }
+            Log.i(TAG, "List number "+ String.valueOf(allShoppingLists.size()));
         }
         catch (Exception e){
             Log.i(TAG, "Exception" + e.getMessage());

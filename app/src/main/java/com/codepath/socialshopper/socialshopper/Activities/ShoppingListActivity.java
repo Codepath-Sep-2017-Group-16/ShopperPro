@@ -15,7 +15,10 @@ import com.codepath.socialshopper.socialshopper.Models.ShoppingList;
 import com.codepath.socialshopper.socialshopper.R;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.codepath.socialshopper.socialshopper.Utils.FacebookUtils;
-import com.google.firebase.iid.FirebaseInstanceId;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import static com.codepath.socialshopper.socialshopper.Activities.ChooseStoreActivity.shoppingList;
 
@@ -35,7 +38,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         LinearLayoutManager manager = new LinearLayoutManager(getBaseContext());
         rvShoppingListItems.setLayoutManager(manager);
         Log.i(TAG, "shopping list activity");
-        Log.i(TAG, "number of items in the list" +String.valueOf(shoppingList.getItems().size()));
+        Log.i(TAG, "number of items in the list" + String.valueOf(shoppingList.getItems().size()));
 
     }
 
@@ -46,12 +49,16 @@ public class ShoppingListActivity extends AppCompatActivity {
         Intent intent = new Intent(ShoppingListActivity.this, TrackStatusActivity.class);
         startActivity(intent);
     }
+
     private void saveList(ShoppingList shoppingList) {
-        Log.i(TAG, "SavingList with these items:");
+        Log.i(TAG, "SavingList with these items: " + shoppingList.getStore() + " " + shoppingList.getListId());
         for (ShoppableItem item :
                 shoppingList.getItems()) {
             Log.i(TAG, item.getmItemName());
+            shoppingList.setUserId(FacebookUtils.getFacebookId());
+            shoppingList.setStatus("CREATED");
+            shoppingList.setCreatedTimeStamp(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss", Locale.US).format(new Date()));
+            DatabaseUtils.saveList(FacebookUtils.getFacebookId(), shoppingList);
         }
-        DatabaseUtils.saveList(FacebookUtils.getFacebookId(), shoppingList);
     }
 }
