@@ -10,7 +10,7 @@ The following are **core** stories:
 
 REQUESTER
 * [X] Requester can login/register using their Facebook account 
-* [ ] Requester can select from a list of available stores
+* [X] Requester can select from a list of available stores
 * [X] Requester can create a shopping list and publish it.
 * [ ] Requester can track the status of their order
 * [ ] Requester can receive push notifications when their order is accepted
@@ -19,10 +19,11 @@ REQUESTER
 
 SHOPPER
 * [X] Shopper can login/register using their Facebook account 
-* [ ] Shopper can share their location via the app for order discovery
+* [X] Shopper can share their location via the app for order discovery
 * [X] Shopper can receive notifications for orders that match based on their proximity to the stores
 * [X] Shopper can accept or reject a notification/order pickup request
-* [ ] Shopper can take a picture of the purchase receipt and send it to the requester
+* [X] Shopper can take a picture of the purchase receipt 
+* [ ] Shopper can send it to the requester
 
 
 
