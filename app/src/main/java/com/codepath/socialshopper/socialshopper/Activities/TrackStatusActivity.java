@@ -51,8 +51,6 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track_status);
-
-
     }
 
     public void requestForShoppersLocation(View view) {

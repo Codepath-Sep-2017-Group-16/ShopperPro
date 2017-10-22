@@ -33,8 +33,6 @@ public class ShareLocationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share_location);
-        btnLocationSharing = (Button) findViewById(R.id.btnShareLocation);
-        DatabaseUtils.updateListStatus(getIntent().getStringExtra("list_id"), Status.OUT_FOR_DELIVERY);
 
         initListener();
 
@@ -92,6 +90,7 @@ public class ShareLocationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(btnLocationSharing.getText().toString().equalsIgnoreCase("Start location sharing")){
+                    DatabaseUtils.updateListStatus(getIntent().getStringExtra("list_id"), Status.OUT_FOR_DELIVERY);
                     ActivityCompat.requestPermissions(ShareLocationActivity.this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
                 }else{
                     btnLocationSharing.setText("Start location sharing");
