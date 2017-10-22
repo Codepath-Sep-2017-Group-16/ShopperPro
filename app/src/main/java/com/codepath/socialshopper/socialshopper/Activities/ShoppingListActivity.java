@@ -15,6 +15,7 @@ import com.codepath.socialshopper.socialshopper.Models.ShoppingList;
 import com.codepath.socialshopper.socialshopper.R;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.codepath.socialshopper.socialshopper.Utils.FacebookUtils;
+import com.codepath.socialshopper.socialshopper.Utils.Status;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -48,6 +49,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         Toast.makeText(view.getContext(), "Published the shopping list", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(ShoppingListActivity.this, TrackStatusActivity.class);
         intent.putExtra("list_id", shoppingList.getListId());
+        DatabaseUtils.updateListStatus(shoppingList.getListId(), Status.PLACED);
         startActivity(intent);
     }
 

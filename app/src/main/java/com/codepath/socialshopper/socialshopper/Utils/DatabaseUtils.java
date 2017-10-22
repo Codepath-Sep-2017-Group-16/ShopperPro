@@ -48,6 +48,7 @@ public class DatabaseUtils {
     private static final String FRIENDS = "friends";
     private static final String IMAGE_BUCKET_ROOT = "socialshopper/images/";
     private static final String IMAGE_URL = "receiptImageURL";
+    private static final String STATUS = "status";
 
     public DatabaseUtils() {
 
@@ -206,6 +207,10 @@ public class DatabaseUtils {
 
     public static void setListImage(String listId, String imageUrl) {
         mDatabase.child(LISTS).child(listId).child(IMAGE_URL).setValue(imageUrl);
+    }
+
+    public static void updateListStatus(String listId, Enum status ){
+        mDatabase.child(LISTS).child(listId).child(STATUS).setValue(status);
     }
 
     public interface OnActiveListsFetchListener {

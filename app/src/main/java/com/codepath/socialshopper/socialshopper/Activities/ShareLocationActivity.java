@@ -19,6 +19,7 @@ import com.codepath.socialshopper.socialshopper.Manifest;
 import com.codepath.socialshopper.socialshopper.R;
 import com.codepath.socialshopper.socialshopper.Receivers.LocationService;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
+import com.codepath.socialshopper.socialshopper.Utils.Status;
 
 public class ShareLocationActivity extends AppCompatActivity {
 
@@ -33,6 +34,8 @@ public class ShareLocationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share_location);
         btnLocationSharing = (Button) findViewById(R.id.btnShareLocation);
+        DatabaseUtils.updateListStatus(getIntent().getStringExtra("list_id"), Status.OUT_FOR_DELIVERY);
+
         initListener();
 
 

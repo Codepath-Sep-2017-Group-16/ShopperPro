@@ -23,6 +23,7 @@ import com.codepath.socialshopper.socialshopper.Models.ShoppableItem;
 import com.codepath.socialshopper.socialshopper.Models.ShoppingList;
 import com.codepath.socialshopper.socialshopper.R;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
+import com.codepath.socialshopper.socialshopper.Utils.Status;
 
 import java.io.File;
 import java.io.IOException;
@@ -72,7 +73,6 @@ public class PickUpListActivity extends AppCompatActivity implements DatabaseUti
 
         notificationManager.cancelAll();
 
-
         String listIds = intent.getStringExtra("list_id");
         Log.d(TAG, listIds);
         List<String> lists = Arrays.asList(listIds.split("\\s*,\\s*"));
@@ -80,6 +80,7 @@ public class PickUpListActivity extends AppCompatActivity implements DatabaseUti
         // TODO: Retrieve individual shopping list for all the list IDs passed in the intent. Need to see how to display that
         // Currently getting the first list in item to avoid ezception
         dbUtils.getShoppingListByListId(this,lists.get(0));
+        DatabaseUtils.updateListStatus(lists.get(0), Status.PICKED_UP);
     }
 
     @Override
@@ -173,6 +174,7 @@ public class PickUpListActivity extends AppCompatActivity implements DatabaseUti
 
     public void notifyRequestor(View view) {
         //TODO do a post to server with image of receipt and this should trigger a push notification for requestor.
+        DatabaseUtils.updateListStatus(listId, Status.COMPLETED);
         Intent intent = new Intent(this, ShareLocationActivity.class);
         intent.putExtra("list_id", listId);
         startActivity(intent);
