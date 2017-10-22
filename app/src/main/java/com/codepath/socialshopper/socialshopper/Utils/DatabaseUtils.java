@@ -3,6 +3,7 @@ package com.codepath.socialshopper.socialshopper.Utils;
 import android.app.Activity;
 import android.util.Log;
 
+import com.codepath.socialshopper.socialshopper.Models.Location;
 import com.codepath.socialshopper.socialshopper.Models.ShoppingList;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -136,15 +137,32 @@ public class DatabaseUtils {
     public static void saveLocationOfShopper(Double latitude, Double longitude){
         mDatabase.child(LOCATION).child("latitude").setValue(latitude);
         mDatabase.child(LOCATION).child("longitude").setValue(longitude);
-
     }
 
+    public static void getShoppersLocation(Activity activity, final String listId) {
+        final OnLocationFetchListener mListenerList = (OnLocationFetchListener) activity;
+        mDatabase.child(LOCATION).child(listId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Location location = dataSnapshot.getValue(Location.class);
+                mListenerList.OnLocationFetchListener(location);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
     public interface OnActiveListsFetchListener {
         void OnListsFetchListener(ArrayList<ShoppingList> shoppingLists);
     }
 
     public interface OnListFetchListener {
         void OnListFetchListener(ShoppingList shoppingList);
+    }
+
+    public interface OnLocationFetchListener {
+        void OnLocationFetchListener(Location location);
     }
 
     public  interface OnAllListFetchListener {

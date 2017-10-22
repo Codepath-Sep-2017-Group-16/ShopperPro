@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.codepath.socialshopper.socialshopper.Manifest;
 import com.codepath.socialshopper.socialshopper.R;
 import com.codepath.socialshopper.socialshopper.Receivers.ShopperUpdates;
+import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationResult;
@@ -38,18 +39,10 @@ import permissions.dispatcher.RuntimePermissions;
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
 
-public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.OnMapLongClickListener, GoogleMap.OnMarkerDragListener {
+public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.OnMapLongClickListener, GoogleMap.OnMarkerDragListener, DatabaseUtils.OnLocationFetchListener {
 
     private SupportMapFragment mapFragment;
     private GoogleMap map;
-    private LocationRequest mLocationRequest;
-    Location mCurrentLocation;
-
-    private long UPDATE_INTERVAL = 60000;  /* 60 secs */
-    private long FASTEST_INTERVAL = 5000; /* 5 secs */
-
-    static final LatLng HAMBURG = new LatLng(53.558, 9.927);
-    static final LatLng KIEL = new LatLng(53.551, 9.993);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,12 +80,13 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
 
             //TODO Get location updates for the requestor and map it
 
-            LatLng myLocation = new LatLng(37.24055935, -121.80645531);
+//            LatLng myLocation = new LatLng(37.24055935, -121.80645531);
+//
+//            map.addMarker(new MarkerOptions().position(myLocation).title("Shopper"));
+//            map.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
+//            map.animateCamera(CameraUpdateFactory.zoomTo(12));
 
-            map.addMarker(new MarkerOptions().position(myLocation).title("Shopper"));
-            map.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
-            map.animateCamera(CameraUpdateFactory.zoomTo(12));
-
+            DatabaseUtils.getShoppersLocation(this, "");
 
         } else {
             Toast.makeText(this, "Error - Map was null!!", Toast.LENGTH_SHORT).show();
@@ -120,4 +114,13 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
 
     }
 
+    @Override
+    public void OnLocationFetchListener(com.codepath.socialshopper.socialshopper.Models.Location location) {
+        LatLng myLocation = new LatLng(location.getLatitude(), location.getLongitude());
+
+        map.addMarker(new MarkerOptions().position(myLocation).title("Shopper"));
+        map.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
+        map.animateCamera(CameraUpdateFactory.zoomTo(12));
+
+    }
 }
