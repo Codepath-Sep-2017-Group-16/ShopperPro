@@ -17,10 +17,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Your shopping list has been submitted. Check back here for the status."
+        android:text="@string/label_submitted"
         android:textSize="20sp"
         android:textColor="@color/colorPrimaryDark"
         android:gravity="center"/>
+    <ImageView
+        android:id="@+id/ivReceiptImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvCheckBackStatus"
+        tools:src="@drawable/lettuce"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:contentDescription="@string/receipt_label" />
 
     <Button
         android:id="@+id/btnRequestLocation"
@@ -30,9 +39,9 @@
         android:textColor="@color/colorWhite"
         android:onClick="requestForShoppersLocation"
         android:text="@string/request_location"
-        android:layout_below="@+id/tvCheckBackStatus"
+        android:layout_below="@+id/ivReceiptImg"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="59dp" />
+        android:layout_marginTop="20dp" />
 
     <fragment
         android:id="@+id/map"

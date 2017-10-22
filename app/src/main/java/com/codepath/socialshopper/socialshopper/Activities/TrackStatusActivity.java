@@ -1,56 +1,80 @@
 package com.codepath.socialshopper.socialshopper.Activities;
 
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.os.Looper;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
+import android.app.NotificationManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.codepath.socialshopper.socialshopper.Manifest;
 import com.codepath.socialshopper.socialshopper.R;
-import com.codepath.socialshopper.socialshopper.Receivers.ShopperUpdates;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 
-import permissions.dispatcher.NeedsPermission;
-import permissions.dispatcher.RuntimePermissions;
-
-
-import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
+import java.util.Map;
 
 
 public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.OnMapLongClickListener, GoogleMap.OnMarkerDragListener, DatabaseUtils.OnLocationFetchListener {
 
     private SupportMapFragment mapFragment;
     private GoogleMap map;
+    private static final String TAG = "SocShpTrkAct";
     private Marker currentLocationMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track_status);
+        processIntentAction(getIntent());
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        processIntentAction(intent);
+        super.onNewIntent(intent);
+    }
+
+    private void processIntentAction(Intent intent) {
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        notificationManager.cancelAll();
+        if(intent.getStringExtra("Status")  != null) {
+            String status = intent.getStringExtra("Status");
+            Log.d(TAG, status);
+            TextView tvCheckBackStatus = (TextView) findViewById(R.id.tvCheckBackStatus);
+            ImageView ivReceiptImg = (ImageView) findViewById(R.id.ivReceiptImg);
+            Button btnRequestLocation = (Button) findViewById(R.id.btnRequestLocation);
+            Map map = (Map) findViewById(R.id.map);
+            ivReceiptImg.setVisibility(View.GONE);
+            //PICKED_UP, COMPLETED and OUT_FOR_DELIVERY
+            if (status.equals("PICKED_UP")) {
+                tvCheckBackStatus.setText(R.string.label_pickedup);
+            }
+            if (status.equals("COMPLETED")) {
+                tvCheckBackStatus.setText(R.string.label_completed);
+                //getimage; draw it into ivReceiptImg
+                ivReceiptImg.setVisibility(View.VISIBLE);
+            }
+            if (status.equals("OUT_FOR_DELIVERY")) {
+                tvCheckBackStatus.setText(R.string.label_outfordel);
+                //The map and the button can be hidden until this.
+            }
+        }
     }
 
     public void requestForShoppersLocation(View view) {
