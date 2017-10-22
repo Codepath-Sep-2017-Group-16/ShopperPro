@@ -133,14 +133,17 @@ exports.sendListStatusUpdateNotification = functions.database.ref('/lists/{listI
   }
   console.log('List Data :', listData.toString());
 
+  var shopperName = "shopper_name" in listData ? listData["shopper_name"] : "";
+  var storeName = listData["store"];
+
   var status = listData["status"];
   var notificationMessage = "";
   if (status == 'PICKED_UP') {
-    notificationMessage = "Your order has been picked up by one of your friends";
+    notificationMessage = shopperName + " has picked up your items from " + storeName;
   } else if (status == "COMPLETED") {
-    notificationMessage = "Your order has been completed by one of your friends";
+    notificationMessage = shopperName + " has paid for your items from " + storeName;
   } else if (status == "OUT_FOR_DELIVERY") {
-    notificationMessage = "Your order is out for delivery by one of your friends";
+    notificationMessage = shopperName + " is on the way with your items from " + storeName;
   } else {
     console.log ("No action needed. Status: " + status);
     return -1;
@@ -149,6 +152,7 @@ exports.sendListStatusUpdateNotification = functions.database.ref('/lists/{listI
   // Get the notification token for the user
   var userId = listData["userId"];
   const getDeviceTokensPromise = admin.database().ref(`/users/${userId}/gcmid`).once('value');
+
 
   
   return Promise.all([getDeviceTokensPromise]).then(results => {
