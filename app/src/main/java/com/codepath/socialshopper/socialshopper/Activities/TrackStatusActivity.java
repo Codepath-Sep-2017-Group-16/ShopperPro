@@ -78,6 +78,8 @@ public class TrackStatusActivity extends AppCompatActivity
             }
             if (status.equals("OUT_FOR_DELIVERY")) {
                 tvCheckBackStatus.setText(R.string.label_outfordel);
+                ivReceiptImg.setVisibility(View.VISIBLE);
+                dbUtils.getImageForList(this,listId);
                 //The map and the button can be hidden until this.
             }
         }
@@ -106,11 +108,6 @@ public class TrackStatusActivity extends AppCompatActivity
     protected void loadMap(GoogleMap googleMap) {
         map = googleMap;
         if (map != null) {
-            // Map is ready
-        //    Toast.makeText(this, "Map Fragment was loaded properly!", Toast.LENGTH_SHORT).show();
-
-//            String list = "0747f2ff-a631-42fa-a07c-b875d793e0a7";
-
             DatabaseUtils.getShoppersLocation(this, getIntent().getStringExtra("listId"));
             //DatabaseUtils.getShoppersLocation(this, list);
         } else {
