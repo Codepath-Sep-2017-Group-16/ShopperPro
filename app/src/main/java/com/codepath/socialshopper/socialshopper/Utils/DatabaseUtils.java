@@ -1,18 +1,26 @@
 package com.codepath.socialshopper.socialshopper.Utils;
 
 import android.app.Activity;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.codepath.socialshopper.socialshopper.Models.Location;
 import com.codepath.socialshopper.socialshopper.Models.ShoppingList;
 import com.facebook.Profile;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -38,6 +46,8 @@ public class DatabaseUtils {
     private static final String OPEN = "open";
     private static final String FIRST_NAME = "first_name";
     private static final String FRIENDS = "friends";
+    private static final String IMAGE_BUCKET_ROOT = "socialshopper/images/";
+    private static final String IMAGE_URL = "receiptImageURL";
 
     public DatabaseUtils() {
 
@@ -164,6 +174,40 @@ public class DatabaseUtils {
             }
         });
     }
+
+    public static void saveImage(final String listId, String localPath) {
+
+        Log.d(TAG, "Image Path: " + localPath);
+        if (localPath == null || localPath.isEmpty())
+            return;
+
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        File file = new File(localPath);
+        Uri fileUri = Uri.fromFile(file);
+        StorageReference riversRef = storageRef.child(IMAGE_BUCKET_ROOT + file.getName());
+
+        riversRef.putFile(fileUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        Log.d(TAG, "Download URL: " + downloadUrl.toString());
+                        setListImage(listId, downloadUrl.toString());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Log.e(TAG, "Error uploading file");
+                        Log.e(TAG, exception.getMessage());
+                    }
+                });
+    }
+
+    public static void setListImage(String listId, String imageUrl) {
+        mDatabase.child(LISTS).child(listId).child(IMAGE_URL).setValue(imageUrl);
+    }
+
     public interface OnActiveListsFetchListener {
         void OnListsFetchListener(ArrayList<ShoppingList> shoppingLists);
     }

@@ -72,6 +72,7 @@ public class PickUpListActivity extends AppCompatActivity implements DatabaseUti
 
         notificationManager.cancelAll();
 
+
         String listIds = intent.getStringExtra("list_id");
         Log.d(TAG, listIds);
         List<String> lists = Arrays.asList(listIds.split("\\s*,\\s*"));
@@ -142,6 +143,7 @@ public class PickUpListActivity extends AppCompatActivity implements DatabaseUti
                     Bitmap bitmap = BitmapFactory.decodeFile(savedPhotoPath, null);
                     ivPreview.setImageBitmap(bitmap);
                     Log.d(TAG, "Bitmap: " + bitmap);
+                    DatabaseUtils.saveImage(listId, savedPhotoPath);
 
             } else {
                 Log.d(TAG, "Failed to take picture.");
