@@ -42,8 +42,12 @@ public class SplashScreenActivity extends AwesomeSplash {
 
     @Override
     public void animationsFinished() {
-        if (FacebookUtils.isLoggedIn()) {
-            Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent;
+        if (!FacebookUtils.isLoggedIn()) {
+            intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }else{
+            intent = new Intent(this, ChooseStoreActivity.class);
             startActivity(intent);
         }
     }

@@ -29,8 +29,6 @@ import java.util.ArrayList;
 
 public class DatabaseUtils {
 
-
-    private static final String SHOPPER_NAME = "shopper_name";
     private static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     private static final String USERS = "users";
@@ -50,6 +48,8 @@ public class DatabaseUtils {
     private static final String IMAGE_BUCKET_ROOT = "socialshopper/images/";
     private static final String IMAGE_URL = "receiptImageURL";
     private static final String STATUS = "status";
+    private static final String SHOPPER_NAME = "shopper_name";
+    private static final String PROFILE_PIC = "profile_pic";
 
     public DatabaseUtils() {
 
@@ -170,6 +170,10 @@ public class DatabaseUtils {
     public static void saveGCMRegistrationIDAndUserInfo(String userId, String profileName) {
         mDatabase.child(USERS).child(userId).child(GCMID).setValue(FirebaseInstanceId.getInstance().getToken());
         mDatabase.child(USERS).child(userId).child(FIRST_NAME).setValue(profileName);
+    }
+
+    public static void savePhotoPath(String userId, String photoPath ){
+        mDatabase.child(USERS).child(userId).child(PROFILE_PIC).setValue(photoPath);
     }
 
     public static void setUserFriends(String friends) {

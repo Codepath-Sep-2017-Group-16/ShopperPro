@@ -4,6 +4,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
@@ -16,6 +18,9 @@ import com.codepath.socialshopper.socialshopper.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Map;
 
 
@@ -30,6 +35,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String VIEW_ACTION = "VIEW_ACTION";
     private static int NOTIFICATION_ID = (int) System.currentTimeMillis();
     public final String TAG = "SocShpMsg";
+    Bitmap bitmap;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -37,6 +43,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Map<String,String> data = remoteMessage.getData();
         Log.i(TAG+"Push received", data.toString());
         String recipient = data.get("recipient");
+        String userId = data.get("userId");
+        if(userId==null){
+            bitmap = getBitmapfromUrl("https://graph.facebook.com/" + userId+ "/picture?type=large");
+        }
         if(recipient==null) { // Implies the first push notification for the shopper
             String messageContent = data.get("payload");
             String listId = data.get("listid");
@@ -98,7 +108,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle("New Pick Up !")
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
+                .setLargeIcon(bitmap)
+                        //.bigPicture(bitmap))/*Notification with Image*/
                 .setContentText(message)
                 .setWhen(System.currentTimeMillis())
                 .setAutoCancel(true)
@@ -125,6 +136,24 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private Intent getNotificationIntent() {
         Intent intent = new Intent(this, PickUpListActivity.class);
         return intent;
+    }
+
+    public Bitmap getBitmapfromUrl(String imageUrl) {
+        try {
+            URL url = new URL(imageUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap bitmap = BitmapFactory.decodeStream(input);
+            return bitmap;
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+
+        }
     }
 
 }
