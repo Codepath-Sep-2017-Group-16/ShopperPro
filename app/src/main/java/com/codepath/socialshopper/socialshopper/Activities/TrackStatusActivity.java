@@ -109,7 +109,6 @@ public class TrackStatusActivity extends AppCompatActivity
         map = googleMap;
         if (map != null) {
             DatabaseUtils.getShoppersLocation(this, getIntent().getStringExtra("listId"));
-            //DatabaseUtils.getShoppersLocation(this, list);
         } else {
             Toast.makeText(this, "Error - Map was null!!", Toast.LENGTH_SHORT).show();
         }
