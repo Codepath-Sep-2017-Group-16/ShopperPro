@@ -80,9 +80,9 @@ public class StoresFragment extends Fragment implements StoresArrayAdapter.OnSto
 
     private void populateStores() {
         Log.d(TAG, "Populating Stores");
-        Store storeCostco = new Store("Costco", R.drawable.storelogo_costco);
+        Store storeCostco = new Store("Costco Wholesale", R.drawable.storelogo_costco);
         Store storeWalmart = new Store("Walmart", R.drawable.storelogo_walmart);
-        Store storeWf = new Store("Whole Foods", R.drawable.storelogo_wholefoods);
+        Store storeWf = new Store("Whole Foods Market", R.drawable.storelogo_wholefoods);
         Store storeTarget = new Store("Target", R.drawable.storelogo_target);
         Store storeSafeway = new Store("Safeway", R.drawable.storelogo_safeway);
         Store storeLucky = new Store("Lucky", R.drawable.storelogo_lucky);

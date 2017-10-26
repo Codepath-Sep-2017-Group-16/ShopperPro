@@ -69,7 +69,6 @@ public class StoresArrayAdapter extends RecyclerView.Adapter<StoresArrayAdapter.
             ivStoreImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d(TAG, store.getName());
                     mListener.onStoreSelection(store.getName());
                 }
             });

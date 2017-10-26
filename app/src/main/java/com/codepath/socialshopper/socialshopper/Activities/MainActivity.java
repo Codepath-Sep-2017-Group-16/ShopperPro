@@ -46,6 +46,7 @@ import io.fabric.sdk.android.Fabric;
 public class MainActivity extends AppCompatActivity implements
         DatabaseUtils.OnActiveListsFetchListener, DatabaseUtils.OnListFetchListener, AddItemDetailsDialogFragment.AddItemDetailsDialogListener,
         LocationUtils.OnLocationFetchListener, StoresFragment.OnStoreFragmentInteractionListener {
+
     public final String TAG = "SocShpMainAct";
     private DatabaseUtils databaseUtils;
     private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1;
@@ -271,7 +272,6 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onStoreSelection(String storeName) {
-        Toast.makeText(this, storeName, Toast.LENGTH_SHORT).show();
         shoppingList.setStore(storeName);
     }
 
