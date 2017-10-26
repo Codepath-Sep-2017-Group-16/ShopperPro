@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.codepath.socialshopper.socialshopper.Fragments.AddItemDetailsDialogFragment;
+import com.codepath.socialshopper.socialshopper.Fragments.StoresFragment;
 import com.codepath.socialshopper.socialshopper.Models.ShoppableItem;
 import com.codepath.socialshopper.socialshopper.Models.Store;
 import com.codepath.socialshopper.socialshopper.R;
@@ -25,17 +27,23 @@ import java.util.ArrayList;
 public class StoresArrayAdapter extends RecyclerView.Adapter<StoresArrayAdapter.StoreViewHolder> {
     Context mContext;
     ArrayList<Store> stores;
-    public final String TAG = "StoresArrayAdapter";
+    private final String TAG = "StoresArrayAdapter";
+    private OnStoreSelectionListener mListener;
 
-    public StoresArrayAdapter(ArrayList<Store> stores) {
+    public interface OnStoreSelectionListener {
+        void onStoreSelection(String storeName);
+    }
+
+    public StoresArrayAdapter(ArrayList<Store> stores, OnStoreSelectionListener listener) {
         this.stores = stores;
+        mListener = listener;
     }
 
     @Override
     public StoreViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         mContext = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        View view = inflater.inflate(R.layout.list_store,parent,false);
+        View view = inflater.inflate(R.layout.list_store, parent, false);
         StoreViewHolder viewHolder = new StoreViewHolder(view);
         return viewHolder;
     }
@@ -62,6 +70,7 @@ public class StoresArrayAdapter extends RecyclerView.Adapter<StoresArrayAdapter.
                 @Override
                 public void onClick(View v) {
                     Log.d(TAG, store.getName());
+                    mListener.onStoreSelection(store.getName());
                 }
             });
         }

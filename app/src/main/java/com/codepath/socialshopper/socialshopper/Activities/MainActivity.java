@@ -27,11 +27,11 @@ import com.codepath.socialshopper.socialshopper.Fragments.VegetableFragment;
 import com.codepath.socialshopper.socialshopper.Models.ShoppableItem;
 import com.codepath.socialshopper.socialshopper.Models.ShoppingList;
 import com.codepath.socialshopper.socialshopper.R;
+import com.codepath.socialshopper.socialshopper.Utils.CommonUtils;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.codepath.socialshopper.socialshopper.Utils.FacebookUtils;
 import com.codepath.socialshopper.socialshopper.Utils.LocationUtils;
 import com.crashlytics.android.Crashlytics;
-
 import com.facebook.Profile;
 
 import org.parceler.Parcels;
@@ -42,19 +42,22 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.fabric.sdk.android.Fabric;
 
-import static com.codepath.socialshopper.socialshopper.Activities.ChooseStoreActivity.shoppingList;
 
 public class MainActivity extends AppCompatActivity implements
         DatabaseUtils.OnActiveListsFetchListener, DatabaseUtils.OnListFetchListener, AddItemDetailsDialogFragment.AddItemDetailsDialogListener,
-        LocationUtils.OnLocationFetchListener, StoresFragment.OnStoreFragmentInteractionListener{
+        LocationUtils.OnLocationFetchListener, StoresFragment.OnStoreFragmentInteractionListener {
     public final String TAG = "SocShpMainAct";
     private DatabaseUtils databaseUtils;
     private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1;
     private LocationUtils locationUtils;
-    @BindView(R.id.nvView) NavigationView nvDrawer;
-    @BindView(R.id.drawer_layout) DrawerLayout mDrawer;
-    @BindView((R.id.toolbar)) Toolbar toolbar;
+    @BindView(R.id.nvView)
+    NavigationView nvDrawer;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout mDrawer;
+    @BindView((R.id.toolbar))
+    Toolbar toolbar;
     ActionBarDrawerToggle drawerToggle;
+    static ShoppingList shoppingList = new ShoppingList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements
 
         drawerToggle = setupDrawerToggle();
         mDrawer.addDrawerListener(drawerToggle);
+        initializeShoppingList();
 
     }
 
@@ -144,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements
             Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
             startActivity(intent);
         }
-        if(id == android.R.id.home) {
+        if (id == android.R.id.home) {
             Toast.makeText(this, "home clicked", Toast.LENGTH_LONG).show();
             Log.i(TAG, "home clicked");
             mDrawer.openDrawer(GravityCompat.START);
@@ -169,13 +173,13 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
-        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
+        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
 
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
-        switch(menuItem.getItemId()) {
+        switch (menuItem.getItemId()) {
             case R.id.nav_choose_store:
                 Toast.makeText(this, "Choose store clicked", Toast.LENGTH_LONG).show();
                 Log.i(TAG, "Choose store clicked");
@@ -212,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void getListByListId(String listId) {
-        databaseUtils.getShoppingListByListId(this,listId);
+        databaseUtils.getShoppingListByListId(this, listId);
     }
 
     @Override
@@ -225,7 +229,7 @@ public class MainActivity extends AppCompatActivity implements
         // Update UI here
     }
 
-   @Override
+    @Override
     public void onFinishAddItemDetailsDialog(Bundle bundle) {
         if (bundle != null) {
             ShoppableItem item = (ShoppableItem) Parcels.unwrap(bundle.getParcelable("AddedItem"));
@@ -259,14 +263,19 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void OnLocationFetchListener(ArrayList<String> locations) {
-        for(String location: locations) {
+        for (String location : locations) {
             Toast.makeText(this, location, Toast.LENGTH_SHORT).show();
             databaseUtils.setUserLocation(FacebookUtils.getFacebookId(), Profile.getCurrentProfile().getFirstName(), location);
         }
     }
 
     @Override
-    public void onStoreFragmentInteraction(String storeName) {
-        Toast.makeText(this, storeName, Toast.LENGTH_SHORT ).show();
+    public void onStoreSelection(String storeName) {
+        Toast.makeText(this, storeName, Toast.LENGTH_SHORT).show();
+        shoppingList.setStore(storeName);
+    }
+
+    private void initializeShoppingList() {
+        shoppingList.setListId(CommonUtils.getUuid());
     }
 }

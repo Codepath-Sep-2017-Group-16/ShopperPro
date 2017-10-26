@@ -17,7 +17,7 @@ import com.codepath.socialshopper.socialshopper.R;
 
 import java.util.ArrayList;
 
-public class StoresFragment extends Fragment {
+public class StoresFragment extends Fragment implements StoresArrayAdapter.OnStoreSelectionListener {
     ArrayList<Store> stores;
     StoresArrayAdapter adapter;
     RecyclerView rvStores;
@@ -41,8 +41,8 @@ public class StoresFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
         }
-        stores = new ArrayList<>();
-        adapter = new StoresArrayAdapter(stores);
+        //stores = new ArrayList<>();
+        //adapter = new StoresArrayAdapter(stores);
     }
 
     @Override
@@ -52,19 +52,13 @@ public class StoresFragment extends Fragment {
         rvStores = (RecyclerView) view.findViewById(R.id.rvStores);
         stores = new ArrayList<>();
 
-        adapter = new StoresArrayAdapter(stores);
+        adapter = new StoresArrayAdapter(stores, this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvStores.setLayoutManager(linearLayoutManager);
         rvStores.setAdapter(adapter);
         populateStores();
         return view;
-    }
-
-    public void onButtonPressed() {
-        if (mListener != null) {
-            mListener.onStoreFragmentInteraction("store name");
-        }
     }
 
     @Override
@@ -102,8 +96,13 @@ public class StoresFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onStoreSelection(String storeName) {
+        mListener.onStoreSelection(storeName);
+    }
+
 
     public interface OnStoreFragmentInteractionListener {
-        void onStoreFragmentInteraction(String storeName);
+        void onStoreSelection(String storeName);
     }
 }

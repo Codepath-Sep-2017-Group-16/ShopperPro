@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.codepath.socialshopper.socialshopper.Activities.ChooseStoreActivity.shoppingList;
+import static com.codepath.socialshopper.socialshopper.Activities.MainActivity.shoppingList;
 
 public class ShoppingListActivity extends AppCompatActivity {
     ShoppingListArrayAdapter adapter;
