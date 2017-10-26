@@ -8,5 +8,6 @@
         android:enabled="true"
         android:icon="@mipmap/ic_launcher"
         android:title="@string/search_label"
+        android:visible="false"
         app:showAsAction="ifRoom|collapseActionView" />
 </menu>

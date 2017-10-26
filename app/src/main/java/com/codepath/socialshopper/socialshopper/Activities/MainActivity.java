@@ -16,6 +16,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.socialshopper.socialshopper.Fragments.AddItemDetailsDialogFragment;
@@ -58,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements
     @BindView((R.id.toolbar))
     Toolbar toolbar;
     ActionBarDrawerToggle drawerToggle;
+    TextView tvCartCount;
+
     static ShoppingList shoppingList = new ShoppingList();
 
     @Override
@@ -78,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements
         drawerToggle = setupDrawerToggle();
         mDrawer.addDrawerListener(drawerToggle);
         initializeShoppingList();
-
+        initializeCart();
     }
 
     @Override
@@ -144,8 +148,6 @@ public class MainActivity extends AppCompatActivity implements
         int id = item.getItemId();
 
         if (id == R.id.action_view_shoppinglist) {
-            Toast.makeText(this, "action_view_shoppinglist", Toast.LENGTH_LONG).show();
-            Log.i(TAG, "action_view_shoppinglist");
             Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
             startActivity(intent);
         }
@@ -234,12 +236,8 @@ public class MainActivity extends AppCompatActivity implements
     public void onFinishAddItemDetailsDialog(Bundle bundle) {
         if (bundle != null) {
             ShoppableItem item = (ShoppableItem) Parcels.unwrap(bundle.getParcelable("AddedItem"));
-            Log.i(TAG, "from bundle");
             shoppingList.addItems(item);
-            Log.i(TAG, " added to shopping list");
-            Log.i(TAG, item.getmItemBrand());
-            Log.i(TAG, item.getmItemName());
-            Log.i(TAG, item.getmItemQty());
+            updateCart();
         }
     }
 
@@ -278,4 +276,22 @@ public class MainActivity extends AppCompatActivity implements
     private void initializeShoppingList() {
         shoppingList.setListId(CommonUtils.getUuid());
     }
+
+    private void initializeCart() {
+        tvCartCount = (TextView) findViewById(R.id.tvCartCount);
+        tvCartCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void updateCart() {
+        if (shoppingList.getItems() != null && shoppingList.getItems().size() > 0) {
+            tvCartCount.setText(Integer.toString(shoppingList.getItems().size()));
+        }
+    }
 }
+
