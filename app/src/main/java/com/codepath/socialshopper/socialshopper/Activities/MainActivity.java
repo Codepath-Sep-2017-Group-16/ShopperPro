@@ -3,6 +3,7 @@ package com.codepath.socialshopper.socialshopper.Activities;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
@@ -21,6 +22,7 @@ import com.codepath.socialshopper.socialshopper.Fragments.AddItemDetailsDialogFr
 import com.codepath.socialshopper.socialshopper.Fragments.DairyFragment;
 import com.codepath.socialshopper.socialshopper.Fragments.FruitsFragment;
 import com.codepath.socialshopper.socialshopper.Fragments.MeatFragment;
+import com.codepath.socialshopper.socialshopper.Fragments.StoresFragment;
 import com.codepath.socialshopper.socialshopper.Fragments.VegetableFragment;
 import com.codepath.socialshopper.socialshopper.Models.ShoppableItem;
 import com.codepath.socialshopper.socialshopper.Models.ShoppingList;
@@ -44,7 +46,7 @@ import static com.codepath.socialshopper.socialshopper.Activities.ChooseStoreAct
 
 public class MainActivity extends AppCompatActivity implements
         DatabaseUtils.OnActiveListsFetchListener, DatabaseUtils.OnListFetchListener, AddItemDetailsDialogFragment.AddItemDetailsDialogListener,
-        LocationUtils.OnLocationFetchListener{
+        LocationUtils.OnLocationFetchListener, StoresFragment.OnStoreFragmentInteractionListener{
     public final String TAG = "SocShpMainAct";
     private DatabaseUtils databaseUtils;
     private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1;
@@ -117,6 +119,10 @@ public class MainActivity extends AppCompatActivity implements
         FragmentTransaction ftMeat = getSupportFragmentManager().beginTransaction();
         ftMeat.replace(R.id.meatFragment, new MeatFragment());
         ftMeat.commit();
+
+        FragmentTransaction ftStore = getSupportFragmentManager().beginTransaction();
+        ftStore.replace(R.id.storeFragment, new StoresFragment());
+        ftStore.commit();
     }
 
     @Override
@@ -257,5 +263,10 @@ public class MainActivity extends AppCompatActivity implements
             Toast.makeText(this, location, Toast.LENGTH_SHORT).show();
             databaseUtils.setUserLocation(FacebookUtils.getFacebookId(), Profile.getCurrentProfile().getFirstName(), location);
         }
+    }
+
+    @Override
+    public void onStoreFragmentInteraction(String storeName) {
+        Toast.makeText(this, storeName, Toast.LENGTH_SHORT ).show();
     }
 }

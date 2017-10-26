@@ -9,7 +9,7 @@
         android:id="@+id/btnShoppableItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/circular_button"
+        android:background="@color/colorWhite"
         android:drawableTop="@drawable/banana_file"
         android:paddingTop="20dp"
         android:text="Banana"

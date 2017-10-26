@@ -9,46 +9,47 @@
         android:id="@+id/svItems"
         android:layout_width="match_parent"
         android:layout_height="250dp">
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:id="@+id/rvShoppingListItems" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvShoppingListItems"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp" />
     </ScrollView>
 
     <ImageView
         android:id="@+id/ivReceipt"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginTop="12dp"
         android:layout_below="@+id/svItems"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp" />
 
     <Button
         android:id="@+id/btnCompletePurchase"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/circular_button"
-        android:text="Complete Purchase"
-        android:textColor="@color/colorWhite"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/ivReceipt"
         android:layout_marginEnd="17dp"
         android:layout_marginTop="25dp"
-        android:layout_below="@+id/ivReceipt"
+        android:background="@drawable/circular_button"
         android:onClick="notifyRequestor"
-        android:layout_alignParentEnd="true" />
+        android:text="Complete Purchase"
+        android:textColor="@color/colorWhite" />
 
     <ImageButton
         android:id="@+id/ibCaptureReceipt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/btnCompletePurchase"
         android:layout_marginStart="15dp"
         android:background="@color/colorWhite"
         android:onClick="takePhoto"
-        app:srcCompat="@mipmap/ic_camera"
-        android:layout_alignTop="@+id/btnCompletePurchase"
-        android:layout_alignParentStart="true" />
+        app:srcCompat="@mipmap/ic_camera" />
 
 
 </RelativeLayout>
