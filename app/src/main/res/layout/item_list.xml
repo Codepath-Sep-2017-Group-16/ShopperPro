@@ -7,9 +7,11 @@
 
     <ImageView
         android:id="@+id/ivItemImage"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
         app:srcCompat="@drawable/apple"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
@@ -20,20 +22,23 @@
         android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="15dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/ivItemImage"
         android:textColor="@color/colorPrimaryDark"
-        android:text="TextView" />
+        android:text="Name" />
 
     <TextView
         android:id="@+id/tvItemBrand"
         android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/tvItemName"
+        android:layout_marginLeft="15dp"
+        android:layout_below="@+id/tvItemName"
+        android:layout_toRightOf="@+id/ivItemImage"
+        android:text="brand"
          />
 
     <TextView
@@ -41,9 +46,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/tvItemBrand"
-         />
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@+id/ivItemImage"
+        android:layout_below="@+id/tvItemBrand"
+        android:textColor="@color/colorGreen"
+        android:layout_marginBottom="5dp"
+        android:text="quantity"
+        />
 
 </RelativeLayout>

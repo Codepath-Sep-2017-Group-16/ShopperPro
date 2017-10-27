@@ -4,18 +4,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/tvTotalItems"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="Total Items: "
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="18dp" />
+
+    <TextView
+        android:id="@+id/tvItemsCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="18dp"
+        android:layout_alignParentTop="true"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/tvTotalItems"
+        android:layout_above="@+id/svItems"/>
 
     <ScrollView
         android:id="@+id/svItems"
         android:layout_width="match_parent"
-        android:layout_height="250dp">
+        android:layout_marginTop="40dp"
+        android:layout_height="225dp">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvShoppingListItems"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
+            android:layout_height="200dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp" />
     </ScrollView>
 
@@ -24,32 +44,33 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_below="@+id/svItems"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp" />
+        android:layout_alignStart="@+id/tvTotalItems"
+        android:layout_marginStart="21dp" />
 
     <Button
         android:id="@+id/btnCompletePurchase"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/ivReceipt"
-        android:layout_marginEnd="17dp"
-        android:layout_marginTop="25dp"
         android:background="@drawable/circular_button"
         android:onClick="notifyRequestor"
         android:text="Complete Purchase"
-        android:textColor="@color/colorWhite" />
+        android:textColor="@color/colorWhite"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/tvTotalItems"
+        android:layout_marginBottom="19dp"
+        android:layout_alignParentEnd="true" />
 
     <ImageButton
         android:id="@+id/ibCaptureReceipt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/btnCompletePurchase"
-        android:layout_marginStart="15dp"
         android:background="@color/colorWhite"
         android:onClick="takePhoto"
-        app:srcCompat="@mipmap/ic_camera" />
+        app:srcCompat="@mipmap/ic_camera"
+        android:layout_marginBottom="22dp"
+        android:layout_alignBottom="@+id/ivReceipt"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="28dp" />
 
 
 </RelativeLayout>
