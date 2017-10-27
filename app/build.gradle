@@ -69,6 +69,8 @@ dependencies {
     annotationProcessor 'org.parceler:parceler:1.1.6'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.4.0'
+    compile 'com.ebanx:swipe-button:0.4.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

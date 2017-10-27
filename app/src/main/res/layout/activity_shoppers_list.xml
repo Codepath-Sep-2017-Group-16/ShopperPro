@@ -4,14 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/shopper_toolbar_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <TextView
         android:id="@+id/tvTotalItems"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:text="Total Items: "
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
+        android:layout_below="@+id/toolbar"
         android:layout_marginTop="18dp" />
 
     <TextView
@@ -20,59 +25,75 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="18dp"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/toolbar"
         android:layout_toRightOf="@+id/tvTotalItems"
         android:text="4 items"
         android:textStyle="bold"
         />
 
-    <ScrollView
-        android:id="@+id/svItems"
-        android:layout_width="match_parent"
-        android:layout_marginTop="40dp"
-        android:layout_height="225dp">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvShoppingListItems"
+            android:layout_below="@id/tvItemsCount"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="425dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp" />
-    </ScrollView>
 
-    <ImageView
-        android:id="@+id/ivReceipt"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="16dp"
-        android:layout_below="@+id/svItems"
-        android:layout_alignStart="@+id/btnCompletePurchase"
-        android:layout_marginTop="24dp" />
 
-    <Button
-        android:id="@+id/btnCompletePurchase"
-        android:layout_width="250dp"
+    <!--<ImageView-->
+        <!--android:id="@+id/ivReceipt"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:layout_marginStart="16dp"-->
+        <!--android:layout_below="@+id/svItems"-->
+        <!--android:layout_alignStart="@+id/btnCompletePurchase"-->
+        <!--android:layout_marginTop="24dp" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/btnCompletePurchase"-->
+        <!--android:layout_width="250dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@drawable/circular_button"-->
+        <!--android:onClick="notifyRequestor"-->
+        <!--android:text="Complete Purchase"-->
+        <!--android:textColor="@color/colorWhite"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignStart="@+id/tvTotalItems"-->
+        <!--android:layout_marginBottom="19dp"-->
+        <!--android:layout_alignParentEnd="true" />-->
+
+    <!--<ImageButton-->
+        <!--android:id="@+id/ibCaptureReceipt"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/colorWhite"-->
+        <!--android:onClick="takePhoto"-->
+        <!--app:srcCompat="@mipmap/ic_camera"-->
+        <!--android:layout_marginBottom="22dp"-->
+        <!--android:layout_alignBottom="@+id/ivReceipt"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_marginEnd="28dp" />-->
+
+    <com.ebanx.swipebtn.SwipeButton
+        android:id="@+id/swipe_btn"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/circular_button"
-        android:onClick="notifyRequestor"
-        android:text="Complete Purchase"
-        android:textColor="@color/colorWhite"
+        app:inner_text="Swipe to take receipt"
+        app:inner_text_color="@android:color/white"
+        app:inner_text_size="16sp"
+        app:inner_text_top_padding="18dp"
+        app:inner_text_bottom_padding="18dp"
+        app:inner_text_background="@drawable/shape_rounded"
+        app:button_image_disabled="@drawable/ic_camera_alt_black_24dp"
+        app:button_image_enabled="@drawable/ic_linked_camera_black_24dp"
+        app:button_left_padding="20dp"
+        app:button_right_padding="20dp"
+        app:button_top_padding="20dp"
+        app:button_bottom_padding="20dp"
+        app:button_background="@drawable/shape_button"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/tvTotalItems"
-        android:layout_marginBottom="19dp"
-        android:layout_alignParentEnd="true" />
-
-    <ImageButton
-        android:id="@+id/ibCaptureReceipt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        android:onClick="takePhoto"
-        app:srcCompat="@mipmap/ic_camera"
-        android:layout_marginBottom="22dp"
-        android:layout_alignBottom="@+id/ivReceipt"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="28dp" />
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

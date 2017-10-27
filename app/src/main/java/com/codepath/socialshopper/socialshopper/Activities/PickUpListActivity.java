@@ -15,9 +15,11 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.codepath.socialshopper.socialshopper.Adapters.ShoppersListArrayAdapter;
 import com.codepath.socialshopper.socialshopper.Models.ShoppableItem;
@@ -25,6 +27,8 @@ import com.codepath.socialshopper.socialshopper.Models.ShoppingList;
 import com.codepath.socialshopper.socialshopper.R;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.codepath.socialshopper.socialshopper.Utils.Status;
+import com.ebanx.swipebtn.OnStateChangeListener;
+import com.ebanx.swipebtn.SwipeButton;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,7 +47,7 @@ public class PickUpListActivity extends AppCompatActivity implements DatabaseUti
     private static final String TAG = "SocShpPkUpAct";
     private static String listId;
     private TextView tvItemsCount;
-
+    private SwipeButton swipeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +64,23 @@ public class PickUpListActivity extends AppCompatActivity implements DatabaseUti
 
         tvItemsCount = (TextView) findViewById(R.id.tvItemsCount);
 
+        swipeButton = (SwipeButton) findViewById(R.id.swipe_btn);
+        swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
+            @Override
+            public void onStateChange(boolean active) {
+                Toast.makeText(getApplicationContext(), "State: " + active, Toast.LENGTH_SHORT).show();
+                takePhoto();
+            }
+        });
+
         dbUtils = new DatabaseUtils();
         processIntentAction(getIntent());
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -111,7 +128,7 @@ public class PickUpListActivity extends AppCompatActivity implements DatabaseUti
         });
     }
 
-    public void takePhoto(View view) {
+    public void takePhoto() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         // Tell the Intent where to save our image.
@@ -146,12 +163,17 @@ public class PickUpListActivity extends AppCompatActivity implements DatabaseUti
             Log.d(TAG, "Got result from picture app.");
             if (RESULT_OK == resultCode) {
                 Log.d(TAG, "Picture taking was successful.");
-                    ImageView ivPreview = (ImageView) findViewById(R.id.ivReceipt);
+                    //ImageView ivPreview = (ImageView) findViewById(R.id.ivReceipt);
                     Log.d(TAG, "Photo path: " + savedPhotoPath);
                     Bitmap bitmap = BitmapFactory.decodeFile(savedPhotoPath, null);
-                    ivPreview.setImageBitmap(bitmap);
+                    //ivPreview.setImageBitmap(bitmap);
                     Log.d(TAG, "Bitmap: " + bitmap);
                     DatabaseUtils.saveImage(listId, savedPhotoPath);
+
+                    DatabaseUtils.updateListStatus(listId, Status.COMPLETED);
+                    Intent intent = new Intent(this, ShareLocationActivity.class);
+                    intent.putExtra("list_id", listId);
+                    startActivity(intent);
 
             } else {
                 Log.d(TAG, "Failed to take picture.");
