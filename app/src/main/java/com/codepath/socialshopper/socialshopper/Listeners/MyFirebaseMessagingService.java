@@ -13,6 +13,7 @@ import android.util.Log;
 
 import com.codepath.socialshopper.socialshopper.Activities.NotificationActivity;
 import com.codepath.socialshopper.socialshopper.Activities.PickUpListActivity;
+import com.codepath.socialshopper.socialshopper.Activities.ShareLocationActivity;
 import com.codepath.socialshopper.socialshopper.Activities.TrackStatusActivity;
 import com.codepath.socialshopper.socialshopper.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -134,6 +135,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private Intent getNotificationIntent() {
         Intent intent = new Intent(this, PickUpListActivity.class);
+        //Intent intent = new Intent(this, ShareLocationActivity.class);
+
         return intent;
     }
 

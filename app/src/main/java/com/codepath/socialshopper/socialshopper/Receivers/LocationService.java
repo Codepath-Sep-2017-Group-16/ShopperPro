@@ -33,6 +33,7 @@ public class LocationService extends Service {
     Intent intent;
     int counter = 0;
 
+
     @Override
     public void onCreate()
     {
@@ -149,11 +150,11 @@ public class LocationService extends Service {
                 intent.putExtra("provider", loc.getProvider());
                 sendBroadcast(intent);
 
-                Intent RTReturn = new Intent(ShareLocationActivity.RECEIVE_JSON);
-                RTReturn.putExtra("latitude", loc.getLatitude());
-                RTReturn.putExtra("longitude", loc.getLongitude());
-                RTReturn.putExtra("provider", loc.getProvider());
-                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(RTReturn);
+                Intent rtReturn = new Intent(ShareLocationActivity.RECEIVE_JSON);
+                rtReturn.putExtra("latitude", loc.getLatitude());
+                rtReturn.putExtra("longitude", loc.getLongitude());
+                rtReturn.putExtra("provider", loc.getProvider());
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(rtReturn);
 
             }
         }
