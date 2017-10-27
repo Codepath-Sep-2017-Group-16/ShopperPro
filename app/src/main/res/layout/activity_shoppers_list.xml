@@ -18,9 +18,11 @@
         android:id="@+id/tvItemsCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="18dp"
         android:layout_alignParentTop="true"
+
+        android:text="4"
         android:textStyle="bold"
         android:layout_toRightOf="@+id/tvTotalItems"
         android:layout_above="@+id/svItems"/>
@@ -34,7 +36,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvShoppingListItems"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp" />
     </ScrollView>
@@ -43,9 +45,10 @@
         android:id="@+id/ivReceipt"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:layout_marginStart="16dp"
         android:layout_below="@+id/svItems"
-        android:layout_alignStart="@+id/tvTotalItems"
-        android:layout_marginStart="21dp" />
+        android:layout_alignStart="@+id/btnCompletePurchase"
+        android:layout_marginTop="24dp" />
 
     <Button
         android:id="@+id/btnCompletePurchase"

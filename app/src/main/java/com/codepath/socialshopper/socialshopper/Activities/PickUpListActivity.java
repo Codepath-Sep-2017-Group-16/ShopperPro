@@ -17,6 +17,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.codepath.socialshopper.socialshopper.Adapters.ShoppersListArrayAdapter;
 import com.codepath.socialshopper.socialshopper.Models.ShoppableItem;
@@ -41,6 +42,8 @@ public class PickUpListActivity extends AppCompatActivity implements DatabaseUti
     private static final int REQUEST_CODE_TAKE_PICTURE = 1000;
     private static final String TAG = "SocShpPkUpAct";
     private static String listId;
+    private TextView tvItemsCount;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,8 @@ public class PickUpListActivity extends AppCompatActivity implements DatabaseUti
 
         rvItems.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL));
+
+        tvItemsCount = (TextView) findViewById(R.id.tvItemsCount);
 
         dbUtils = new DatabaseUtils();
         processIntentAction(getIntent());
@@ -88,6 +93,7 @@ public class PickUpListActivity extends AppCompatActivity implements DatabaseUti
     public void OnListFetchListener(ShoppingList shoppingList) {
         listId = shoppingList.getListId();
         list.addAll(shoppingList.getItems());
+        tvItemsCount.setText(""+ list.size());
         updateAdapter();
     }
 
