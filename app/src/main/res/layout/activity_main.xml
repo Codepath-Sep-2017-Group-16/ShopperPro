@@ -29,6 +29,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorDarkPink"
+            android:textSize="15sp"
             android:text="@string/label_fruits"/>
         <FrameLayout
             android:id="@+id/fruitFragment"
@@ -38,6 +42,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@color/colorGreen"
             android:text="@string/label_vege"/>
         <FrameLayout
             android:id="@+id/vegeFragment"
@@ -47,6 +55,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@color/colorPrimary"
             android:text="@string/label_dairy"/>
         <FrameLayout
             android:id="@+id/dairyFragment"
@@ -57,6 +69,9 @@
             android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorRed"
             android:text="@string/label_meat"/>
         <FrameLayout
             android:visibility="gone"
