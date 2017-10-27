@@ -5,14 +5,45 @@
     android:padding="5dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <Button
         android:id="@+id/btnShoppableItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@color/colorWhite"
         android:drawableTop="@drawable/banana_file"
         android:paddingTop="20dp"
         android:text="Banana"
         android:textAllCaps="false"
         android:textColor="#fff" />
+
+        <ImageView
+            android:id="@+id/ivAdd"
+            android:src="@drawable/ic_add_black_24dp"
+            android:layout_width="20dp"
+            android:layout_toEndOf="@+id/btnShoppableItem"
+            android:visibility="gone"
+            android:layout_height="20dp" />
+        <TextView
+            android:id="@+id/tvAmount"
+            android:layout_width="20dp"
+            android:text="1"
+            android:layout_toEndOf="@+id/btnShoppableItem"
+            android:layout_below="@+id/ivAdd"
+            android:visibility="gone"
+            android:layout_height="20dp" />
+        <ImageView
+            android:id="@+id/ivDelete"
+            android:layout_width="20dp"
+            android:src="@drawable/ic_delete_black_24dp"
+            android:layout_toEndOf="@+id/btnShoppableItem"
+            android:layout_below="@+id/tvAmount"
+            android:visibility="gone"
+            android:layout_height="20dp" />
+
+    </RelativeLayout>
+
+
 </LinearLayout>

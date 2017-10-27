@@ -1,6 +1,7 @@
 package com.codepath.socialshopper.socialshopper.Adapters;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
