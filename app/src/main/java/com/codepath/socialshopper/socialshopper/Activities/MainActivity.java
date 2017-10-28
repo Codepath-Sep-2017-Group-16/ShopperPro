@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements
     Toolbar toolbar;
     ActionBarDrawerToggle drawerToggle;
     TextView tvCartCount;
+    ImageView ivCart;
 
     static ShoppingList shoppingList = new ShoppingList();
 
@@ -312,10 +314,13 @@ public class MainActivity extends AppCompatActivity implements
                 startActivity(intent);
             }
         });
+        ivCart = (ImageView) findViewById(R.id.ivCart);
+        ivCart.setVisibility(View.VISIBLE);
     }
 
     private void updateCart() {
         if (shoppingList.getItems() != null && shoppingList.getItems().size() > 0) {
+            tvCartCount.setVisibility(View.VISIBLE);
             tvCartCount.setText(Integer.toString(shoppingList.getItems().size()));
         }
     }
