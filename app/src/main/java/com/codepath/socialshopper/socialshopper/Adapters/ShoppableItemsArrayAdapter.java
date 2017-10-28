@@ -1,6 +1,13 @@
 package com.codepath.socialshopper.socialshopper.Adapters;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.codepath.socialshopper.socialshopper.Activities.MainActivity;
@@ -23,6 +31,8 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+import static android.view.View.VISIBLE;
+
 /**
  * Created by gumapathi on 10/11/2017.
  */
@@ -31,40 +41,51 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
     Context mContext;
     ArrayList<ShoppableItem> shoppableItems;
     public final String TAG = "SocShpAdap";
+    private OnAddItemListener addItemListener;
+    private Activity activity;
 
     public ShoppableItemsArrayAdapter(ArrayList<ShoppableItem> shoppableItems) {
         this.shoppableItems = shoppableItems;
+    }
+
+    public interface OnAddItemListener {
+        void OnAddItem(ShoppableItem shoppableItem);
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
     }
 
     @Override
     public ShoppableItemsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         mContext = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        View view = inflater.inflate(R.layout.item_shoppable,parent,false);
+        View view = inflater.inflate(R.layout.item_shoppable, parent, false);
         ShoppableItemsViewHolder viewHolder = new ShoppableItemsViewHolder(view);
+
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(final ShoppableItemsViewHolder holder, int position) {
         final ShoppableItem shoppableItem = shoppableItems.get(position);
-        Log.i(TAG, "onBindViewHolder");
+        holder.Bind(shoppableItem);
 
         holder.btnShoppableItem.setText(shoppableItem.getmItemName());
-        Drawable top = ContextCompat.getDrawable(mContext,mContext.getResources().getIdentifier(shoppableItem.getmItemIconFileName(),"raw",mContext.getPackageName()));
-        holder.btnShoppableItem.setCompoundDrawablesWithIntrinsicBounds(null, top , null, null);
+        Drawable top = ContextCompat.getDrawable(mContext, mContext.getResources().getIdentifier(shoppableItem.getmItemIconFileName(), "raw", mContext.getPackageName()));
+        holder.btnShoppableItem.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);
 
         holder.btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //holder.showAddOptions();
-
+                holder.showAddOptions();
+                /*
                 MainActivity mainActivity = (MainActivity) v.getContext();
                 AddItemDetailsDialogFragment fragment;
                 FragmentManager fm = mainActivity.getSupportFragmentManager();
                 fragment = AddItemDetailsDialogFragment.newInstance(shoppableItem);
-                //fragment.setTargetFragment(fragment,20);
                 fragment.show(fm, "fragment_alert");
+                */
             }
         });
     }
@@ -75,25 +96,45 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
     }
 
     public class ShoppableItemsViewHolder extends RecyclerView.ViewHolder {
+        ShoppableItem shoppableItem;
         Button btnShoppableItem;
-        ImageView ivAdd;
-        ImageView ivDelete;
         TextView tvAmount;
         Button btnAdd;
 
         public ShoppableItemsViewHolder(View itemView) {
             super(itemView);
             btnShoppableItem = (Button) itemView.findViewById(R.id.btnShoppableItem);
-            ivAdd = (ImageView) itemView.findViewById(R.id.ivAdd);
-            ivDelete = (ImageView) itemView.findViewById(R.id.ivDelete);
             tvAmount = (TextView) itemView.findViewById(R.id.tvAmount);
             btnAdd = (Button) itemView.findViewById(R.id.btnAdd);
         }
 
+        public void Bind(ShoppableItem shoppableItem) {
+            this.shoppableItem = shoppableItem;
+        }
+
         private void showAddOptions() {
-            ivAdd.setVisibility(View.VISIBLE);
-            ivDelete.setVisibility(View.VISIBLE);
-            ivDelete.setVisibility(View.VISIBLE);
+            final ObjectAnimator fadeAltAnim = ObjectAnimator.ofFloat(btnAdd, View.ALPHA, 1, 0);
+            fadeAltAnim.setDuration(200);
+            fadeAltAnim.setRepeatMode(ValueAnimator.REVERSE);
+            fadeAltAnim.setRepeatCount(1);
+            fadeAltAnim.start();
+            fadeAltAnim.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    updateAmount();
+                    tvAmount.setVisibility(VISIBLE);
+                }
+            });
+        }
+
+        private void updateAmount() {
+            int amount = Integer.valueOf(tvAmount.getText().toString());
+            Log.d(TAG, "Amount" + Integer.toString(amount));
+            tvAmount.setText(Integer.toString(amount +1));
+            shoppableItem.setmItemQty(Integer.toString(amount));
+            Log.d(TAG, activity.toString());
+            final OnAddItemListener addItemListener = (OnAddItemListener) activity;
+            addItemListener.OnAddItem(shoppableItem);
         }
     }
 }

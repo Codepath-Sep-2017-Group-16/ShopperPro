@@ -55,6 +55,7 @@ public abstract class ItemsFragment extends Fragment {
         rvItems.setLayoutManager(linearLayoutManager);
         rvItems.setAdapter(adapter);
         populateDefaultItems();
+        adapter.setActivity(getActivity());
         return view;
     }
 
