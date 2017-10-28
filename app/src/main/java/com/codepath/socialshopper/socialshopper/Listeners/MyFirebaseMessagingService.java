@@ -45,6 +45,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Log.i(TAG+"Push received", data.toString());
         String recipient = data.get("recipient");
         String userId = data.get("userId");
+        if(userId!=null && userId.contains(":"))
+            userId = userId.split(":")[1];
 
         bitmap = getBitmapfromUrl("https://graph.facebook.com/" + userId+ "/picture?type=large");
 
