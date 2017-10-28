@@ -35,6 +35,7 @@ import com.codepath.socialshopper.socialshopper.Utils.FacebookUtils;
 import com.codepath.socialshopper.socialshopper.Utils.LocationUtils;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.Profile;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import org.parceler.Parcels;
 
@@ -149,6 +150,18 @@ public class MainActivity extends AppCompatActivity implements
         int id = item.getItemId();
 
         if (id == R.id.action_view_shoppinglist) {
+
+            if(shoppingList==null ){
+                MDToast mdToast = MDToast.makeText(this, "Your cart is empty !", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+                mdToast.show();
+                return true;
+            }
+            if(shoppingList.getStore()==null){
+                MDToast mdToast = MDToast.makeText(this, "Please choose a store", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+                mdToast.show();
+                return true;
+            }
+
             Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
             startActivity(intent);
         }
@@ -263,6 +276,8 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onStoreSelection(String storeName) {
+        MDToast mdToast = MDToast.makeText(getApplicationContext(), "Your selected store " + storeName + " is saved." , MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS);
+        mdToast.show();
         shoppingList.setStore(storeName);
     }
 
@@ -275,6 +290,23 @@ public class MainActivity extends AppCompatActivity implements
         tvCartCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(shoppingList==null ){
+                    MDToast mdToast = MDToast.makeText(getApplicationContext(), "Your cart is empty !", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+                    mdToast.show();
+                    return;
+                }
+                if(shoppingList.getStore()==null){
+                    MDToast mdToast = MDToast.makeText(getApplicationContext(), "Please choose a store", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+                    mdToast.show();
+                    return;
+                }
+                if(shoppingList.getItems()==null){
+                    MDToast mdToast = MDToast.makeText(getApplicationContext(), "Your cart is empty, please add atleast one item", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+                    mdToast.show();
+                    return;
+                }
+
                 Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
                 startActivity(intent);
             }

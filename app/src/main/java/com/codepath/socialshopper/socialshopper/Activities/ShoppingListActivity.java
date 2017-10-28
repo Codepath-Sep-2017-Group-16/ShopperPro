@@ -32,6 +32,9 @@ public class ShoppingListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list);
+
+        //TODO If shoppingList is empty just display an activity doing so.
+
         adapter = new ShoppingListArrayAdapter(shoppingList.getItems());
 
         rvShoppingListItems = (RecyclerView) findViewById(R.id.rvShoppingListItems);
