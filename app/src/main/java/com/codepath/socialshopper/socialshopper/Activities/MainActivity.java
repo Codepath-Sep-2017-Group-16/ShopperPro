@@ -276,7 +276,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onStoreSelection(String storeName) {
-        MDToast mdToast = MDToast.makeText(getApplicationContext(), "Your selected store " + storeName + " is saved." , MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS);
+        MDToast mdToast = MDToast.makeText(getApplicationContext(), "Your pick up store " + storeName + " is saved." , MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS);
         mdToast.show();
         shoppingList.setStore(storeName);
     }
