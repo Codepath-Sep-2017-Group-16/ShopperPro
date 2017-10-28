@@ -74,7 +74,7 @@ public class AddItemDetailsDialogFragment extends DialogFragment implements View
         // Apply the adapter to the spinner
         spItemQty.setAdapter(adapter);
 
-        npItemQty.setMinValue(0);
+        npItemQty.setMinValue(1);
         npItemQty.setMaxValue(10);
         return view;
     }//1LOXkqVmH0GlcAA78gn5C61+Vlo=

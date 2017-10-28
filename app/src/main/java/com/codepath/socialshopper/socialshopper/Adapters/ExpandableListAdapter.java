@@ -5,18 +5,25 @@ package com.codepath.socialshopper.socialshopper.Adapters;
  */
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.codepath.socialshopper.socialshopper.Activities.ShoppingListActivity;
 import com.codepath.socialshopper.socialshopper.Models.ShoppableItem;
 import com.codepath.socialshopper.socialshopper.R;
 
 import java.util.HashMap;
 import java.util.List;
+
+import static com.codepath.socialshopper.socialshopper.Activities.MainActivity.shoppingList;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
@@ -34,8 +41,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosititon) {
-        return this.listDataChild.get(this.listDataHeader.get(groupPosition))
-                .get(childPosititon);
+        return this.listDataChild.get(this.listDataHeader.get(groupPosition)).get(childPosititon);
+    }
+
+    public Object getChildren(int groupPosition) {
+        return this.listDataChild.get(this.listDataHeader.get(groupPosition));
     }
 
     @Override
@@ -52,34 +62,39 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.item_shopping_list, null);
+            convertView = infalInflater.inflate(R.layout.item_list, null);
         }
 
+        ImageView ivItemImage = (ImageView) convertView.findViewById(R.id.ivItemImage);
+
         TextView tvItemQtyList = (TextView) convertView
-                .findViewById(R.id.tvItemQtyList);
+                .findViewById(R.id.tvItemQuantity);
 
         TextView tvItemName = (TextView) convertView
-                .findViewById(R.id.tvItemNameList);
+                .findViewById(R.id.tvItemName);
 
 
         TextView tvItemBrand = (TextView) convertView
-                .findViewById(R.id.tvItemBrandList);
+                .findViewById(R.id.tvItemBrand);
 
         String qty = childText.getmItemQty().isEmpty() ? "-" : childText.getmItemQty();
         String name = childText.getmItemName().isEmpty() ? "-" : childText.getmItemName();
         String brand = childText.getmItemBrand().isEmpty() ? "-" : childText.getmItemBrand();
+        String icon = childText.getmItemIconFileName().isEmpty() ? "" : childText.getmItemIconFileName();
+        int id = _context.getResources().getIdentifier(icon, "drawable", _context.getPackageName());
+        Drawable drawable = _context.getResources().getDrawable(id);
 
         tvItemQtyList.setText(qty);
         tvItemName.setText(name);
         tvItemBrand.setText(brand);
+        ivItemImage.setImageDrawable(drawable);
 
         return convertView;
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return this.listDataChild.get(this.listDataHeader.get(groupPosition))
-                .size();
+        return this.listDataChild.get(this.listDataHeader.get(groupPosition)) == null ? 0 : this.listDataChild.get(this.listDataHeader.get(groupPosition)).size();
     }
 
     @Override
@@ -98,9 +113,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded,
+    public View getGroupView(final int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
-        String headerTitle = (String) getGroup(groupPosition);
+        final String headerTitle = (String) getGroup(groupPosition);
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -111,6 +126,22 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 .findViewById(R.id.lblListHeader);
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(headerTitle);
+
+        Button btnReorder = (Button) convertView.findViewById(R.id.btnReorder);
+        btnReorder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<ShoppableItem> reOrderItems = (List<ShoppableItem>) getChildren(groupPosition);
+                shoppingList.setStore(headerTitle);
+                for (ShoppableItem item :
+                        reOrderItems) {
+                    shoppingList.addItems(item);
+                }
+
+                Intent intent = new Intent(view.getContext(), ShoppingListActivity.class);
+                view.getContext().startActivity(intent);
+            }
+        });
 
         return convertView;
     }

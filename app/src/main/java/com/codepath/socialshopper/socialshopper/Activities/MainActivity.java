@@ -3,7 +3,6 @@ package com.codepath.socialshopper.socialshopper.Activities;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
@@ -63,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements
     ActionBarDrawerToggle drawerToggle;
     TextView tvCartCount;
 
-    static ShoppingList shoppingList = new ShoppingList();
+    public static ShoppingList shoppingList = new ShoppingList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
