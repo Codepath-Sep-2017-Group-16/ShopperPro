@@ -27,6 +27,7 @@ import com.codepath.socialshopper.socialshopper.Models.ShoppingList;
 import com.codepath.socialshopper.socialshopper.R;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.codepath.socialshopper.socialshopper.Utils.Status;
+import com.ebanx.swipebtn.OnActiveListener;
 import com.ebanx.swipebtn.OnStateChangeListener;
 import com.ebanx.swipebtn.SwipeButton;
 
@@ -63,12 +64,11 @@ public class PickUpListActivity extends AppCompatActivity implements DatabaseUti
                 DividerItemDecoration.VERTICAL));
 
         tvItemsCount = (TextView) findViewById(R.id.tvItemsCount);
-
         swipeButton = (SwipeButton) findViewById(R.id.swipe_btn);
-        swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
+
+        swipeButton.setOnActiveListener(new OnActiveListener() {
             @Override
-            public void onStateChange(boolean active) {
-                Toast.makeText(getApplicationContext(), "State: " + active, Toast.LENGTH_SHORT).show();
+            public void onActive() {
                 takePhoto();
             }
         });

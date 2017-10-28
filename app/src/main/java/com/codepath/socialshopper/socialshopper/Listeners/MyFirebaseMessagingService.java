@@ -135,8 +135,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private Intent getNotificationIntent() {
         Intent intent = new Intent(this, PickUpListActivity.class);
-        //Intent intent = new Intent(this, ShareLocationActivity.class);
-
         return intent;
     }
 

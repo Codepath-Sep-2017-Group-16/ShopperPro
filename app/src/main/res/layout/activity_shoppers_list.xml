@@ -79,7 +79,7 @@
         android:id="@+id/swipe_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:inner_text="Swipe to take receipt"
+        app:inner_text="Snap Receipt"
         app:inner_text_color="@android:color/white"
         app:inner_text_size="16sp"
         app:inner_text_top_padding="18dp"
@@ -92,6 +92,7 @@
         app:button_top_padding="20dp"
         app:button_bottom_padding="20dp"
         app:button_background="@drawable/shape_button"
+        app:button_trail_enabled="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
