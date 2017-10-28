@@ -70,12 +70,14 @@ exports.sendFollowerNotification = functions.database.ref('/users/{userId}/{loca
     var matchedListIds = [];
     var listMap = listsSnapshot.val();    
     var friends = friendsSnapshot.val();
+    var originalSender = "";
 
     for(var key in listMap) {
         var listId = key;
         var userId = listMap[key];
         
         if (friends.indexOf(userId) > -1) {
+          originalSender = userId;
           matchedListIds.push(listId);
         }
     }
@@ -92,7 +94,8 @@ exports.sendFollowerNotification = functions.database.ref('/users/{userId}/{loca
     const payload = {
       data: {
         payload: 'Some of your friends need a few things from ' + location + '. Would you like to pick those up?',
-        listid: matchedListIds.toString(),              
+        listid: matchedListIds.toString(),   
+	userId: originalSender  
       }
     };
 

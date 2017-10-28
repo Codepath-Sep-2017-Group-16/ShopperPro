@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(getDrawable(R.drawable.ic_menu_black_24dp));
+        getSupportActionBar().setHomeAsUpIndicator(getDrawable(R.drawable.ic_menu));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setElevation(0);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
