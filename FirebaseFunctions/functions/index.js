@@ -25,7 +25,7 @@ admin.initializeApp(functions.config().firebase);
 exports.sendFollowerNotification = functions.database.ref('/users/{userId}/{location}').onWrite(event => {
   const userId = event.params.userId;
   const location = event.data.val();
-  
+
 
   // If un-follow we exit the function.
   if (!event.data.val()) {
@@ -56,32 +56,33 @@ exports.sendFollowerNotification = functions.database.ref('/users/{userId}/{loca
     const tokensSnapshot = results[0];
     const listsSnapshot = results[1];
     const friendsSnapshot = results[2];
-    
+
     console.log(tokensSnapshot.val());
     console.log(listsSnapshot.val());
     console.log(friendsSnapshot.val());
-    
-	  // Check if there are any lists attached to the store    
+
+	  // Check if there are any lists attached to the store
     console.log('There are', listsSnapshot.numChildren(), 'lists available.');
-    
-    
-    // Check if userIds belong to the current user's friend list 
-    // Entry Format=> KEY: ListId format: listId, VALUE: userId-status   
+
+
+    // Check if userIds belong to the current user's friend list
+    // Entry Format=> KEY: ListId format: listId, VALUE: userId-status
     var matchedListIds = [];
-    var listMap = listsSnapshot.val();    
+    var listMap = listsSnapshot.val();
     var friends = friendsSnapshot.val();
-    var originalSender = "";
+    var originalSenders = [];
 
     for(var key in listMap) {
         var listId = key;
         var userId = listMap[key];
-        
+
         if (friends.indexOf(userId) > -1) {
-          originalSender = userId;
+          originalSenders.push(listId+":" + userId);
           matchedListIds.push(listId);
         }
     }
 
+    console.log("originalSenders: " + originalSenders.toString());
     console.log("Matched Lists: " + matchedListIds.toString());
     console.log("Matched Lists Count: " + matchedListIds.length);
 
@@ -94,20 +95,20 @@ exports.sendFollowerNotification = functions.database.ref('/users/{userId}/{loca
     const payload = {
       data: {
         payload: 'Some of your friends need a few things from ' + location + '. Would you like to pick those up?',
-        listid: matchedListIds.toString(),   
-	userId: originalSender  
+        listid: matchedListIds.toString(),
+	    userId: originalSenders.toString()
       }
     };
 
-    // Listing all tokens.    
+    // Listing all tokens.
     const token = tokensSnapshot.val();
 
     // Send notifications to all tokens.
-    return admin.messaging().sendToDevice(token, payload).then(response => {      
+    return admin.messaging().sendToDevice(token, payload).then(response => {
       response.results.forEach((result, index) => {
         const error = result.error;
         if (error) {
-          console.error('Failure sending notification to', tokens[index], error);          
+          console.error('Failure sending notification to', tokens[index], error);
         }
       });
       return 1;
@@ -122,7 +123,7 @@ exports.sendListStatusUpdateNotification = functions.database.ref('/lists/{listI
   const listId = event.params.listId;
   const listData = event.data.val();
   const recipient = "REQUESTER";
-  
+
 
   if (!event.data.val()) {
     return console.log('List data not available');
@@ -149,17 +150,17 @@ exports.sendListStatusUpdateNotification = functions.database.ref('/lists/{listI
       console.log ("No action needed. Status: " + status);
       return 1;
   }
-  
+
   // Get the notification token for the user
   var userId = listData["userId"];
   const getDeviceTokensPromise = admin.database().ref(`/users/${userId}/gcmid`).once('value');
 
-  
+
   return Promise.all([getDeviceTokensPromise]).then(results => {
 
     const tokensSnapshot = results[0];
     console.log(tokensSnapshot.val());
-   
+
     // Notification details
     const payload = {
       data: {
@@ -170,7 +171,7 @@ exports.sendListStatusUpdateNotification = functions.database.ref('/lists/{listI
       }
     };
 
-    // Listing all tokens.    
+    // Listing all tokens.
     const token = tokensSnapshot.val();
 
     // Send notifications to all tokens.
@@ -178,7 +179,7 @@ exports.sendListStatusUpdateNotification = functions.database.ref('/lists/{listI
       response.results.forEach((result, index) => {
         const error = result.error;
         if (error) {
-          console.error('Failure sending notification to', token, error);          
+          console.error('Failure sending notification to', token, error);
         }
       });
       return 1;
