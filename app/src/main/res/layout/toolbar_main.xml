@@ -10,6 +10,7 @@
     android:minHeight="?attr/actionBarSize"
     app:contentInsetLeft="0dp"
     app:contentInsetStart="0dp"
+    app:contentInsetStartWithNavigation="0dp"
     app:titleTextColor="@android:color/white">
 
     <RelativeLayout
@@ -27,7 +28,7 @@
             android:textStyle="bold"
             android:fontFamily="cursive"
             android:textAlignment="center"
-            android:layout_centerHorizontal="true"
+            android:layout_marginStart="90dp"
             android:layout_centerVertical="true"
             tools:context="" />
 

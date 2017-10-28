@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
     }
 
     private void setUpInitialScreen() {
@@ -152,8 +153,6 @@ public class MainActivity extends AppCompatActivity implements
             startActivity(intent);
         }
         if (id == android.R.id.home) {
-            Toast.makeText(this, "home clicked", Toast.LENGTH_LONG).show();
-            Log.i(TAG, "home clicked");
             mDrawer.openDrawer(GravityCompat.START);
             return true;
 
@@ -184,18 +183,12 @@ public class MainActivity extends AppCompatActivity implements
         // Create a new fragment and specify the fragment to show based on nav item clicked
         switch (menuItem.getItemId()) {
             case R.id.nav_choose_store:
-                Toast.makeText(this, "Choose store clicked", Toast.LENGTH_LONG).show();
-                Log.i(TAG, "Choose store clicked");
                 break;
             case R.id.nav_old_orders:
-                Toast.makeText(this, "Old orders clicked", Toast.LENGTH_LONG).show();
-                Log.i(TAG, "Old orders clicked");
                 Intent intent = new Intent(MainActivity.this, PreviousOrdersActivity.class);
                 startActivity(intent);
                 break;
             case R.id.nav_settings:
-                Toast.makeText(this, "Settings clicked", Toast.LENGTH_LONG).show();
-                Log.i(TAG, "Settings clicked");
                 break;
             default:
         }
