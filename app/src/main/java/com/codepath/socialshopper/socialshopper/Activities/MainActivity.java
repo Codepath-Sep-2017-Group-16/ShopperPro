@@ -16,9 +16,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.codepath.socialshopper.socialshopper.Adapters.ShoppableItemsArrayAdapter;
 import com.codepath.socialshopper.socialshopper.Fragments.AddItemDetailsDialogFragment;
 import com.codepath.socialshopper.socialshopper.Fragments.DairyFragment;
 import com.codepath.socialshopper.socialshopper.Fragments.FruitsFragment;
@@ -47,7 +49,7 @@ import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity implements
         DatabaseUtils.OnActiveListsFetchListener, DatabaseUtils.OnListFetchListener, AddItemDetailsDialogFragment.AddItemDetailsDialogListener,
-        LocationUtils.OnLocationFetchListener, StoresFragment.OnStoreFragmentInteractionListener {
+        LocationUtils.OnLocationFetchListener, StoresFragment.OnStoreFragmentInteractionListener , ShoppableItemsArrayAdapter.OnAddItemListener{
 
     public final String TAG = "SocShpMainAct";
     private DatabaseUtils databaseUtils;
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements
     Toolbar toolbar;
     ActionBarDrawerToggle drawerToggle;
     TextView tvCartCount;
+    ImageView ivCart;
 
     public static ShoppingList shoppingList = new ShoppingList();
 
@@ -310,12 +313,21 @@ public class MainActivity extends AppCompatActivity implements
                 startActivity(intent);
             }
         });
+        ivCart = (ImageView) findViewById(R.id.ivCart);
+        ivCart.setVisibility(View.VISIBLE);
     }
 
     private void updateCart() {
         if (shoppingList.getItems() != null && shoppingList.getItems().size() > 0) {
+            tvCartCount.setVisibility(View.VISIBLE);
             tvCartCount.setText(Integer.toString(shoppingList.getItems().size()));
         }
+    }
+
+    @Override
+    public void OnAddItem(ShoppableItem shoppableItem) {
+        shoppingList.addItems(shoppableItem);
+        updateCart();
     }
 }
 
