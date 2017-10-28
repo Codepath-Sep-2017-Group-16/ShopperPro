@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:text="Total Items: "
+        android:textSize="18sp"
         android:layout_below="@+id/toolbar"
         android:layout_marginTop="18dp" />
 
@@ -28,6 +29,7 @@
         android:layout_below="@+id/toolbar"
         android:layout_toRightOf="@+id/tvTotalItems"
         android:text="4 items"
+        android:textSize="18sp"
         android:textStyle="bold"
         />
 

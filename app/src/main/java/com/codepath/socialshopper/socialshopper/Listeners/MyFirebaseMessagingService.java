@@ -111,7 +111,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentTitle("New Pick Up !")
                 .setLargeIcon(bitmap)
                         //.bigPicture(bitmap))/*Notification with Image*/
-                .setContentText(message)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                 .setWhen(System.currentTimeMillis())
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)

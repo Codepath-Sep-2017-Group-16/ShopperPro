@@ -34,7 +34,6 @@ public class DatabaseUtils {
     private static final String USERS = "users";
     private static final String LISTS = "lists";
     private static final String STORES = "stores";
-    private static final String SHOPPER_LOCATION = "shopper_location";
     private static final String LATITUDE = "latitude";
     private static final String LONGITUDE = "longitude";
     private static final String GCMID = "gcmid";
@@ -156,7 +155,7 @@ public class DatabaseUtils {
         // Attach list to store
         mDatabase.child(STORES).child(shoppingList.getStore()).child(shoppingList.getListId()).setValue(FacebookUtils.getFacebookId());
 
-        mDatabase.child(SHOPPER_LOCATION).child(LATITUDE).child(shoppingList.getListId()).setValue(FacebookUtils.getFacebookId());
+//        mDatabase.child(SHOPPER_LOCATION).child(LATITUDE).child(shoppingList.getListId()).setValue(FacebookUtils.getFacebookId());
     }
 
     public static void deleteList() {

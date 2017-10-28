@@ -97,10 +97,11 @@
         <activity android:name=".Activities.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.LoginActivity"></activity>
+        <activity android:name=".Activities.LoginActivity" />
         <activity android:name=".Activities.ShoppingListActivity" />
         <activity android:name=".Activities.TrackStatusActivity" />
         <activity
@@ -109,9 +110,16 @@
         <activity android:name=".Activities.PickUpListActivity" />
         <activity android:name=".Activities.ChooseStoreActivity" />
         <activity android:name=".Activities.ShareLocationActivity" />
-        <activity android:name=".Activities.PreviousOrdersActivity"></activity>
+        <activity android:name=".Activities.PreviousOrdersActivity" />
 
-        <service android:name=".Services.LocationService" android:process=":ss_location_service" />
+        <service
+            android:name=".Services.LocationService"
+            android:process=":ss_location_service" />
+
+        <activity
+            android:name=".Activities.ScrollingActivity"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

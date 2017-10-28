@@ -56,6 +56,38 @@ public class ShoppersListArrayAdapter  extends RecyclerView.Adapter<ShoppersList
             holder.getIvItemImage().setImageResource(R.drawable.strawberry);
         }else if(item.getmItemIconFileName().contains("carrot")){
             holder.getIvItemImage().setImageResource(R.drawable.carrot);
+        }else if(item.getmItemIconFileName().contains("tomato")){
+            holder.getIvItemImage().setImageResource(R.drawable.tomato);
+        }else if(item.getmItemIconFileName().contains("almond")){
+            holder.getIvItemImage().setImageResource(R.drawable.almond);
+        }else if(item.getmItemIconFileName().contains("beans")){
+            holder.getIvItemImage().setImageResource(R.drawable.beans);
+        }else if(item.getmItemIconFileName().contains("butter")){
+            holder.getIvItemImage().setImageResource(R.drawable.cauliflower);
+        }else if(item.getmItemIconFileName().contains("cheese")){
+            holder.getIvItemImage().setImageResource(R.drawable.cheese);
+        }else if(item.getmItemIconFileName().contains("duck")){
+            holder.getIvItemImage().setImageResource(R.drawable.duck);
+        }else if(item.getmItemIconFileName().contains("filet")){
+            holder.getIvItemImage().setImageResource(R.drawable.filet);
+        }else if(item.getmItemIconFileName().contains("grapes")){
+            holder.getIvItemImage().setImageResource(R.drawable.grapes);
+        }else if(item.getmItemIconFileName().contains("lettuce")){
+            holder.getIvItemImage().setImageResource(R.drawable.lettuce);
+        }else if(item.getmItemIconFileName().contains("milk")){
+            holder.getIvItemImage().setImageResource(R.drawable.milk);
+        }else if(item.getmItemIconFileName().contains("potato")){
+            holder.getIvItemImage().setImageResource(R.drawable.potato);
+        }else if(item.getmItemIconFileName().contains("radish")){
+            holder.getIvItemImage().setImageResource(R.drawable.radish);
+        }else if(item.getmItemIconFileName().contains("ribs")){
+            holder.getIvItemImage().setImageResource(R.drawable.ribs);
+        }else if(item.getmItemIconFileName().contains("steak")){
+            holder.getIvItemImage().setImageResource(R.drawable.steak);
+        }else if(item.getmItemIconFileName().contains("strawberry")){
+            holder.getIvItemImage().setImageResource(R.drawable.strawberry);
+        }else if(item.getmItemIconFileName().contains("yoghurt")){
+            holder.getIvItemImage().setImageResource(R.drawable.yoghurt);
         }
 
         holder.getTvItemBrand().setText(item.getmItemBrand());
