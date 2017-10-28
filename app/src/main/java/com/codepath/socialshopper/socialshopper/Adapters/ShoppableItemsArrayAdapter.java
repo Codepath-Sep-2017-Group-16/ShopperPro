@@ -53,19 +53,18 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
         holder.btnShoppableItem.setText(shoppableItem.getmItemName());
         Drawable top = ContextCompat.getDrawable(mContext,mContext.getResources().getIdentifier(shoppableItem.getmItemIconFileName(),"raw",mContext.getPackageName()));
         holder.btnShoppableItem.setCompoundDrawablesWithIntrinsicBounds(null, top , null, null);
-        holder.btnShoppableItem.setOnClickListener(new View.OnClickListener() {
+
+        holder.btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //holder.showAddOptions();
 
-                Log.i(TAG, "added onClick");
                 MainActivity mainActivity = (MainActivity) v.getContext();
                 AddItemDetailsDialogFragment fragment;
                 FragmentManager fm = mainActivity.getSupportFragmentManager();
                 fragment = AddItemDetailsDialogFragment.newInstance(shoppableItem);
-                fragment.setTargetFragment(fragment,20);
+                //fragment.setTargetFragment(fragment,20);
                 fragment.show(fm, "fragment_alert");
-
             }
         });
     }
@@ -80,6 +79,7 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
         ImageView ivAdd;
         ImageView ivDelete;
         TextView tvAmount;
+        Button btnAdd;
 
         public ShoppableItemsViewHolder(View itemView) {
             super(itemView);
@@ -87,7 +87,7 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
             ivAdd = (ImageView) itemView.findViewById(R.id.ivAdd);
             ivDelete = (ImageView) itemView.findViewById(R.id.ivDelete);
             tvAmount = (TextView) itemView.findViewById(R.id.tvAmount);
-
+            btnAdd = (Button) itemView.findViewById(R.id.btnAdd);
         }
 
         private void showAddOptions() {
