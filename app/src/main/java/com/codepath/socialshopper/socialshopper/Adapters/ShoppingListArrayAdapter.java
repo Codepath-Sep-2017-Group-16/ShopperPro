@@ -1,5 +1,9 @@
 package com.codepath.socialshopper.socialshopper.Adapters;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,6 +18,8 @@ import com.codepath.socialshopper.socialshopper.Models.ShoppableItem;
 import com.codepath.socialshopper.socialshopper.R;
 
 import java.util.ArrayList;
+
+import static android.view.View.VISIBLE;
 
 /**
  * Created by gumapathi on 10/11/2017.
@@ -97,7 +103,7 @@ public class ShoppingListArrayAdapter extends RecyclerView.Adapter<ShoppingListA
         holder.ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                holder.updateQuantity(item.getmItemQty() + 1);
+                holder.updateQuantity(item.getmItemQty() + 1, view);
                 notifyDataSetChanged();
             }
         });
@@ -105,8 +111,7 @@ public class ShoppingListArrayAdapter extends RecyclerView.Adapter<ShoppingListA
         holder.ivRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                holder.updateQuantity(item.getmItemQty() - 1);
-                notifyDataSetChanged();
+                holder.updateQuantity(item.getmItemQty() - 1, view);
             }
         });
     }
@@ -141,7 +146,23 @@ public class ShoppingListArrayAdapter extends RecyclerView.Adapter<ShoppingListA
             this.shoppableItem = shoppableItem;
         }
 
-        public void updateQuantity(int quantity) {
+        public void updateQuantity(final int quantity, View view) {
+            final ObjectAnimator addAnim = ObjectAnimator.ofFloat(view, View.ALPHA, 1, 0);
+            addAnim.setDuration(200);
+            addAnim.setRepeatMode(ValueAnimator.REVERSE);
+            addAnim.setRepeatCount(1);
+            addAnim.start();
+            addAnim.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    updateQuantity(quantity);
+                    notifyDataSetChanged();
+                }
+            });
+        }
+
+        private void updateQuantity(int quantity) {
+
             this.shoppableItem.setmItemQty(quantity);
         }
     }
