@@ -60,6 +60,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void displayStatusTrackingNotification(String message, String listID, String status) {
+
+        if(status!=null && status.equalsIgnoreCase("OUT_FOR_DELIVERY")) //Not beeping when the shopper is out for delivery
+            return;
+
         Intent intent = getStatusTrackingNotificationIntent();
         intent.putExtra("status", status);
         Log.i(TAG,"Status from notif " + status);
