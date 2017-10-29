@@ -3,6 +3,7 @@ package com.codepath.socialshopper.socialshopper.Models;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by rdeshpan on 10/14/2017.
@@ -17,18 +18,14 @@ public class ShoppingList {
     String status;
     String receiptImageURL;
     String createdTimeStamp;
-
-
-    public ShoppingList(String listId, ArrayList<ShoppableItem> shoppableItems) {
-        this.listId = listId;
-        this.shoppableItems = shoppableItems;
-    }
+    HashMap<String, Integer> itemMap;
 
     public String getListId() {
         return listId;
     }
 
     public ShoppingList() {
+        itemMap = new HashMap<>();
     }
 
     public void setListId(String listId) {
@@ -83,12 +80,26 @@ public class ShoppingList {
         this.createdTimeStamp = createdTimeStamp;
     }
 
-    public void addItems(ShoppableItem item) {
+    public void addItem(ShoppableItem item) {
         if(shoppableItems == null) {
             this.shoppableItems = new ArrayList<>();
         }
-        this.shoppableItems.add(item);
-        Log.i(TAG, "Added " + item.getmItemName());
+        if (itemMap.containsKey(item.getmItemName())) {
+            int position = itemMap.get(item.getmItemName());
+            shoppableItems.set(position, item);
+        } else {
+            shoppableItems.add(item);
+            int position = shoppableItems.size()-1;
+            itemMap.put(item.getmItemName(), position);
+        }
+    }
+
+    public void removeItem(ShoppableItem item) {
+        if (itemMap.containsKey(item.getmItemName())) {
+            int position = itemMap.get(item.getmItemName());
+            shoppableItems.remove(position);
+            itemMap.remove(item.getmItemName());
+        }
     }
 
     @Override

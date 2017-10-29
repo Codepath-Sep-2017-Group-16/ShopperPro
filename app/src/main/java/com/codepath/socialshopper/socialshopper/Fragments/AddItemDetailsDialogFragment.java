@@ -90,6 +90,7 @@ public class AddItemDetailsDialogFragment extends DialogFragment implements View
 
     @Override
     public void onClick(View v) {
+        /*
         Log.i(TAG, "onclick");
         Toast.makeText(v.getContext(),"clicked",Toast.LENGTH_LONG).show();
         final Bundle bundle = new Bundle();
@@ -110,5 +111,6 @@ public class AddItemDetailsDialogFragment extends DialogFragment implements View
         Log.i(TAG, "added to bundle");
         Log.i(TAG, "returning via listener");
         dismiss();
+        */
     }
 }

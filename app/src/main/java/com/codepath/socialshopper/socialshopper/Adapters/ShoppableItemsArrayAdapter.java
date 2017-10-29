@@ -41,19 +41,14 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
     Context mContext;
     ArrayList<ShoppableItem> shoppableItems;
     public final String TAG = "SocShpAdap";
-    private OnAddItemListener addItemListener;
     private Activity activity;
 
     public ShoppableItemsArrayAdapter(ArrayList<ShoppableItem> shoppableItems) {
         this.shoppableItems = shoppableItems;
     }
 
-    public interface OnAddItemListener {
-        void OnAddItem(ShoppableItem shoppableItem);
-    }
-
-    public interface OnRemoveItemListener {
-        void OnRemoveItem(ShoppableItem shoppableItem);
+    public interface OnUpdateItemListener {
+        void OnUpdateItem(ShoppableItem shoppableItem);
     }
 
     public void setActivity(Activity activity) {
@@ -151,38 +146,32 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
         }
 
         private void increaseAmount() {
-            Log.d(TAG, tvAmount.getText().toString());
             int amount = Integer.valueOf(tvAmount.getText().toString());
-            Log.d(TAG, "Amount" + Integer.toString(amount));
-            String newAmount = Integer.toString(amount+1);
+            int newAmount = amount + 1;
 
             shoppableItem.setmItemQty(newAmount);
             updateUI(shoppableItem);
-
-            final OnAddItemListener addItemListener = (OnAddItemListener) activity;
-            addItemListener.OnAddItem(shoppableItem);
         }
 
         private void decreaseAmount() {
-            Log.d(TAG, tvAmount.getText().toString());
             int amount = Integer.valueOf(tvAmount.getText().toString());
-            Log.d(TAG, "Amount" + Integer.toString(amount));
-
-            String newAmount = Integer.toString(amount);
-            if(amount > 0)
-                newAmount = Integer.toString(amount-1);
+            int newAmount = amount > 0 ? amount - 1 : amount;
 
             shoppableItem.setmItemQty(newAmount);
-
             updateUI(shoppableItem);
-
-            final OnRemoveItemListener removeItemListener = (OnRemoveItemListener) activity;
-            removeItemListener.OnRemoveItem(shoppableItem);
         }
 
         private void updateUI(ShoppableItem shoppableItem) {
-            tvAmount.setText(shoppableItem.getmItemQty());
-            tvMeasure.setText(shoppableItem.getItemMeasure());
+            if(shoppableItem.getmItemQty() == 0) {
+                tvAmount.setVisibility(View.GONE);
+                tvMeasure.setVisibility(View.GONE);
+                btnRemove.setVisibility(View.GONE);
+            } else {
+                tvAmount.setText(Integer.toString(shoppableItem.getmItemQty()));
+                tvMeasure.setText(shoppableItem.getItemMeasure());
+            }
+            final OnUpdateItemListener updateItemListener = (OnUpdateItemListener) activity;
+            updateItemListener.OnUpdateItem(shoppableItem);
         }
     }
 }

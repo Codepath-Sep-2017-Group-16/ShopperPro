@@ -92,7 +92,7 @@ public class ShoppersListArrayAdapter  extends RecyclerView.Adapter<ShoppersList
 
         holder.getTvItemBrand().setText(item.getmItemBrand());
         holder.getTvItemName().setText(item.getmItemName());
-        holder.getTvItemQuantity().setText(item.getmItemQty());
+        holder.getTvItemQuantity().setText(Integer.toString(item.getmItemQty()));
     }
 
 

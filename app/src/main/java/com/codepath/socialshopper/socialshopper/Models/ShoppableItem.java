@@ -12,7 +12,7 @@ public class ShoppableItem {
     String mItemName;
     String mItemIconFileName;
     String mItemMeasure;
-    String mItemQty;
+    Integer mItemQty;
     String mItemBrand;
 
     public String getmItemId() {
@@ -23,11 +23,11 @@ public class ShoppableItem {
         this.mItemId = mItemId;
     }
 
-    public String getmItemQty() {
+    public Integer getmItemQty() {
         return mItemQty;
     }
 
-    public void setmItemQty(String mItemQty) {
+    public void setmItemQty(Integer mItemQty) {
         this.mItemQty = mItemQty;
     }
 
@@ -66,7 +66,7 @@ public class ShoppableItem {
     public ShoppableItem() {
     }
 
-    public ShoppableItem(String mItemId, String mItemName, String mItemIconFileName, String mItemQty, String mItemBrand, String itemMeasure) {
+    public ShoppableItem(String mItemId, String mItemName, String mItemIconFileName, Integer mItemQty, String mItemBrand, String itemMeasure) {
         this.mItemId = mItemId;
         this.mItemName = mItemName;
         this.mItemIconFileName = mItemIconFileName;

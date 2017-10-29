@@ -38,7 +38,7 @@ public class ShoppingListArrayAdapter extends RecyclerView.Adapter<ShoppingListA
     @Override
     public void onBindViewHolder(ShoppingListViewHolder holder, int position) {
         final ShoppableItem shoppableItem = shoppableItems.get(position);
-        holder.tvItemQty.setText(shoppableItem.getmItemQty());
+        holder.tvItemQty.setText(Integer.toString(shoppableItem.getmItemQty()));
         holder.tvItemName.setText(shoppableItem.getmItemName());
         holder.tvItemBrand.setText(shoppableItem.getmItemBrand());
         Log.i(TAG, "onBindViewHolder");

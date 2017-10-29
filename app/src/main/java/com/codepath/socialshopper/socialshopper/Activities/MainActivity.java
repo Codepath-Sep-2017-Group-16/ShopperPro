@@ -49,8 +49,8 @@ import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity implements
         DatabaseUtils.OnActiveListsFetchListener, DatabaseUtils.OnListFetchListener, AddItemDetailsDialogFragment.AddItemDetailsDialogListener,
-        LocationUtils.OnLocationFetchListener, StoresFragment.OnStoreFragmentInteractionListener , ShoppableItemsArrayAdapter.OnAddItemListener
-        , ShoppableItemsArrayAdapter.OnRemoveItemListener{
+        LocationUtils.OnLocationFetchListener, StoresFragment.OnStoreFragmentInteractionListener , ShoppableItemsArrayAdapter.OnUpdateItemListener
+        {
 
     public final String TAG = "SocShpMainAct";
     private DatabaseUtils databaseUtils;
@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity implements
     public void onFinishAddItemDetailsDialog(Bundle bundle) {
         if (bundle != null) {
             ShoppableItem item = (ShoppableItem) Parcels.unwrap(bundle.getParcelable("AddedItem"));
-            shoppingList.addItems(item);
+            shoppingList.addItem(item);
             updateCart();
         }
     }
@@ -349,16 +349,13 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void OnAddItem(ShoppableItem shoppableItem) {
-        shoppingList.addItems(shoppableItem);
-        updateCart();
-    }
+    public void OnUpdateItem(ShoppableItem shoppableItem) {
+        if (shoppableItem.getmItemQty() > 0)
+            shoppingList.addItem(shoppableItem);
+        else
+            shoppingList.removeItem(shoppableItem);
 
-    @Override
-    public void OnRemoveItem(ShoppableItem shoppableItem) {
-        Toast.makeText(this, "Remove item", Toast.LENGTH_SHORT).show();
-        //shoppingList.addItems(shoppableItem);
-        //updateCart();
+        updateCart();
     }
 }
 

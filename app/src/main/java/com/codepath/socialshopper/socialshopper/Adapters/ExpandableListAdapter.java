@@ -77,7 +77,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         TextView tvItemBrand = (TextView) convertView
                 .findViewById(R.id.tvItemBrand);
 
-        String qty = childText.getmItemQty().isEmpty() ? "-" : childText.getmItemQty();
+        String qty = childText.getmItemQty() == 0 ? "-" : Integer.toString(childText.getmItemQty());
         String name = childText.getmItemName().isEmpty() ? "-" : childText.getmItemName();
         String brand = childText.getmItemBrand().isEmpty() ? "-" : childText.getmItemBrand();
         String icon = childText.getmItemIconFileName().isEmpty() ? "" : childText.getmItemIconFileName();
@@ -135,7 +135,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 shoppingList.setStore(headerTitle);
                 for (ShoppableItem item :
                         reOrderItems) {
-                    shoppingList.addItems(item);
+                    shoppingList.addItem(item);
                 }
 
                 Intent intent = new Intent(view.getContext(), ShoppingListActivity.class);

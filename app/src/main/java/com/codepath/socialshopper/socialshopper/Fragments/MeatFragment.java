@@ -42,28 +42,28 @@ public class MeatFragment extends ItemsFragment {
 
     public void populateDefaultItems() {
         Log.i(TAG, "populateDefaultItems");
-        ShoppableItem itemSteak = new ShoppableItem(CommonUtils.getUuid(), "Steak Grill Pack", "@drawable/steak_file","0","D'Artagnan","lbs");
+        ShoppableItem itemSteak = new ShoppableItem(CommonUtils.getUuid(), "Steak Grill Pack", "@drawable/steak_file",0,"D'Artagnan","lbs");
         shoppableItems.add(itemSteak);
 
-        ShoppableItem itemRibs = new ShoppableItem(CommonUtils.getUuid(), "Short Ribs", "@drawable/ribs_file","0","D'Artagnan","lbs");
+        ShoppableItem itemRibs = new ShoppableItem(CommonUtils.getUuid(), "Short Ribs", "@drawable/ribs_file",0,"D'Artagnan","lbs");
         shoppableItems.add(itemRibs);
 
-        ShoppableItem itemFilet = new ShoppableItem(CommonUtils.getUuid(), "Angus Filet Mignon", "@drawable/filet_file","0","Rastelli USDA","lbs");
+        ShoppableItem itemFilet = new ShoppableItem(CommonUtils.getUuid(), "Angus Filet Mignon", "@drawable/filet_file",0,"Rastelli USDA","lbs");
         shoppableItems.add(itemFilet);
 
-        ShoppableItem itemDuck = new ShoppableItem(CommonUtils.getUuid(), "Duck", "@drawable/duck_file","0","D'Artagnans","lbs");
+        ShoppableItem itemDuck = new ShoppableItem(CommonUtils.getUuid(), "Duck", "@drawable/duck_file",0,"D'Artagnans","lbs");
         shoppableItems.add(itemDuck);
 
-        ShoppableItem itemSteak1 = new ShoppableItem(CommonUtils.getUuid(), "Steak Grill Pack", "@drawable/steak_file","0","D'Artagnan","lbs");
+        ShoppableItem itemSteak1 = new ShoppableItem(CommonUtils.getUuid(), "Steak Grill Pack", "@drawable/steak_file",0,"D'Artagnan","lbs");
         shoppableItems.add(itemSteak1);
 
-        ShoppableItem itemRibs1 = new ShoppableItem(CommonUtils.getUuid(), "Short Ribs", "@drawable/ribs_file","0","D'Artagnan","lbs");
+        ShoppableItem itemRibs1 = new ShoppableItem(CommonUtils.getUuid(), "Short Ribs", "@drawable/ribs_file",0,"D'Artagnan","lbs");
         shoppableItems.add(itemRibs1);
 
-        ShoppableItem itemFilet1 = new ShoppableItem(CommonUtils.getUuid(), "Angus Filet Mignon", "@drawable/filet_file","0","Rastelli USDA","lbs");
+        ShoppableItem itemFilet1 = new ShoppableItem(CommonUtils.getUuid(), "Angus Filet Mignon", "@drawable/filet_file",0,"Rastelli USDA","lbs");
         shoppableItems.add(itemFilet1);
 
-        ShoppableItem itemDuck1 = new ShoppableItem(CommonUtils.getUuid(), "Duck", "@drawable/duck_file","0","D'Artagnans","lbs");
+        ShoppableItem itemDuck1 = new ShoppableItem(CommonUtils.getUuid(), "Duck", "@drawable/duck_file",0,"D'Artagnans","lbs");
         shoppableItems.add(itemDuck1);
 
         adapter.notifyDataSetChanged();
