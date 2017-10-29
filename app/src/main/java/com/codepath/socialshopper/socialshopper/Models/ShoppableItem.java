@@ -11,6 +11,7 @@ public class ShoppableItem {
     String mItemId;
     String mItemName;
     String mItemIconFileName;
+    String mItemMeasure;
     String mItemQty;
     String mItemBrand;
 
@@ -54,15 +55,24 @@ public class ShoppableItem {
         this.mItemIconFileName = mItemIconFileName;
     }
 
+    public String getItemMeasure() {
+        return mItemMeasure;
+    }
+
+    public void setItemMeasure(String mItemMeasure) {
+        this.mItemMeasure = mItemMeasure;
+    }
+
     public ShoppableItem() {
     }
 
-    public ShoppableItem(String mItemId, String mItemName, String mItemIconFileName, String mItemQty, String mItemBrand) {
+    public ShoppableItem(String mItemId, String mItemName, String mItemIconFileName, String mItemQty, String mItemBrand, String itemMeasure) {
         this.mItemId = mItemId;
         this.mItemName = mItemName;
         this.mItemIconFileName = mItemIconFileName;
         this.mItemQty = mItemQty;
         this.mItemBrand = mItemBrand;
+        this.mItemMeasure = itemMeasure;
     }
 
     @Override

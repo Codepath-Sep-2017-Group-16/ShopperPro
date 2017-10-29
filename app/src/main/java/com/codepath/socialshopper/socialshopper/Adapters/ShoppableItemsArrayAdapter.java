@@ -79,13 +79,6 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
             @Override
             public void onClick(View v) {
                 holder.showAddOptions();
-                /*
-                MainActivity mainActivity = (MainActivity) v.getContext();
-                AddItemDetailsDialogFragment fragment;
-                FragmentManager fm = mainActivity.getSupportFragmentManager();
-                fragment = AddItemDetailsDialogFragment.newInstance(shoppableItem);
-                fragment.show(fm, "fragment_alert");
-                */
             }
         });
     }
@@ -99,12 +92,14 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
         ShoppableItem shoppableItem;
         Button btnShoppableItem;
         TextView tvAmount;
+        TextView tvMeasure;
         Button btnAdd;
 
         public ShoppableItemsViewHolder(View itemView) {
             super(itemView);
             btnShoppableItem = (Button) itemView.findViewById(R.id.btnShoppableItem);
             tvAmount = (TextView) itemView.findViewById(R.id.tvAmount);
+            tvMeasure = (TextView) itemView.findViewById(R.id.tvMeasure);
             btnAdd = (Button) itemView.findViewById(R.id.btnAdd);
         }
 
@@ -113,26 +108,31 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
         }
 
         private void showAddOptions() {
-            final ObjectAnimator fadeAltAnim = ObjectAnimator.ofFloat(btnAdd, View.ALPHA, 1, 0);
-            fadeAltAnim.setDuration(200);
-            fadeAltAnim.setRepeatMode(ValueAnimator.REVERSE);
-            fadeAltAnim.setRepeatCount(1);
-            fadeAltAnim.start();
-            fadeAltAnim.addListener(new AnimatorListenerAdapter() {
+            final ObjectAnimator addAnim = ObjectAnimator.ofFloat(btnAdd, View.ALPHA, 1, 0);
+            addAnim.setDuration(200);
+            addAnim.setRepeatMode(ValueAnimator.REVERSE);
+            addAnim.setRepeatCount(1);
+            addAnim.start();
+            addAnim.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     updateAmount();
                     tvAmount.setVisibility(VISIBLE);
+                    tvMeasure.setVisibility(VISIBLE);
                 }
             });
         }
 
         private void updateAmount() {
+            Log.d(TAG, tvAmount.getText().toString());
             int amount = Integer.valueOf(tvAmount.getText().toString());
             Log.d(TAG, "Amount" + Integer.toString(amount));
-            tvAmount.setText(Integer.toString(amount +1));
-            shoppableItem.setmItemQty(Integer.toString(amount));
-            Log.d(TAG, activity.toString());
+            String newAmount = Integer.toString(amount+1);
+
+            shoppableItem.setmItemQty(newAmount);
+            tvAmount.setText(newAmount);
+            tvMeasure.setText(shoppableItem.getItemMeasure());
+
             final OnAddItemListener addItemListener = (OnAddItemListener) activity;
             addItemListener.OnAddItem(shoppableItem);
         }
