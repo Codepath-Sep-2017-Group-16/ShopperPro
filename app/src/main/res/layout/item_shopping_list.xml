@@ -42,40 +42,40 @@
         android:textColor="@color/colorGrey" />
 
     <ImageView
-        android:id="@id/btnAdd"
+        android:id="@+id/ivAdd"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
         android:layout_alignParentEnd="true"
-        android:src="@drawable/ic_add_black_24dp" />
-
-    <TextView
-        android:id="@+id/tvItemQuantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/tvItemMeasure"
+        android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="3dp"
-        android:text="quantity"
-        android:textColor="@color/colorGreen" />
+        android:src="@drawable/ic_add_black_24dp" />
 
     <TextView
         android:id="@+id/tvItemMeasure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/btnAdd"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_toStartOf="@+id/ivAdd"
         android:text="measure"
         android:textColor="@color/colorGreen" />
 
+    <TextView
+        android:id="@+id/tvItemQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
+        android:layout_marginTop="20dp"
+        android:layout_toStartOf="@+id/tvItemMeasure"
+        android:text="quantity"
+        android:textColor="@color/colorGreen" />
+
     <ImageView
-        android:id="@id/btnRemove"
+        android:id="@+id/ivRemove"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="5dp"
+        android:layout_marginTop="20dp"
         android:layout_toStartOf="@+id/tvItemQuantity"
         android:src="@drawable/ic_remove" />
 
