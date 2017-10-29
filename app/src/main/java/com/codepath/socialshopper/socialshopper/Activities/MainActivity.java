@@ -314,6 +314,29 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
         ivCart = (ImageView) findViewById(R.id.ivCart);
+        ivCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(shoppingList==null ){
+                    MDToast mdToast = MDToast.makeText(getApplicationContext(), "Your cart is empty !", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+                    mdToast.show();
+                    return;
+                }
+                if(shoppingList.getStore()==null){
+                    MDToast mdToast = MDToast.makeText(getApplicationContext(), "Please choose a store", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+                    mdToast.show();
+                    return;
+                }
+                if(shoppingList.getItems()==null){
+                    MDToast mdToast = MDToast.makeText(getApplicationContext(), "Your cart is empty, please add atleast one item", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+                    mdToast.show();
+                    return;
+                }
+
+                Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
+                startActivity(intent);
+            }
+        });
         ivCart.setVisibility(View.VISIBLE);
     }
 
