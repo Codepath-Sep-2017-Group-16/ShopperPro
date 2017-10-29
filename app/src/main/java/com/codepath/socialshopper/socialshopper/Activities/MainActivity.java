@@ -49,7 +49,8 @@ import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity implements
         DatabaseUtils.OnActiveListsFetchListener, DatabaseUtils.OnListFetchListener, AddItemDetailsDialogFragment.AddItemDetailsDialogListener,
-        LocationUtils.OnLocationFetchListener, StoresFragment.OnStoreFragmentInteractionListener , ShoppableItemsArrayAdapter.OnAddItemListener{
+        LocationUtils.OnLocationFetchListener, StoresFragment.OnStoreFragmentInteractionListener , ShoppableItemsArrayAdapter.OnAddItemListener
+        , ShoppableItemsArrayAdapter.OnRemoveItemListener{
 
     public final String TAG = "SocShpMainAct";
     private DatabaseUtils databaseUtils;
@@ -351,6 +352,13 @@ public class MainActivity extends AppCompatActivity implements
     public void OnAddItem(ShoppableItem shoppableItem) {
         shoppingList.addItems(shoppableItem);
         updateCart();
+    }
+
+    @Override
+    public void OnRemoveItem(ShoppableItem shoppableItem) {
+        Toast.makeText(this, "Remove item", Toast.LENGTH_SHORT).show();
+        //shoppingList.addItems(shoppableItem);
+        //updateCart();
     }
 }
 

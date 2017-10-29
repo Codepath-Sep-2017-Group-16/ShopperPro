@@ -8,7 +8,7 @@
 
     <RelativeLayout
         android:layout_width="160dp"
-        android:layout_height="160dp"
+        android:layout_height="150dp"
         android:background="@drawable/item_background"
         card_view:cardElevation="10dp">
 
@@ -25,28 +25,50 @@
             android:textAllCaps="false"
             android:textColor="#fff" />
 
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/ic_add_black_24dp"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite" />
+
+        <TextView
+            android:id="@+id/tvMeasure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="3dp"
+            android:layout_toStartOf="@id/btnAdd"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"
+            android:text="lbs"
+            android:layout_centerInParent="true"/>
+
         <TextView
             android:id="@+id/tvAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginEnd="3dp"
             android:text="0"
-            android:layout_below="@+id/btnShoppableItem"
-            android:layout_alignParentEnd="true"
+            android:layout_toStartOf="@id/tvMeasure"
+            android:layout_alignParentBottom="true"
             android:visibility="gone"
             android:layout_centerInParent="true"/>
 
-
         <Button
-            android:id="@+id/btnAdd"
-            android:layout_width="80dp"
-            android:layout_height="30dp"
-            android:layout_below="@+id/btnShoppableItem"
-            android:layout_centerInParent="true"
-            android:background="@drawable/add"
-            android:text="Add"
+            android:id="@+id/btnRemove"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@id/tvAmount"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/ic_remove"
             android:textAllCaps="false"
+            android:visibility="gone"
             android:textColor="@color/colorWhite" />
     </RelativeLayout>
 

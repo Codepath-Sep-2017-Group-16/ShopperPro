@@ -52,6 +52,10 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
         void OnAddItem(ShoppableItem shoppableItem);
     }
 
+    public interface OnRemoveItemListener {
+        void OnRemoveItem(ShoppableItem shoppableItem);
+    }
+
     public void setActivity(Activity activity) {
         this.activity = activity;
     }
@@ -79,13 +83,12 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
             @Override
             public void onClick(View v) {
                 holder.showAddOptions();
-                /*
-                MainActivity mainActivity = (MainActivity) v.getContext();
-                AddItemDetailsDialogFragment fragment;
-                FragmentManager fm = mainActivity.getSupportFragmentManager();
-                fragment = AddItemDetailsDialogFragment.newInstance(shoppableItem);
-                fragment.show(fm, "fragment_alert");
-                */
+            }
+        });
+        holder.btnRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.showRemoveOptions();
             }
         });
     }
@@ -99,13 +102,17 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
         ShoppableItem shoppableItem;
         Button btnShoppableItem;
         TextView tvAmount;
+        TextView tvMeasure;
         Button btnAdd;
+        Button btnRemove;
 
         public ShoppableItemsViewHolder(View itemView) {
             super(itemView);
             btnShoppableItem = (Button) itemView.findViewById(R.id.btnShoppableItem);
             tvAmount = (TextView) itemView.findViewById(R.id.tvAmount);
+            tvMeasure = (TextView) itemView.findViewById(R.id.tvMeasure);
             btnAdd = (Button) itemView.findViewById(R.id.btnAdd);
+            btnRemove = (Button) itemView.findViewById(R.id.btnRemove);
         }
 
         public void Bind(ShoppableItem shoppableItem) {
@@ -113,28 +120,69 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
         }
 
         private void showAddOptions() {
-            final ObjectAnimator fadeAltAnim = ObjectAnimator.ofFloat(btnAdd, View.ALPHA, 1, 0);
-            fadeAltAnim.setDuration(200);
-            fadeAltAnim.setRepeatMode(ValueAnimator.REVERSE);
-            fadeAltAnim.setRepeatCount(1);
-            fadeAltAnim.start();
-            fadeAltAnim.addListener(new AnimatorListenerAdapter() {
+            final ObjectAnimator addAnim = ObjectAnimator.ofFloat(btnAdd, View.ALPHA, 1, 0);
+            addAnim.setDuration(200);
+            addAnim.setRepeatMode(ValueAnimator.REVERSE);
+            addAnim.setRepeatCount(1);
+            addAnim.start();
+            addAnim.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    updateAmount();
+                    increaseAmount();
                     tvAmount.setVisibility(VISIBLE);
+                    tvMeasure.setVisibility(VISIBLE);
+                    btnRemove.setVisibility(VISIBLE);
                 }
             });
         }
 
-        private void updateAmount() {
+        private void showRemoveOptions() {
+            final ObjectAnimator removeAnim = ObjectAnimator.ofFloat(btnRemove, View.ALPHA, 1, 0);
+            removeAnim.setDuration(200);
+            removeAnim.setRepeatMode(ValueAnimator.REVERSE);
+            removeAnim.setRepeatCount(1);
+            removeAnim.start();
+            removeAnim.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    decreaseAmount();
+                }
+            });
+        }
+
+        private void increaseAmount() {
+            Log.d(TAG, tvAmount.getText().toString());
             int amount = Integer.valueOf(tvAmount.getText().toString());
             Log.d(TAG, "Amount" + Integer.toString(amount));
-            tvAmount.setText(Integer.toString(amount +1));
-            shoppableItem.setmItemQty(Integer.toString(amount));
-            Log.d(TAG, activity.toString());
+            String newAmount = Integer.toString(amount+1);
+
+            shoppableItem.setmItemQty(newAmount);
+            updateUI(shoppableItem);
+
             final OnAddItemListener addItemListener = (OnAddItemListener) activity;
             addItemListener.OnAddItem(shoppableItem);
+        }
+
+        private void decreaseAmount() {
+            Log.d(TAG, tvAmount.getText().toString());
+            int amount = Integer.valueOf(tvAmount.getText().toString());
+            Log.d(TAG, "Amount" + Integer.toString(amount));
+
+            String newAmount = Integer.toString(amount);
+            if(amount > 0)
+                newAmount = Integer.toString(amount-1);
+
+            shoppableItem.setmItemQty(newAmount);
+
+            updateUI(shoppableItem);
+
+            final OnRemoveItemListener removeItemListener = (OnRemoveItemListener) activity;
+            removeItemListener.OnRemoveItem(shoppableItem);
+        }
+
+        private void updateUI(ShoppableItem shoppableItem) {
+            tvAmount.setText(shoppableItem.getmItemQty());
+            tvMeasure.setText(shoppableItem.getItemMeasure());
         }
     }
 }
