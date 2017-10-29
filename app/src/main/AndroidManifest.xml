@@ -103,7 +103,8 @@
         </activity>
         <activity android:name=".Activities.LoginActivity" />
         <activity android:name=".Activities.ShoppingListActivity" />
-        <activity android:name=".Activities.TrackStatusActivity" />
+        <activity android:name=".Activities.TrackStatusActivity"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".Activities.NotificationActivity"
             android:launchMode="singleTask" />
@@ -116,10 +117,6 @@
             android:name=".Services.LocationService"
             android:process=":ss_location_service" />
 
-        <activity
-            android:name=".Activities.ScrollingActivity"
-            android:label="@string/title_activity_scrolling"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

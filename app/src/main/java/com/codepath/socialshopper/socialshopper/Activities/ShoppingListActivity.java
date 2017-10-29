@@ -33,8 +33,6 @@ public class ShoppingListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list);
 
-        //TODO If shoppingList is empty just display an activity doing so.
-
         adapter = new ShoppingListArrayAdapter(shoppingList.getItems());
 
         rvShoppingListItems = (RecyclerView) findViewById(R.id.rvShoppingListItems);
@@ -49,9 +47,12 @@ public class ShoppingListActivity extends AppCompatActivity {
     public void submitShoppingList(View view) {
         Log.i(TAG, "submitting list");
         saveList(shoppingList);
-        Toast.makeText(view.getContext(), "Published the shopping list", Toast.LENGTH_LONG).show();
+    //    Toast.makeText(view.getContext(), "Published the shopping list", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(ShoppingListActivity.this, TrackStatusActivity.class);
+
         intent.putExtra("list_id", shoppingList.getListId());
+        intent.putExtra("store", shoppingList.getStore());
+
         DatabaseUtils.updateListStatus(shoppingList.getListId(), Status.PLACED);
         startActivity(intent);
     }

@@ -155,6 +155,7 @@ public class DatabaseUtils {
         // Attach list to store
         mDatabase.child(STORES).child(shoppingList.getStore()).child(shoppingList.getListId()).setValue(FacebookUtils.getFacebookId());
 
+//        saveLocationOfShopper(shoppingList.getListId(), 37.3382080, -121.8863290); // By default
 //        mDatabase.child(SHOPPER_LOCATION).child(LATITUDE).child(shoppingList.getListId()).setValue(FacebookUtils.getFacebookId());
     }
 

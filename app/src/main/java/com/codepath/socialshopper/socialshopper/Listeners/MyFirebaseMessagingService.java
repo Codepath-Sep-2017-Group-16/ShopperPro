@@ -13,7 +13,6 @@ import android.util.Log;
 
 import com.codepath.socialshopper.socialshopper.Activities.NotificationActivity;
 import com.codepath.socialshopper.socialshopper.Activities.PickUpListActivity;
-import com.codepath.socialshopper.socialshopper.Activities.ShareLocationActivity;
 import com.codepath.socialshopper.socialshopper.Activities.TrackStatusActivity;
 import com.codepath.socialshopper.socialshopper.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -45,10 +44,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Log.i(TAG+"Push received", data.toString());
         String recipient = data.get("recipient");
         String userId = data.get("userId");
-        if(userId!=null && userId.contains(":"))
+        if(userId!=null && userId.contains(":")) {
             userId = userId.split(":")[1];
-
-        bitmap = getBitmapfromUrl("https://graph.facebook.com/" + userId+ "/picture?type=large");
+            bitmap = getBitmapfromUrl("https://graph.facebook.com/" + userId + "/picture?type=large");
+        }
 
         if(recipient==null) { // Implies the first push notification for the shopper
             String messageContent = data.get("payload");
@@ -65,6 +64,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         intent.putExtra("status", status);
         Log.i(TAG,"Status from notif " + status);
         intent.putExtra("listId", listID);
+        intent.putExtra("message", message);
         intent.setAction(VIEW_ACTION);
 
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -77,7 +77,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .addAction(new NotificationCompat.Action(
-                        R.drawable.ic_notification,
+                        R.mipmap.ic_view,
                         "View",
                         PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_ONE_SHOT)));
 
@@ -112,18 +112,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle("New Pick Up !")
                 .setLargeIcon(bitmap)
-                        //.bigPicture(bitmap))/*Notification with Image*/
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                 .setWhen(System.currentTimeMillis())
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .addAction(new NotificationCompat.Action(
                         R.drawable.ic_accept,
-                        "Yes I can pick up",
+                        "Yes",
                         PendingIntent.getActivity(this, 1, yesIntent, PendingIntent.FLAG_CANCEL_CURRENT)))
                 .addAction(new NotificationCompat.Action(
                         R.drawable.ic_deny,
-                        "Not this one !",
+                        "No",
                         PendingIntent.getActivity(this, 0, new Intent(this, NotificationActivity.class), 0)));
 
 
