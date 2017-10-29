@@ -124,8 +124,11 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     increaseAmount();
+                    tvAmount.setAlpha(1);
                     tvAmount.setVisibility(VISIBLE);
+                    tvMeasure.setAlpha(1);
                     tvMeasure.setVisibility(VISIBLE);
+                    btnRemove.setAlpha(1);
                     btnRemove.setVisibility(VISIBLE);
                 }
             });
@@ -162,16 +165,30 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
         }
 
         private void updateUI(ShoppableItem shoppableItem) {
-            if(shoppableItem.getmItemQty() == 0) {
-                tvAmount.setVisibility(View.GONE);
-                tvMeasure.setVisibility(View.GONE);
-                btnRemove.setVisibility(View.GONE);
-            } else {
-                tvAmount.setText(Integer.toString(shoppableItem.getmItemQty()));
-                tvMeasure.setText(shoppableItem.getItemMeasure());
+            tvAmount.setText(Integer.toString(shoppableItem.getmItemQty()));
+            tvMeasure.setText(shoppableItem.getItemMeasure());
+
+            if (shoppableItem.getmItemQty() == 0) {
+                hideOptions();
             }
+
             final OnUpdateItemListener updateItemListener = (OnUpdateItemListener) activity;
             updateItemListener.OnUpdateItem(shoppableItem);
+        }
+
+        private void hideOptions() {
+            final ObjectAnimator removeAnim = ObjectAnimator.ofFloat(btnRemove, View.ALPHA, 1, 0);
+            removeAnim.setDuration(100);
+
+            final ObjectAnimator amountAnim = ObjectAnimator.ofFloat(tvAmount, View.ALPHA, 1, 0);
+            amountAnim.setDuration(100);
+
+            final ObjectAnimator measureAnim = ObjectAnimator.ofFloat(tvMeasure, View.ALPHA, 1, 0);
+            measureAnim.setDuration(100);
+
+            AnimatorSet animatorSet = new AnimatorSet();
+            animatorSet.playTogether(removeAnim, amountAnim, measureAnim);
+            animatorSet.start();
         }
     }
 }
