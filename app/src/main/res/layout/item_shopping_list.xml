@@ -1,34 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
     android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/ivItemImage"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        app:srcCompat="@drawable/apple" />
+
     <TextView
-        android:id="@+id/tvItemQtyList"
-        android:layout_height="match_parent"
+        android:id="@+id/tvItemName"
         android:layout_width="wrap_content"
-        android:gravity="top"
-        android:padding="5dp"
-        android:textSize="20sp"
-        tools:text="Qty" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/ivItemImage"
+        android:text="Name"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
     <TextView
-        android:id="@+id/tvItemNameList"
-        android:layout_height="match_parent"
+        android:id="@+id/tvItemBrand"
         android:layout_width="wrap_content"
-        android:padding="5dp"
-        android:textSize="20sp"
-        android:gravity="top"
-        tools:text="apple" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvItemName"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/ivItemImage"
+        android:text="brand"
+        android:textColor="@color/colorGrey" />
+
+    <ImageView
+        android:id="@id/btnAdd"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_add_black_24dp" />
+
     <TextView
-        android:id="@+id/tvItemBrandList"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:padding="5dp"
-        android:textSize="20sp"
-        android:layout_weight="1"
-        android:gravity="top"
-        tools:text="fuji apples" />
-</LinearLayout>
+        android:id="@+id/tvItemQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/tvItemMeasure"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="3dp"
+        android:text="quantity"
+        android:textColor="@color/colorGreen" />
+
+    <TextView
+        android:id="@+id/tvItemMeasure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/btnAdd"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="5dp"
+        android:text="measure"
+        android:textColor="@color/colorGreen" />
+
+    <ImageView
+        android:id="@id/btnRemove"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="5dp"
+        android:layout_toStartOf="@+id/tvItemQuantity"
+        android:src="@drawable/ic_remove" />
+
+</RelativeLayout>
