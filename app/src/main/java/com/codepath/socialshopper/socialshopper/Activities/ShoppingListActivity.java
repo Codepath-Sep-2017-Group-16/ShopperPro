@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -44,6 +45,8 @@ public class ShoppingListActivity extends AppCompatActivity {
         rvShoppingListItems.setAdapter(adapter);
         LinearLayoutManager manager = new LinearLayoutManager(getBaseContext());
         rvShoppingListItems.setLayoutManager(manager);
+        rvShoppingListItems.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL));
 
         swipeButton = (SwipeButton) findViewById(R.id.swipe_btn);
 
