@@ -30,9 +30,6 @@
             android:textSize="26sp"
             android:textStyle="bold"
             fontPath="fonts/Abel-Regular.ttf"
-            android:textAlignment="center"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
             tools:context="" />
 
         <ImageView
