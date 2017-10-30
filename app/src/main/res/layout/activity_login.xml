@@ -13,13 +13,17 @@
         android:layout_width="match_parent"
         android:text="@string/facebook_sign_in_text"
         android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textAlignment="center"
         app:iconSize="30dp"
+        app:iconCenterAligned="false"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         app:roundedCorner="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         app:roundedCornerRadius="30dp"
-        />
+        android:layout_marginBottom="95dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

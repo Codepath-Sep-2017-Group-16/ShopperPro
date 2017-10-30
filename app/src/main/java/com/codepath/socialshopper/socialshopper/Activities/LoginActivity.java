@@ -134,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void setupBackgroundVideo() {
         VideoView videoview = (VideoView) findViewById(R.id.videoView);
-        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+ R.raw.background);
+        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+ R.raw.final_grocery);
         videoview.setVideoURI(uri);
         videoview.start();
         videoview.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
