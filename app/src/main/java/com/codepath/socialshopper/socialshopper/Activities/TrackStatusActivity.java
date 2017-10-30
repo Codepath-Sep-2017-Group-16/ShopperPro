@@ -3,6 +3,7 @@ package com.codepath.socialshopper.socialshopper.Activities;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,6 +27,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +46,7 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
     private List<TimeLineModel> mDataList = new ArrayList<>();
     private static String status;
     private static String storeName;
+    private Location prevLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +130,14 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
 
         CameraPosition cameraPosition = new CameraPosition.Builder().target(currentLocation).zoom(14).tilt(30).build();
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+        if(prevLocation !=null) {
+            map.addPolyline(new PolylineOptions()
+                    .add(new LatLng(prevLocation.getLatitude(), prevLocation.getLongitude()) , new LatLng(location.getLatitude(), location.getLongitude()))
+                    .width(5)
+                    .color(Color.GREEN));
+        }else
+            prevLocation = location;
     }
 
 
