@@ -93,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                                     FacebookUtils.fbID = currentProfile.getId();
                                     DatabaseUtils.saveGCMRegistrationIDAndUserInfo(FacebookUtils.getFacebookId(), currentProfile.getFirstName());
                                     FacebookUtils.getFacebookFriendsMembers();
+                                    showHomeScreen();
                                 }
                             };
 
@@ -101,8 +102,8 @@ public class LoginActivity extends AppCompatActivity {
                             Profile profile = Profile.getCurrentProfile();
                             FacebookUtils.fbID = profile.getId();
                             Log.i(TAG+"fb-prof", profile.getFirstName());
+                            showHomeScreen();
                         }
-                        showHomeScreen();
                     }
 
                     @Override
@@ -113,6 +114,8 @@ public class LoginActivity extends AppCompatActivity {
                     public void onError(FacebookException exception) {
                     }
                 }
+
+
         );
 
         fbButton = (FacebookButton) findViewById(R.id.fbLogin);
