@@ -1,16 +1,15 @@
 package com.codepath.socialshopper.socialshopper.Activities;
 
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,12 +17,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.codepath.socialshopper.socialshopper.Manifest;
-import com.codepath.socialshopper.socialshopper.Models.Location;
 import com.codepath.socialshopper.socialshopper.R;
 import com.codepath.socialshopper.socialshopper.Receivers.LocationService;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.codepath.socialshopper.socialshopper.Utils.Status;
 import com.skyfishjy.library.RippleBackground;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ShareLocationActivity extends AppCompatActivity {
 
@@ -131,5 +131,12 @@ public class ShareLocationActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+
+    // pass context to Calligraphy
+    @Override
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
     }
 }

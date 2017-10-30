@@ -1,13 +1,16 @@
 package com.codepath.socialshopper.socialshopper.Activities;
 
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.codepath.socialshopper.socialshopper.Models.ShoppingList;
 import com.codepath.socialshopper.socialshopper.R;
 import com.codepath.socialshopper.socialshopper.Utils.CommonUtils;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ChooseStoreActivity extends AppCompatActivity {
     static ShoppingList shoppingList = new ShoppingList();
@@ -54,5 +57,12 @@ public class ChooseStoreActivity extends AppCompatActivity {
     public void pickLuckys(View view) {
         shoppingList.setStore("Luckys");
         showMainScreen();
+    }
+
+
+    // pass context to Calligraphy
+    @Override
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
     }
 }

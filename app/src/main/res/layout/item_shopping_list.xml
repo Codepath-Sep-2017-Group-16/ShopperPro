@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:orientation="horizontal">
-    <TextView
+    android:paddingRight="16dp">
+    <!--<TextView
         android:id="@+id/tvItemQtyList"
         android:layout_height="match_parent"
         android:layout_width="wrap_content"
@@ -30,5 +30,54 @@
         android:textSize="20sp"
         android:layout_weight="1"
         android:gravity="top"
-        tools:text="fuji apples" />
-</LinearLayout>
+        tools:text="fuji apples" />-->
+    <ImageView
+        android:id="@+id/ivItemImage"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        app:srcCompat="@drawable/apple"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        />
+
+    <TextView
+        android:id="@+id/tvItemNameList"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/ivItemImage"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="Name" />
+
+    <TextView
+        android:id="@+id/tvItemBrandList"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorGrey"
+        android:layout_marginLeft="15dp"
+        android:layout_below="@+id/tvItemNameList"
+        android:layout_toRightOf="@+id/ivItemImage"
+        android:text="brand"
+        />
+
+    <TextView
+        android:id="@+id/tvItemQtyList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@+id/ivItemImage"
+        android:layout_below="@+id/tvItemBrandList"
+        android:textColor="@color/colorGreen"
+        android:layout_marginBottom="5dp"
+        android:text="quantity"
+        />
+</RelativeLayout>

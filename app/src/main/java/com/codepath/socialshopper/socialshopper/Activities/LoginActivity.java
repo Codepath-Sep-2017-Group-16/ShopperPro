@@ -1,13 +1,14 @@
 package com.codepath.socialshopper.socialshopper.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +29,8 @@ import com.shaishavgandhi.loginbuttons.FacebookButton;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -137,5 +140,12 @@ public class LoginActivity extends AppCompatActivity {
                 mp.setLooping(true);
             }
         });
+    }
+
+
+    // pass context to Calligraphy
+    @Override
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
     }
 }

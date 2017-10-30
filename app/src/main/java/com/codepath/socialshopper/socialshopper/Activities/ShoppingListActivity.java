@@ -1,5 +1,6 @@
 package com.codepath.socialshopper.socialshopper.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.codepath.socialshopper.socialshopper.Adapters.ShoppingListArrayAdapter;
 import com.codepath.socialshopper.socialshopper.Models.ShoppableItem;
@@ -20,6 +20,8 @@ import com.codepath.socialshopper.socialshopper.Utils.Status;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.codepath.socialshopper.socialshopper.Activities.MainActivity.shoppingList;
 
@@ -67,5 +69,12 @@ public class ShoppingListActivity extends AppCompatActivity {
             shoppingList.setCreatedTimeStamp(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss", Locale.US).format(new Date()));
             DatabaseUtils.saveList(FacebookUtils.getFacebookId(), shoppingList);
         }
+    }
+
+
+    // pass context to Calligraphy
+    @Override
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
     }
 }

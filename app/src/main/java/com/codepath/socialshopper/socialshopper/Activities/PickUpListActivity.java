@@ -6,20 +6,18 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.codepath.socialshopper.socialshopper.Adapters.ShoppersListArrayAdapter;
 import com.codepath.socialshopper.socialshopper.Models.ShoppableItem;
@@ -28,7 +26,6 @@ import com.codepath.socialshopper.socialshopper.R;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.codepath.socialshopper.socialshopper.Utils.Status;
 import com.ebanx.swipebtn.OnActiveListener;
-import com.ebanx.swipebtn.OnStateChangeListener;
 import com.ebanx.swipebtn.SwipeButton;
 
 import java.io.File;
@@ -36,6 +33,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class PickUpListActivity extends AppCompatActivity implements DatabaseUtils.OnListFetchListener, DatabaseUtils.OnActiveListsFetchListener{
 
@@ -207,5 +206,12 @@ public class PickUpListActivity extends AppCompatActivity implements DatabaseUti
         Intent intent = new Intent(this, ShareLocationActivity.class);
         intent.putExtra("list_id", listId);
         startActivity(intent);
+    }
+
+
+    // pass context to Calligraphy
+    @Override
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
     }
 }

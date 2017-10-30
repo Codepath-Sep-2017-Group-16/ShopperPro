@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.socialshopper.socialshopper.Activities.ShoppingListActivity;
+import com.codepath.socialshopper.socialshopper.Activities.TrackStatusActivity;
 import com.codepath.socialshopper.socialshopper.Models.ShoppableItem;
 import com.codepath.socialshopper.socialshopper.R;
 
@@ -28,6 +30,7 @@ import static com.codepath.socialshopper.socialshopper.Activities.MainActivity.s
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context _context;
+    final String TAG = "SocShpPrvOrd";
     private List<String> listDataHeader; // header titles
     // child data in format of header title, child title
     private HashMap<String, List<ShoppableItem>> listDataChild;
@@ -99,7 +102,24 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getGroup(int groupPosition) {
-        return this.listDataHeader.get(groupPosition);
+        String temp = (String) this.listDataHeader.get(groupPosition);
+        String[] items = temp.split("\\|");
+        //Log.i(TAG, "header " + items[0]);
+        return "List from " + items[0];
+    }
+
+
+    public String getGroupListId(int groupPosition) {
+        String temp = (String) this.listDataHeader.get(groupPosition);
+        String[] items = temp.split("\\|");
+        return items[1];
+    }
+
+    public String getGroupTime(int groupPosition) {
+        String temp = (String) this.listDataHeader.get(groupPosition);
+        String[] items = temp.split("\\|");
+        Log.i(TAG, "header " + items[2]);
+        return "on " + items[2].substring(0,10);
     }
 
     @Override
@@ -127,6 +147,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(headerTitle);
 
+        TextView tvOrderedDate = (TextView) convertView.findViewById(R.id.tvOrderedDate);
+        tvOrderedDate.setText(getGroupTime(groupPosition));
+
         Button btnReorder = (Button) convertView.findViewById(R.id.btnReorder);
         btnReorder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,6 +165,27 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 view.getContext().startActivity(intent);
             }
         });
+
+        Button btnTrack = (Button) convertView.findViewById(R.id.btnTrack);
+        btnTrack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), TrackStatusActivity.class);
+                intent.putExtra("listId", getGroupListId(groupPosition));
+                view.getContext().startActivity(intent);
+            }
+        });
+
+        String status = shoppingList.getStatus();
+
+        if( (!(status == null)) && (status.equals("PICKED_UP") || status.equals("COMPLETED") || status.equals("OUT_FOR_DELIVERY")) ) {
+            btnTrack.setVisibility(View.VISIBLE);
+            btnReorder.setVisibility(View.GONE);
+        }
+        else {
+            btnTrack.setVisibility(View.GONE);
+            btnReorder.setVisibility(View.VISIBLE);
+        }
 
         return convertView;
     }

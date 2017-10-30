@@ -1,11 +1,13 @@
 package com.codepath.socialshopper.socialshopper.Adapters;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.socialshopper.socialshopper.Models.ShoppableItem;
@@ -41,6 +43,13 @@ public class ShoppingListArrayAdapter extends RecyclerView.Adapter<ShoppingListA
         holder.tvItemQty.setText(Integer.toString(shoppableItem.getmItemQty()));
         holder.tvItemName.setText(shoppableItem.getmItemName());
         holder.tvItemBrand.setText(shoppableItem.getmItemBrand());
+
+
+        String icon = shoppableItem.getmItemIconFileName().isEmpty() ? "" : shoppableItem.getmItemIconFileName();
+        int id = mContext.getResources().getIdentifier(icon, "drawable", mContext.getPackageName());
+        Drawable drawable = mContext.getResources().getDrawable(id);
+
+        holder.ivItemImage.setImageDrawable(drawable);
         Log.i(TAG, "onBindViewHolder");
     }
 
@@ -53,11 +62,13 @@ public class ShoppingListArrayAdapter extends RecyclerView.Adapter<ShoppingListA
         TextView tvItemQty;
         TextView tvItemName;
         TextView tvItemBrand;
+        ImageView ivItemImage;
         public ShoppingListViewHolder(View itemView) {
             super(itemView);
             tvItemBrand = (TextView) itemView.findViewById(R.id.tvItemBrandList);
             tvItemName = (TextView) itemView.findViewById(R.id.tvItemNameList);
             tvItemQty = (TextView) itemView.findViewById(R.id.tvItemQtyList);
+            ivItemImage = (ImageView) itemView.findViewById(R.id.ivItemImage);
         }
     }
 }

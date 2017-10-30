@@ -1,5 +1,6 @@
 package com.codepath.socialshopper.socialshopper.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.codepath.socialshopper.socialshopper.Adapters.ShoppableItemsArrayAdapter;
 import com.codepath.socialshopper.socialshopper.Fragments.AddItemDetailsDialogFragment;
 import com.codepath.socialshopper.socialshopper.Fragments.DairyFragment;
@@ -45,6 +47,9 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.fabric.sdk.android.Fabric;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
+import static com.codepath.socialshopper.socialshopper.Utils.FacebookUtils.getFacebookId;
 
 
 public class MainActivity extends AppCompatActivity implements
@@ -78,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements
         databaseUtils = new DatabaseUtils();
         locationUtils = new LocationUtils();
         locationUtils.initializePlaces(this);
+
         setUpToolBar();
         setUpInitialScreen();
 
@@ -180,6 +186,13 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
+        View headerLayout = navigationView.inflateHeaderView(R.layout.nav_header);
+        ImageView ivHeaderPhoto = headerLayout.findViewById(R.id.ivHeader);
+        String profImgURL = "https://graph.facebook.com/" + FacebookUtils.getFacebookId() + "/picture?type=large";
+        Log.i(TAG, "image url " + profImgURL);
+        Glide.with(this)
+                .load(profImgURL)
+                .into(ivHeaderPhoto);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -224,7 +237,7 @@ public class MainActivity extends AppCompatActivity implements
 
 
     private void getActiveLists() {
-        databaseUtils.getActiveLists(this, FacebookUtils.getFacebookId());
+        databaseUtils.getActiveLists(this, getFacebookId());
     }
 
     private void getListByListId(String listId) {
@@ -273,7 +286,7 @@ public class MainActivity extends AppCompatActivity implements
     public void OnLocationFetchListener(ArrayList<String> locations) {
         for (String location : locations) {
             Toast.makeText(this, location, Toast.LENGTH_SHORT).show();
-            databaseUtils.setUserLocation(FacebookUtils.getFacebookId(), Profile.getCurrentProfile().getFirstName(), location);
+            databaseUtils.setUserLocation(getFacebookId(), Profile.getCurrentProfile().getFirstName(), location);
         }
     }
 
@@ -356,6 +369,13 @@ public class MainActivity extends AppCompatActivity implements
             shoppingList.removeItem(shoppableItem);
 
         updateCart();
+    }
+
+
+    // pass context to Calligraphy
+    @Override
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
     }
 }
 

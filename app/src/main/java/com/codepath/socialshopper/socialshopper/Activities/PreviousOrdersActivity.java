@@ -1,5 +1,6 @@
 package com.codepath.socialshopper.socialshopper.Activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,6 +15,8 @@ import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class PreviousOrdersActivity extends AppCompatActivity implements DatabaseUtils.OnAllListFetchListener {
     public final String TAG = "SocShpPrvOrd";
@@ -41,7 +44,11 @@ public class PreviousOrdersActivity extends AppCompatActivity implements Databas
         for (ShoppingList list :
                 allShoppingLists) {
             String store = list.getStore() == null ? "-" : list.getStore();
-            listDataHeader.add("List from " + store);
+            String listId = list.getListId() == null ? "-" : list.getListId();
+            String date = list.getCreatedTimeStamp() == null ? "-" : list.getCreatedTimeStamp();
+
+            listDataHeader.add(store + "|" + listId + "|" + date);
+            //Log.i(TAG,"Add to header " + store + "|" + listId + "|" + date);
             List<ShoppableItem> items = list.getItems();
 
             listDataChild.put(listDataHeader.get(i), items); // Header, Child data
@@ -77,5 +84,12 @@ public class PreviousOrdersActivity extends AppCompatActivity implements Databas
             Log.i(TAG, "Exception " + e.getMessage());
         }
 
+    }
+
+
+    // pass context to Calligraphy
+    @Override
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
     }
 }
