@@ -1,0 +1,27 @@
+Introduction
+
+	- Personal story that transitions seamlessly into the problem statement
+
+Problem
+	- Formally introduce the problem statement
+
+
+Solution
+	- Introduce the app
+	- Highlight the key points of the app
+	- Explain design choices
+
+Demo
+	- Show video demo
+
+Technologies
+	- Explain technologies used
+
+Future Extensions
+	- Explain plans for additional features
+
+Close
+	- Come up with a powerful closing phrase
+
+
+
