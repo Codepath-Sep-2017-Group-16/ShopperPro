@@ -90,7 +90,7 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
                 mTimeLineAdapter.notifyDataSetChanged();
             }
             if (status.equals("COMPLETED")) {
-                mDataList.add(new TimeLineModel(shopperName + " has completed shopping for you", DateTimeUtils.getCurrentDateTime(), "COMPLETED"));
+                mDataList.add(new TimeLineModel(shopperName + " has completed shopping for you \uD83D\uDD7A", DateTimeUtils.getCurrentDateTime(), "COMPLETED"));
                 mTimeLineAdapter.notifyDataSetChanged();
 
                 //dbUtils.getImageForList(this,listId);
@@ -207,7 +207,7 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
     private void setDataListItems(){
 
         if(mDataList!=null&&mDataList.size()==0) {
-            mDataList.add(new TimeLineModel(" Awesome! We are letting your friends know about your shopping list! ☺", DateTimeUtils.getCurrentDateTime(), status));
+            mDataList.add(new TimeLineModel("Awesome! We are letting your friends know about your shopping list! ☺", DateTimeUtils.getCurrentDateTime(), status));
             mTimeLineAdapter.notifyDataSetChanged();
         }
     }
