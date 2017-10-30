@@ -1,83 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp">
-    <!--<TextView
-        android:id="@+id/tvItemQtyList"
-        android:layout_height="match_parent"
-        android:layout_width="wrap_content"
-        android:gravity="top"
-        android:padding="5dp"
-        android:textSize="20sp"
-        tools:text="Qty" />
-    <TextView
-        android:id="@+id/tvItemNameList"
-        android:layout_height="match_parent"
-        android:layout_width="wrap_content"
-        android:padding="5dp"
-        android:textSize="20sp"
-        android:gravity="top"
-        tools:text="apple" />
-    <TextView
-        android:id="@+id/tvItemBrandList"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:padding="5dp"
-        android:textSize="20sp"
-        android:layout_weight="1"
-        android:gravity="top"
-        tools:text="fuji apples" />-->
+    android:orientation="horizontal">
+
     <ImageView
         android:id="@+id/ivItemImage"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="5dp"
-        app:srcCompat="@drawable/apple"
-        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        />
-
-    <TextView
-        android:id="@+id/tvItemNameList"
-        android:layout_marginTop="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:textStyle="bold"
-        android:textSize="24sp"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/ivItemImage"
-        android:textColor="@color/colorPrimaryDark"
-        android:text="Name" />
-
-    <TextView
-        android:id="@+id/tvItemBrandList"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorGrey"
-        android:layout_marginLeft="15dp"
-        android:layout_below="@+id/tvItemNameList"
-        android:layout_toRightOf="@+id/ivItemImage"
-        android:text="brand"
-        />
+        app:srcCompat="@drawable/apple" />
 
     <TextView
-        android:id="@+id/tvItemQtyList"
+        android:id="@+id/tvItemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_toRightOf="@+id/ivItemImage"
-        android:layout_below="@+id/tvItemBrandList"
-        android:textColor="@color/colorGreen"
-        android:layout_marginBottom="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/ivItemImage"
+        android:text="Name"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvItemBrand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvItemName"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/ivItemImage"
+        android:text="brand"
+        android:textColor="@color/colorGrey" />
+
+    <ImageView
+        android:id="@+id/ivAdd"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_add_black_24dp" />
+
+    <TextView
+        android:id="@+id/tvItemQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/tvItemMeasure"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="3dp"
         android:text="quantity"
-        />
+        android:textColor="@color/colorGreen" />
+
+    <TextView
+        android:id="@+id/tvItemMeasure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/ivAdd"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="5dp"
+        android:text="measure"
+        android:textColor="@color/colorGreen" />
+
+    <ImageView
+        android:id="@+id/ivRemove"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="5dp"
+        android:layout_toStartOf="@+id/tvItemQuantity"
+        android:src="@drawable/ic_remove" />
+
 </RelativeLayout>
