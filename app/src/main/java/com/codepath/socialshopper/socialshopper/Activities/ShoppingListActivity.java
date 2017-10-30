@@ -16,6 +16,8 @@ import com.codepath.socialshopper.socialshopper.R;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.codepath.socialshopper.socialshopper.Utils.FacebookUtils;
 import com.codepath.socialshopper.socialshopper.Utils.Status;
+import com.ebanx.swipebtn.OnActiveListener;
+import com.ebanx.swipebtn.SwipeButton;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,6 +30,7 @@ import static com.codepath.socialshopper.socialshopper.Activities.MainActivity.s
 public class ShoppingListActivity extends AppCompatActivity {
     ShoppingListArrayAdapter adapter;
     RecyclerView rvShoppingListItems;
+    SwipeButton swipeButton;
     public final String TAG = "SocShpLstSub";
 
     @Override
@@ -41,15 +44,19 @@ public class ShoppingListActivity extends AppCompatActivity {
         rvShoppingListItems.setAdapter(adapter);
         LinearLayoutManager manager = new LinearLayoutManager(getBaseContext());
         rvShoppingListItems.setLayoutManager(manager);
-        Log.i(TAG, "shopping list activity");
-        Log.i(TAG, "number of items in the list" + String.valueOf(shoppingList.getItems().size()));
 
+        swipeButton = (SwipeButton) findViewById(R.id.swipe_btn);
+
+        swipeButton.setOnActiveListener(new OnActiveListener() {
+            @Override
+            public void onActive() {
+                submitShoppingList(swipeButton);
+            }
+        });
     }
 
     public void submitShoppingList(View view) {
-        Log.i(TAG, "submitting list");
         saveList(shoppingList);
-    //    Toast.makeText(view.getContext(), "Published the shopping list", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(ShoppingListActivity.this, TrackStatusActivity.class);
 
         intent.putExtra("list_id", shoppingList.getListId());

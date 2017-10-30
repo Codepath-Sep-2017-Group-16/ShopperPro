@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ import com.facebook.Profile;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
 import org.parceler.Parcels;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -120,6 +122,9 @@ public class MainActivity extends AppCompatActivity implements
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        TextView toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
+        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) toolbarTitle.getLayoutParams();
+        layoutParams.setMarginStart(0);
     }
 
     private void setUpInitialScreen() {
