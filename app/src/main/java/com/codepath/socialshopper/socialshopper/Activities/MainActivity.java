@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.codepath.socialshopper.socialshopper.Adapters.ShoppableItemsArrayAdapter;
 import com.codepath.socialshopper.socialshopper.Fragments.AddItemDetailsDialogFragment;
 import com.codepath.socialshopper.socialshopper.Fragments.DairyFragment;
@@ -42,7 +44,6 @@ import com.facebook.Profile;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
 import org.parceler.Parcels;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -115,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(getDrawable(R.drawable.ic_menu));
+        getSupportActionBar().setHomeAsUpIndicator(getDrawable(R.drawable.ic_dehaze_white_24dp));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setElevation(0);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -197,6 +198,7 @@ public class MainActivity extends AppCompatActivity implements
         Log.i(TAG, "image url " + profImgURL);
         Glide.with(this)
                 .load(profImgURL)
+                .apply(RequestOptions.circleCropTransform())
                 .into(ivHeaderPhoto);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -300,6 +302,15 @@ public class MainActivity extends AppCompatActivity implements
         MDToast mdToast = MDToast.makeText(getApplicationContext(), "Your pick up store " + storeName + " is saved." , MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS);
         mdToast.show();
         shoppingList.setStore(storeName);
+        Snackbar.make(findViewById(R.id.drawer_layout), "Shopping at "+storeName, Snackbar.LENGTH_INDEFINITE)
+                .setAction("Change Store", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //shoppingList.setStore("");
+                        shoppingList.clear();
+                    }
+                })
+                .show();
     }
 
     private void initializeShoppingList() {

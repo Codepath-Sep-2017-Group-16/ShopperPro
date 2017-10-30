@@ -1,7 +1,5 @@
 package com.codepath.socialshopper.socialshopper.Models;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -109,5 +107,10 @@ public class ShoppingList {
                 ", TAG='" + TAG + '\'' +
                 ", mShoppableItems=" + shoppableItems +
                 '}';
+    }
+
+    public void clear() {
+        this.store = "";
+        this.shoppableItems = new ArrayList<>();;
     }
 }
