@@ -85,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                 new FacebookCallback < LoginResult > () {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
+                        DatabaseUtils.saveGCMRegistrationIDAndUserInfo(FacebookUtils.getFacebookId(), "Greeshma");
                         if(Profile.getCurrentProfile() == null) {
                             mProfileTracker = new ProfileTracker() {
                                 @Override
