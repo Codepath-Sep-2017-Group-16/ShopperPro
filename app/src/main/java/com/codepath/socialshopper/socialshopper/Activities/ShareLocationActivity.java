@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.codepath.socialshopper.socialshopper.Manifest;
 import com.codepath.socialshopper.socialshopper.R;
-import com.codepath.socialshopper.socialshopper.Receivers.LocationService;
+import com.codepath.socialshopper.socialshopper.Services.ShareLocationService;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.codepath.socialshopper.socialshopper.Utils.Status;
 import com.skyfishjy.library.RippleBackground;
@@ -95,7 +95,7 @@ public class ShareLocationActivity extends AppCompatActivity {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Intent intent = new Intent(ShareLocationActivity.this, LocationService.class);
+                    Intent intent = new Intent(ShareLocationActivity.this, ShareLocationService.class);
                     startService(intent);
 //                    btnLocationSharing.setText("Stop location sharing");
                     imageView.setImageResource(R.drawable.ic_location_off_black_24dp);

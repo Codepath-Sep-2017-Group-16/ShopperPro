@@ -1,4 +1,4 @@
-package com.codepath.socialshopper.socialshopper.Receivers;
+package com.codepath.socialshopper.socialshopper.Services;
 
 import android.app.Service;
 import android.content.Context;
@@ -21,7 +21,7 @@ import com.codepath.socialshopper.socialshopper.Activities.ShareLocationActivity
  * Created by saripirala on 10/19/17.
  */
 
-public class LocationService extends Service {
+public class ShareLocationService extends Service {
 
 
     public static final String BROADCAST_ACTION = "Hello World";
@@ -119,21 +119,6 @@ public class LocationService extends Service {
             Toast.makeText(getApplicationContext(),"Permission Denied",Toast.LENGTH_SHORT).show();
         }
         locationManager.removeUpdates(listener);
-    }
-
-    public static Thread performOnBackgroundThread(final Runnable runnable) {
-        final Thread t = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    runnable.run();
-                } finally {
-
-                }
-            }
-        };
-        t.start();
-        return t;
     }
 
     public class MyLocationListener implements LocationListener

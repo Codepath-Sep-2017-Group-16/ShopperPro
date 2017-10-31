@@ -93,7 +93,7 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".Receivers.LocationService" />
+        <service android:name=".Services.ShareLocationService" />
 
         <activity android:name=".Activities.SplashScreenActivity">
             <intent-filter>

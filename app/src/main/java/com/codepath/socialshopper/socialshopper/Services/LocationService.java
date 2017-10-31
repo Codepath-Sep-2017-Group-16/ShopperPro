@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class LocationService extends Service implements LocationUtils.OnLocationFetchListener {
 
-    private static final String TAG = "LocationService";
+    private static final String TAG = "ShareLocationService";
     private LocationManager mLocationManager = null;
     private LocationUtils mLocationUtils;
     private static final int LOCATION_INTERVAL = 1000;
