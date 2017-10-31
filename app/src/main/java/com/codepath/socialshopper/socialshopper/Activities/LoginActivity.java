@@ -130,6 +130,7 @@ public class LoginActivity extends AppCompatActivity {
     private void showHomeScreen() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private void setupBackgroundVideo() {

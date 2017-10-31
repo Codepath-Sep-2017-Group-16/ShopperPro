@@ -31,10 +31,10 @@ public class ShareLocationActivity extends AppCompatActivity {
     Double latitude, longitude;
     String provider;
     BroadcastReceiver receiver;
-    Button btnLocationSharing;
     ImageView imageView;
     LocalBroadcastManager bManager;
     IntentFilter intentFilter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +97,6 @@ public class ShareLocationActivity extends AppCompatActivity {
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Intent intent = new Intent(ShareLocationActivity.this, ShareLocationService.class);
                     startService(intent);
-//                    btnLocationSharing.setText("Stop location sharing");
                     imageView.setImageResource(R.drawable.ic_location_off_black_24dp);
                     imageView.setTag(R.drawable.ic_location_off_black_24dp);
 
@@ -113,24 +112,12 @@ public class ShareLocationActivity extends AppCompatActivity {
         }
     }
 
-
-    private void initListener() {
-        btnLocationSharing.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(btnLocationSharing.getText().toString().equalsIgnoreCase("Start location sharing")){
-                    ActivityCompat.requestPermissions(ShareLocationActivity.this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-                }else{
-                    btnLocationSharing.setText("Start location sharing");
-                    android.os.Process.killProcess(android.os.Process.myPid());
-                }
-            }
-        });
-    }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 

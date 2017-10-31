@@ -93,6 +93,7 @@ public class ShoppersListArrayAdapter  extends RecyclerView.Adapter<ShoppersList
         holder.getTvItemBrand().setText(item.getmItemBrand());
         holder.getTvItemName().setText(item.getmItemName());
         holder.getTvItemQuantity().setText(Integer.toString(item.getmItemQty()));
+        holder.getTvItemMeasure().setText(item.getItemMeasure());
     }
 
 
@@ -119,10 +120,13 @@ public class ShoppersListArrayAdapter  extends RecyclerView.Adapter<ShoppersList
             return ivItemImage;
         }
 
+        public TextView getTvItemMeasure() { return  tvItemMeasure;}
+
         private TextView tvItemName;
         private TextView tvItemBrand;
         private TextView tvItemQuantity;
         private ImageView ivItemImage;
+        private TextView tvItemMeasure;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -130,6 +134,7 @@ public class ShoppersListArrayAdapter  extends RecyclerView.Adapter<ShoppersList
             tvItemQuantity = (TextView) itemView.findViewById(R.id.tvItemQuantity);
             tvItemBrand = (TextView) itemView.findViewById(R.id.tvItemBrand);
             ivItemImage = (ImageView) itemView.findViewById(R.id.ivItemImage);
+            tvItemMeasure = (TextView) itemView.findViewById(R.id.tvItemMeasure);
         }
     }
 
