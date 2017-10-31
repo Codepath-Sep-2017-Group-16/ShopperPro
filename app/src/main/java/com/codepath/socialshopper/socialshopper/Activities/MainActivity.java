@@ -20,6 +20,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -374,6 +376,8 @@ public class MainActivity extends AppCompatActivity implements
     private void updateCart() {
         if (shoppingList.getItems() != null && shoppingList.getItems().size() > 0) {
             tvCartCount.setVisibility(View.VISIBLE);
+            final Animation animShake = AnimationUtils.loadAnimation(this, R.anim.shake);
+            tvCartCount.startAnimation(animShake);
             tvCartCount.setText(Integer.toString(shoppingList.getItems().size()));
         }
     }
