@@ -12,16 +12,16 @@
         android:background="@drawable/item_background"
         card_view:cardElevation="10dp">
 
-        <Button
+        <ImageView
             android:id="@+id/btnShoppableItem"
             android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_height="140dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:background="@android:color/transparent"
-            android:drawableTop="@drawable/banana_file"
-            android:paddingTop="20dp"
+            android:src="@drawable/banana_file"
             android:text="Banana"
+            android:scaleType="fitCenter"
             android:textAllCaps="false"
             android:textColor="#fff" />
 

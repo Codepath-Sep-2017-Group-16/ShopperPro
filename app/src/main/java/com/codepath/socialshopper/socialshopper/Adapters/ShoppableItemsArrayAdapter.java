@@ -70,10 +70,10 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
         final ShoppableItem shoppableItem = shoppableItems.get(position);
         holder.Bind(shoppableItem);
 
-        holder.btnShoppableItem.setText(shoppableItem.getmItemName());
+        //holder.btnShoppableItem.setText(shoppableItem.getmItemName());
         Drawable top = ContextCompat.getDrawable(mContext, mContext.getResources().getIdentifier(shoppableItem.getmItemIconFileName(), "raw", mContext.getPackageName()));
-        holder.btnShoppableItem.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);
-
+        //holder.btnShoppableItem.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);
+        holder.btnShoppableItem.setImageDrawable(top);
         holder.btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,7 +95,7 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
 
     public class ShoppableItemsViewHolder extends RecyclerView.ViewHolder {
         ShoppableItem shoppableItem;
-        Button btnShoppableItem;
+        ImageView btnShoppableItem;
         TextView tvAmount;
         TextView tvMeasure;
         Button btnAdd;
@@ -103,7 +103,7 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
 
         public ShoppableItemsViewHolder(View itemView) {
             super(itemView);
-            btnShoppableItem = (Button) itemView.findViewById(R.id.btnShoppableItem);
+            btnShoppableItem = (ImageView) itemView.findViewById(R.id.btnShoppableItem);
             tvAmount = (TextView) itemView.findViewById(R.id.tvAmount);
             tvMeasure = (TextView) itemView.findViewById(R.id.tvMeasure);
             btnAdd = (Button) itemView.findViewById(R.id.btnAdd);
