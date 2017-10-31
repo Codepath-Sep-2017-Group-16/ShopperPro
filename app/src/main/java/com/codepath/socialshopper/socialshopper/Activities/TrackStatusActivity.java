@@ -95,14 +95,8 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
             if (status.equals("COMPLETED")) {
                 mDataList.add(new TimeLineModel(shopperName + " has completed shopping for you \uD83D\uDD7A", DateTimeUtils.getCurrentDateTime(), "COMPLETED"));
                 mTimeLineAdapter.notifyDataSetChanged();
-
                 //dbUtils.getImageForList(this,listId);
             }
-//            if (status.equals("OUT_FOR_DELIVERY")) {
-//                mTimeLineAdapter.notifyDataSetChanged();
-//                mDataList.add(new TimeLineModel(shopperName + " is on his way to your home", DateTimeUtils.getCurrentDateTime(), "OUT_FOR_DELIVERY"));
-//                //The map and the button can be hidden until this.
-//            }
         }
     }
 

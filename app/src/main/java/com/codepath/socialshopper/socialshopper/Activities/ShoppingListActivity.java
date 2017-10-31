@@ -67,6 +67,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         DatabaseUtils.updateListStatus(shoppingList.getListId(), Status.PLACED);
         startActivity(intent);
+        finish();
     }
 
     private void saveList(ShoppingList shoppingList) {

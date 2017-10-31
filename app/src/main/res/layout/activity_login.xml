@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:text="@string/facebook_sign_in_text"
         android:textAllCaps="false"
-        android:textSize="18sp"
+        android:textSize="22sp"
         android:textAlignment="center"
         app:iconSize="30dp"
         app:iconCenterAligned="false"
