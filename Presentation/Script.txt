@@ -1,27 +1,29 @@
-Introduction
+Introduction	
+	- Greetings
+	- Introduce team
+	- Talk about CodePath and how intense it has been 
+	- How it created a problem
 
-	- Personal story that transitions seamlessly into the problem statement
 
 Problem
 	- Formally introduce the problem statement
 
+What If
+	- What if there is was something that would tell your friends what you want at just the right time
 
 Solution
-	- Introduce the app
-	- Highlight the key points of the app
+	- Introduce the app	
 	- Explain design choices
 
 Demo
 	- Show video demo
 
-Technologies
-	- Explain technologies used
 
 Future Extensions
 	- Explain plans for additional features
 
 Close
-	- Come up with a powerful closing phrase
+	- A friend in need, is a SocialShopper indeed!
 
 
 
