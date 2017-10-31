@@ -1,4 +1,4 @@
-package com.codepath.socialshopper.socialshopper.Listeners;
+package com.codepath.socialshopper.socialshopper.Services;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
