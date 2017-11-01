@@ -97,17 +97,15 @@ public class MainActivity extends AppCompatActivity implements
         drawerToggle = setupDrawerToggle();
         mDrawer.addDrawerListener(drawerToggle);
         initializeShoppingList();
-        updateCart();
         initializeCart();
     }
 
             @Override
             protected void onResume() {
                 super.onResume();
-                updateCart();
                 initializeCart();
             }
-            
+
             @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);

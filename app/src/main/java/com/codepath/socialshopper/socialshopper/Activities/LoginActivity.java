@@ -102,6 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                             Profile profile = Profile.getCurrentProfile();
                             FacebookUtils.fbID = profile.getId();
                             Log.i(TAG+"fb-prof", profile.getFirstName());
+                            DatabaseUtils.saveGCMRegistrationIDAndUserInfo(FacebookUtils.getFacebookId(), profile.getFirstName());
                             showHomeScreen();
                         }
                     }
