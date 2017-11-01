@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.hardware.camera2.params.Face;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -98,10 +97,18 @@ public class MainActivity extends AppCompatActivity implements
         drawerToggle = setupDrawerToggle();
         mDrawer.addDrawerListener(drawerToggle);
         initializeShoppingList();
+        updateCart();
         initializeCart();
     }
 
-    @Override
+            @Override
+            protected void onResume() {
+                super.onResume();
+                updateCart();
+                initializeCart();
+            }
+            
+            @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
@@ -344,6 +351,7 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
         ivCart = (ImageView) findViewById(R.id.ivCart);
+        tvCartCount.setVisibility(View.GONE);
         ivCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
