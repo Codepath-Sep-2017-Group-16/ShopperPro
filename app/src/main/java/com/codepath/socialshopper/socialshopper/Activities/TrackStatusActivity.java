@@ -89,11 +89,11 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
            // ivReceiptImg.setVisibility(View.GONE);
             //PICKED_UP, COMPLETED and OUT_FOR_DELIVERY
             if (status.equals("PICKED_UP")) {
-                mDataList.add(new TimeLineModel(shopperName+ " is around " + storeName + " and is shopping for you !", DateTimeUtils.getCurrentDateTime(), "PICKED_UP"));
+                mDataList.add(new TimeLineModel(shopperName + " is around " + storeName + " and is shopping for you!", DateTimeUtils.getCurrentDateTime(), "PICKED_UP"));
                 mTimeLineAdapter.notifyDataSetChanged();
             }
             if (status.equals("COMPLETED")) {
-                mDataList.add(new TimeLineModel(shopperName + " has completed shopping for you \uD83D\uDD7A", DateTimeUtils.getCurrentDateTime(), "COMPLETED"));
+                mDataList.add(new TimeLineModel(shopperName + " has completed shopping for you. \uD83D\uDD7A", DateTimeUtils.getCurrentDateTime(), "COMPLETED"));
                 mTimeLineAdapter.notifyDataSetChanged();
                 //dbUtils.getImageForList(this,listId);
             }
