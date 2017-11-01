@@ -10,7 +10,7 @@
         android:id="@+id/ivHeader"
         android:layout_width="125dp"
         android:layout_height="125dp"
-        android:layout_marginLeft="25dp"
+        android:layout_gravity="center"
         tools:src="@drawable/carrot"
         android:scaleType="fitCenter" />
 </LinearLayout>
