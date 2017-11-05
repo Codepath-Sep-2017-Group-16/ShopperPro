@@ -51,7 +51,7 @@ public class ShoppersListArrayAdapter  extends RecyclerView.Adapter<ShoppersList
         else if(item.getmItemIconFileName().contains("apple")){
             holder.getIvItemImage().setImageResource(R.drawable.apple);
         }else if(item.getmItemIconFileName().contains("lemon")){
-            holder.getIvItemImage().setImageResource(R.drawable.lemon);
+            holder.getIvItemImage().setImageResource(R.drawable.grapes);
         }else if(item.getmItemIconFileName().contains("strawberry")){
             holder.getIvItemImage().setImageResource(R.drawable.strawberry);
         }else if(item.getmItemIconFileName().contains("carrot")){

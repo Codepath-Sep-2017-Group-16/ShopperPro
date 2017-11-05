@@ -19,9 +19,6 @@ Demo
 	- Show video demo
 
 
-Future Extensions
-	- Explain plans for additional features
-
 Close
 	- A friend in need, is a SocialShopper indeed!
 
