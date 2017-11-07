@@ -104,8 +104,9 @@
         </activity>
         <activity android:name=".Activities.LoginActivity" />
         <activity android:name=".Activities.ShoppingListActivity" />
-        <activity android:name=".Activities.TrackStatusActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".Activities.TrackStatusActivity"
+            android:launchMode="singleTask" />
         <activity
             android:name=".Activities.NotificationActivity"
             android:launchMode="singleTask" />
@@ -117,6 +118,12 @@
         <service
             android:name=".Services.LocationService"
             android:process=":ss_location_service" />
+
+        <activity android:name=".Activities.PaymentActivity" />
+
+        <meta-data
+            android:name="com.google.android.gms.wallet.api.enabled"
+            android:value="true" />
 
     </application>
 

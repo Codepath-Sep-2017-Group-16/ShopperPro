@@ -1,10 +1,14 @@
 package com.codepath.socialshopper.socialshopper.Activities;
 
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +20,7 @@ import com.codepath.socialshopper.socialshopper.Adapters.TimeLineAdapter;
 import com.codepath.socialshopper.socialshopper.Models.Location;
 import com.codepath.socialshopper.socialshopper.Models.TimeLineModel;
 import com.codepath.socialshopper.socialshopper.R;
+import com.codepath.socialshopper.socialshopper.Utils.Constants;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.codepath.socialshopper.socialshopper.Utils.DateTimeUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -28,6 +33,18 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.wallet.Cart;
+import com.google.android.gms.wallet.FullWallet;
+import com.google.android.gms.wallet.FullWalletRequest;
+import com.google.android.gms.wallet.InstrumentInfo;
+import com.google.android.gms.wallet.MaskedWallet;
+import com.google.android.gms.wallet.fragment.SupportWalletFragment;
+import com.google.android.gms.wallet.fragment.WalletFragmentStyle;
+import com.stripe.android.model.StripePaymentSource;
+import com.stripe.wrap.pay.AndroidPayConfiguration;
+import com.stripe.wrap.pay.activity.StripeAndroidPayActivity;
+import com.stripe.wrap.pay.utils.CartContentException;
+import com.stripe.wrap.pay.utils.CartManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +75,7 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
         status = "SUBMITTED";
         initView();
         instantiateMapFragment();
+        initializePayments();
     }
 
 
@@ -222,4 +240,25 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
     protected void attachBaseContext(Context context) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
     }
+
+    private void initializePayments() {
+        AndroidPayConfiguration payConfiguration = AndroidPayConfiguration.init(Constants.PUBLISHABLE_KEY, Constants.CURRENCY_CODE_USD);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                String result=data.getStringExtra("result");
+                mDataList.get(2).setPaymentStatus("PAID");
+                mTimeLineAdapter.notifyDataSetChanged();
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }
+
+
 }
