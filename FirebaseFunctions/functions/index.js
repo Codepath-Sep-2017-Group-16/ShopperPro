@@ -108,7 +108,7 @@ exports.sendFollowerNotification = functions.database.ref('/users/{userId}/{loca
       response.results.forEach((result, index) => {
         const error = result.error;
         if (error) {
-          console.error('Failure sending notification to', tokens[index], error);
+          console.error('Failure sending notification to', token, error);
         }
       });
       return 1;
