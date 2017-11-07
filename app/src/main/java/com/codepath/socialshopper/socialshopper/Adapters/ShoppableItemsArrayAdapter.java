@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.codepath.socialshopper.socialshopper.Activities.MainActivity;
 import com.codepath.socialshopper.socialshopper.Fragments.AddItemDetailsDialogFragment;
@@ -84,6 +85,13 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
             @Override
             public void onClick(View v) {
                 holder.showRemoveOptions();
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.showAddOptions();
             }
         });
     }
