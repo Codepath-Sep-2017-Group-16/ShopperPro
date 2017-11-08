@@ -1,10 +1,13 @@
 package com.codepath.socialshopper.socialshopper.Activities;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 
 import com.codepath.socialshopper.socialshopper.R;
 import com.codepath.socialshopper.socialshopper.Utils.FacebookUtils;
@@ -37,6 +40,7 @@ public class SplashScreenActivity extends AwesomeSplash {
         configSplash.setTitleTextSize(30f); //float value
         configSplash.setAnimTitleDuration(30);
         configSplash.setAnimTitleTechnique(Techniques.FadeIn);
+        setupTransitions();
 
     }
 
@@ -45,12 +49,18 @@ public class SplashScreenActivity extends AwesomeSplash {
         Intent intent;
         if (!FacebookUtils.isLoggedIn()) {
             intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
         }else{
             intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
         }
-
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         finish();
+    }
+
+    private void setupTransitions() {
+        Transition exitSlide =
+                TransitionInflater.from(this).
+                        inflateTransition(R.transition.transition_slide_left);
+
+        getWindow().setExitTransition(exitSlide);
     }
 }

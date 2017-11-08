@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.View;
 
@@ -56,6 +58,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                 submitShoppingList(swipeButton);
             }
         });
+        setupTransitions();
     }
 
     public void submitShoppingList(View view) {
@@ -88,5 +91,12 @@ public class ShoppingListActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context context) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
+    }
+
+    private void setupTransitions() {
+        Transition slide =
+                TransitionInflater.from(this).
+                        inflateTransition(R.transition.transition_slide_right);
+        getWindow().setEnterTransition(slide);
     }
 }

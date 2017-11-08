@@ -1,5 +1,6 @@
 package com.codepath.socialshopper.socialshopper.Activities;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,6 +14,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -59,8 +62,7 @@ import static com.codepath.socialshopper.socialshopper.Utils.FacebookUtils.getFa
 
 public class MainActivity extends AppCompatActivity implements
         DatabaseUtils.OnActiveListsFetchListener, DatabaseUtils.OnListFetchListener, AddItemDetailsDialogFragment.AddItemDetailsDialogListener,
-        LocationUtils.OnLocationFetchListener, StoresFragment.OnStoreFragmentInteractionListener , ShoppableItemsArrayAdapter.OnUpdateItemListener
-        {
+        LocationUtils.OnLocationFetchListener, StoresFragment.OnStoreFragmentInteractionListener, ShoppableItemsArrayAdapter.OnUpdateItemListener {
 
     public final String TAG = "SocShpMainAct";
     private DatabaseUtils databaseUtils;
@@ -99,16 +101,17 @@ public class MainActivity extends AppCompatActivity implements
         initializeShoppingList();
         updateCart();
         initializeCart();
+        setupTransitions();
     }
 
-            @Override
-            protected void onResume() {
-                super.onResume();
-                updateCart();
-                initializeCart();
-            }
-            
-            @Override
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateCart();
+        initializeCart();
+    }
+
+    @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
@@ -176,12 +179,12 @@ public class MainActivity extends AppCompatActivity implements
 
         if (id == R.id.action_view_shoppinglist) {
 
-            if(shoppingList==null ){
+            if (shoppingList == null) {
                 MDToast mdToast = MDToast.makeText(this, "Your cart is empty !", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
                 mdToast.show();
                 return true;
             }
-            if(shoppingList.getStore()==null){
+            if (shoppingList.getStore() == null) {
                 MDToast mdToast = MDToast.makeText(this, "Please choose a store", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
                 mdToast.show();
                 return true;
@@ -310,7 +313,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onStoreSelection(String storeName) {
         shoppingList.setStore(storeName);
-        Snackbar.make(findViewById(R.id.drawer_layout), "Shopping at "+storeName, Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(findViewById(R.id.drawer_layout), "Shopping at " + storeName, Snackbar.LENGTH_INDEFINITE)
                 .setAction("Change Store", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -330,24 +333,25 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
 
-                if(shoppingList==null ){
+                if (shoppingList == null) {
                     MDToast mdToast = MDToast.makeText(getApplicationContext(), "Your cart is empty !", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
                     mdToast.show();
                     return;
                 }
-                if(shoppingList.getStore()==null){
+                if (shoppingList.getStore() == null) {
                     MDToast mdToast = MDToast.makeText(getApplicationContext(), "Please choose a store", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
                     mdToast.show();
                     return;
                 }
-                if(shoppingList.getItems()==null){
+                if (shoppingList.getItems() == null) {
                     MDToast mdToast = MDToast.makeText(getApplicationContext(), "Your cart is empty, please add atleast one item", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
                     mdToast.show();
                     return;
                 }
 
                 Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
-                startActivity(intent);
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
+                //startActivity(intent);
             }
         });
         ivCart = (ImageView) findViewById(R.id.ivCart);
@@ -355,24 +359,25 @@ public class MainActivity extends AppCompatActivity implements
         ivCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(shoppingList==null ){
+                if (shoppingList == null) {
                     MDToast mdToast = MDToast.makeText(getApplicationContext(), "Your cart is empty !", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
                     mdToast.show();
                     return;
                 }
-                if(shoppingList.getStore()==null){
+                if (shoppingList.getStore() == null) {
                     MDToast mdToast = MDToast.makeText(getApplicationContext(), "Please choose a store", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
                     mdToast.show();
                     return;
                 }
-                if(shoppingList.getItems()==null){
+                if (shoppingList.getItems() == null) {
                     MDToast mdToast = MDToast.makeText(getApplicationContext(), "Your cart is empty, please add atleast one item", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
                     mdToast.show();
                     return;
                 }
 
                 Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
-                startActivity(intent);
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
+                //startActivity(intent);
             }
         });
         ivCart.setVisibility(View.VISIBLE);
@@ -402,6 +407,18 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void attachBaseContext(Context context) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
+    }
+
+    private void setupTransitions() {
+        Transition exitSlide =
+                TransitionInflater.from(this).
+                        inflateTransition(R.transition.transition_slide_left);
+        Transition enterSlide =
+                TransitionInflater.from(this).
+                        inflateTransition(R.transition.transition_slide_right);
+        enterSlide.setDuration(500);
+        getWindow().setExitTransition(exitSlide);
+        getWindow().setEnterTransition(enterSlide);
     }
 }
 
