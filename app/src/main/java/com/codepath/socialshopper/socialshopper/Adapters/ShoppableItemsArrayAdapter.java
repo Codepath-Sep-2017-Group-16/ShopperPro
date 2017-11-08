@@ -17,6 +17,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -43,6 +46,9 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
     ArrayList<ShoppableItem> shoppableItems;
     public final String TAG = "SocShpAdap";
     private Activity activity;
+    private static final DecelerateInterpolator DECCELERATE_INTERPOLATOR = new DecelerateInterpolator();
+    private static final AccelerateInterpolator ACCELERATE_INTERPOLATOR = new AccelerateInterpolator();
+    private static final OvershootInterpolator OVERSHOOT_INTERPOLATOR = new OvershootInterpolator(4);
 
     public ShoppableItemsArrayAdapter(ArrayList<ShoppableItem> shoppableItems) {
         this.shoppableItems = shoppableItems;
@@ -100,7 +106,7 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
     public int getItemCount() {
         return shoppableItems.size();
     }
-
+    
     public class ShoppableItemsViewHolder extends RecyclerView.ViewHolder {
         ShoppableItem shoppableItem;
         ImageView btnShoppableItem;
@@ -108,6 +114,7 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
         TextView tvMeasure;
         Button btnAdd;
         Button btnRemove;
+        TextView tvPlusOne;
 
         public ShoppableItemsViewHolder(View itemView) {
             super(itemView);
@@ -116,6 +123,7 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
             tvMeasure = (TextView) itemView.findViewById(R.id.tvMeasure);
             btnAdd = (Button) itemView.findViewById(R.id.btnAdd);
             btnRemove = (Button) itemView.findViewById(R.id.btnRemove);
+            tvPlusOne = (TextView) itemView.findViewById(R.id.tvPLusOne);
         }
 
         public void Bind(ShoppableItem shoppableItem) {
@@ -136,8 +144,8 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
                     tvAmount.setVisibility(VISIBLE);
                     tvMeasure.setAlpha(1);
                     tvMeasure.setVisibility(VISIBLE);
-                    btnRemove.setAlpha(1);
-                    btnRemove.setVisibility(VISIBLE);
+                    //btnRemove.setAlpha(1);
+                    //btnRemove.setVisibility(VISIBLE);
                 }
             });
         }

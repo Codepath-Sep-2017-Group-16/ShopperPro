@@ -43,8 +43,8 @@
 
     <ImageView
         android:id="@+id/ivAdd"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_alignParentEnd="true"
@@ -57,6 +57,7 @@
         android:layout_toStartOf="@+id/tvItemMeasure"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="3dp"
+        android:textSize="20sp"
         android:text="quantity"
         android:textColor="@color/colorGreen" />
 
@@ -67,13 +68,14 @@
         android:layout_toStartOf="@+id/ivAdd"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="5dp"
+        android:textSize="20sp"
         android:text="measure"
         android:textColor="@color/colorGreen" />
 
     <ImageView
         android:id="@+id/ivRemove"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="5dp"
         android:layout_toStartOf="@+id/tvItemQuantity"
