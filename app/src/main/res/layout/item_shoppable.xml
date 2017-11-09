@@ -28,11 +28,12 @@
             android:id="@+id/btnAdd"
             android:layout_width="25dp"
             android:layout_height="25dp"
+            android:layout_marginEnd="5dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:background="@drawable/ic_add_black_24dp"
             android:textAllCaps="false"
-            android:visibility="gone"
+            android:alpha="0"
             android:textColor="@color/colorWhite" />
 
         <TextView
@@ -40,12 +41,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="10dp"
             android:layout_alignParentTop="true"
-            android:visibility="gone"
+            android:layout_toStartOf="@+id/btnAdd"
+            android:layout_marginEnd="5dp"
+            android:alpha="0"
             android:textColor="@color/colorGreen"
-            android:text="lbs"
+            android:textStyle="bold"
             android:textSize="20sp"
             android:layout_centerInParent="true"/>
 
@@ -55,11 +56,12 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"
             android:layout_marginEnd="3dp"
-            android:text="0"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
             android:layout_toStartOf="@id/tvMeasure"
             android:layout_alignParentTop="true"
             android:textColor="@color/colorGreen"
-            android:visibility="gone"
+            android:alpha="0"
             android:textSize="20sp"
             android:layout_centerInParent="true"/>
 
@@ -67,12 +69,12 @@
             android:id="@+id/btnRemove"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginEnd="10dp"
-            android:layout_toStartOf="@id/tvAmount"
+            android:layout_marginEnd="5dp"
+            android:layout_toStartOf="@+id/tvAmount"
             android:layout_alignParentTop="true"
             android:background="@drawable/ic_remove"
             android:textAllCaps="false"
-            android:visibility="gone"
+            android:alpha="0"
             android:textColor="@color/colorWhite" />
 
         <ImageView

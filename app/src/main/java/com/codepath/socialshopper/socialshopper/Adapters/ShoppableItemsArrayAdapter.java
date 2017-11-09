@@ -97,7 +97,7 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                holder.showAddOptions();
+                holder.showOptions();
             }
         });
     }
@@ -106,7 +106,7 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
     public int getItemCount() {
         return shoppableItems.size();
     }
-    
+
     public class ShoppableItemsViewHolder extends RecyclerView.ViewHolder {
         ShoppableItem shoppableItem;
         ImageView btnShoppableItem;
@@ -130,24 +130,39 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
             this.shoppableItem = shoppableItem;
         }
 
+        private void showOptions() {
+            increaseAmount();
+            final ObjectAnimator addAnim = ObjectAnimator.ofFloat(btnAdd, View.ALPHA, 0, 1);
+            addAnim.setDuration(400);
+
+            final ObjectAnimator amountAnim = ObjectAnimator.ofFloat(tvAmount, View.ALPHA, 0, 1);
+            amountAnim.setDuration(800);
+
+            final ObjectAnimator measureAnim = ObjectAnimator.ofFloat(tvMeasure, View.ALPHA, 0, 1);
+            measureAnim.setDuration(800);
+
+            final ObjectAnimator removeAnim = ObjectAnimator.ofFloat(btnRemove, View.ALPHA, 0, 1);
+            removeAnim.setDuration(1600);
+
+            AnimatorSet animatorSet = new AnimatorSet();
+            if (btnAdd.getAlpha() > 0)
+                animatorSet.playTogether(amountAnim, measureAnim);
+            else
+                animatorSet.playTogether(addAnim, amountAnim, measureAnim, removeAnim);
+            animatorSet.start();
+        }
+
         private void showAddOptions() {
-            final ObjectAnimator addAnim = ObjectAnimator.ofFloat(btnAdd, View.ALPHA, 1, 0);
-            addAnim.setDuration(200);
-            addAnim.setRepeatMode(ValueAnimator.REVERSE);
-            addAnim.setRepeatCount(1);
-            addAnim.start();
+            final ObjectAnimator addAnim = ObjectAnimator.ofFloat(btnAdd, View.ALPHA, 0, 1);
+            addAnim.setDuration(400);
+
             addAnim.addListener(new AnimatorListenerAdapter() {
                 @Override
-                public void onAnimationEnd(Animator animation) {
+                public void onAnimationStart(Animator animation) {
                     increaseAmount();
-                    tvAmount.setAlpha(1);
-                    tvAmount.setVisibility(VISIBLE);
-                    tvMeasure.setAlpha(1);
-                    tvMeasure.setVisibility(VISIBLE);
-                    //btnRemove.setAlpha(1);
-                    //btnRemove.setVisibility(VISIBLE);
                 }
             });
+            addAnim.start();
         }
 
         private void showRemoveOptions() {
@@ -155,17 +170,18 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
             removeAnim.setDuration(200);
             removeAnim.setRepeatMode(ValueAnimator.REVERSE);
             removeAnim.setRepeatCount(1);
-            removeAnim.start();
+
             removeAnim.addListener(new AnimatorListenerAdapter() {
                 @Override
-                public void onAnimationEnd(Animator animation) {
+                public void onAnimationStart(Animator animation) {
                     decreaseAmount();
                 }
             });
+            removeAnim.start();
         }
 
         private void increaseAmount() {
-            int amount = Integer.valueOf(tvAmount.getText().toString());
+            int amount = tvAmount.getText().toString().isEmpty() ? 0 : Integer.valueOf(tvAmount.getText().toString());
             int newAmount = amount + 1;
 
             shoppableItem.setmItemQty(newAmount);
@@ -194,16 +210,19 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
 
         private void hideOptions() {
             final ObjectAnimator removeAnim = ObjectAnimator.ofFloat(btnRemove, View.ALPHA, 1, 0);
-            removeAnim.setDuration(100);
+            removeAnim.setDuration(300);
+
+            final ObjectAnimator addAnim = ObjectAnimator.ofFloat(btnAdd, View.ALPHA, 1, 0);
+            removeAnim.setDuration(300);
 
             final ObjectAnimator amountAnim = ObjectAnimator.ofFloat(tvAmount, View.ALPHA, 1, 0);
-            amountAnim.setDuration(100);
+            amountAnim.setDuration(300);
 
             final ObjectAnimator measureAnim = ObjectAnimator.ofFloat(tvMeasure, View.ALPHA, 1, 0);
-            measureAnim.setDuration(100);
+            measureAnim.setDuration(300);
 
             AnimatorSet animatorSet = new AnimatorSet();
-            animatorSet.playTogether(removeAnim, amountAnim, measureAnim);
+            animatorSet.playTogether(removeAnim, amountAnim, measureAnim, addAnim);
             animatorSet.start();
         }
     }
