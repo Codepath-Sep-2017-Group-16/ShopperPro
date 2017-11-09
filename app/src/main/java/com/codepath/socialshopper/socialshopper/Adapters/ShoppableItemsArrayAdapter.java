@@ -176,6 +176,9 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
                 public void onAnimationStart(Animator animation) {
                     decreaseAmount();
                 }
+                public void onAnimationEnd(Animator animation) {
+                    updateUI(shoppableItem);
+                }
             });
             removeAnim.start();
         }
@@ -193,7 +196,7 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
             int newAmount = amount > 0 ? amount - 1 : amount;
 
             shoppableItem.setmItemQty(newAmount);
-            updateUI(shoppableItem);
+            //updateUI(shoppableItem);
         }
 
         private void updateUI(ShoppableItem shoppableItem) {
@@ -212,14 +215,15 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
             final ObjectAnimator removeAnim = ObjectAnimator.ofFloat(btnRemove, View.ALPHA, 1, 0);
             removeAnim.setDuration(300);
 
-            final ObjectAnimator addAnim = ObjectAnimator.ofFloat(btnAdd, View.ALPHA, 1, 0);
-            removeAnim.setDuration(300);
-
             final ObjectAnimator amountAnim = ObjectAnimator.ofFloat(tvAmount, View.ALPHA, 1, 0);
-            amountAnim.setDuration(300);
+            amountAnim.setDuration(600);
 
             final ObjectAnimator measureAnim = ObjectAnimator.ofFloat(tvMeasure, View.ALPHA, 1, 0);
-            measureAnim.setDuration(300);
+            measureAnim.setDuration(600);
+
+            final ObjectAnimator addAnim = ObjectAnimator.ofFloat(btnAdd, View.ALPHA, 1, 0);
+            addAnim.setDuration(900);
+
 
             AnimatorSet animatorSet = new AnimatorSet();
             animatorSet.playTogether(removeAnim, amountAnim, measureAnim, addAnim);
