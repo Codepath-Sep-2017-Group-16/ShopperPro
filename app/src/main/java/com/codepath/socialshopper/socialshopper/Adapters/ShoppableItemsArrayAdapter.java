@@ -132,6 +132,7 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
 
         private void showOptions() {
             increaseAmount();
+            updateUI(shoppableItem);
             final ObjectAnimator addAnim = ObjectAnimator.ofFloat(btnAdd, View.ALPHA, 0, 1);
             addAnim.setDuration(400);
 
@@ -160,6 +161,7 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
                 @Override
                 public void onAnimationStart(Animator animation) {
                     increaseAmount();
+                    updateUI(shoppableItem);
                 }
             });
             addAnim.start();
@@ -175,6 +177,7 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
                 @Override
                 public void onAnimationStart(Animator animation) {
                     decreaseAmount();
+
                 }
                 public void onAnimationEnd(Animator animation) {
                     updateUI(shoppableItem);
@@ -188,7 +191,9 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
             int newAmount = amount + 1;
 
             shoppableItem.setmItemQty(newAmount);
-            updateUI(shoppableItem);
+            tvAmount.setText(Integer.toString(shoppableItem.getmItemQty()));
+            tvMeasure.setText(shoppableItem.getItemMeasure());
+            //updateUI(shoppableItem);
         }
 
         private void decreaseAmount() {
@@ -196,13 +201,13 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
             int newAmount = amount > 0 ? amount - 1 : amount;
 
             shoppableItem.setmItemQty(newAmount);
+            tvAmount.setText(Integer.toString(shoppableItem.getmItemQty()));
+            tvMeasure.setText(shoppableItem.getItemMeasure());
+
             //updateUI(shoppableItem);
         }
 
         private void updateUI(ShoppableItem shoppableItem) {
-            tvAmount.setText(Integer.toString(shoppableItem.getmItemQty()));
-            tvMeasure.setText(shoppableItem.getItemMeasure());
-
             if (shoppableItem.getmItemQty() == 0) {
                 hideOptions();
             }
