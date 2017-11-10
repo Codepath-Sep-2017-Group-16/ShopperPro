@@ -59,7 +59,7 @@
         android:layout_marginEnd="3dp"
         android:textSize="20sp"
         android:text="quantity"
-        android:textColor="@color/colorGreen" />
+        android:textColor="@color/colorMutedGrey" />
 
     <TextView
         android:id="@+id/tvItemMeasure"
@@ -70,7 +70,7 @@
         android:layout_marginEnd="5dp"
         android:textSize="20sp"
         android:text="measure"
-        android:textColor="@color/colorGreen" />
+        android:textColor="@color/colorMutedGrey" />
 
     <ImageView
         android:id="@+id/ivRemove"

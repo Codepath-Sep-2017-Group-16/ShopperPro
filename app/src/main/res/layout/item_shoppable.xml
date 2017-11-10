@@ -26,8 +26,8 @@
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/btnAdd"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
             android:layout_marginEnd="5dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
@@ -45,9 +45,9 @@
             android:layout_toStartOf="@+id/btnAdd"
             android:layout_marginEnd="5dp"
             android:alpha="0"
-            android:textColor="@color/colorGreen"
+            android:textColor="@color/colorMutedGrey"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:layout_centerInParent="true"/>
 
         <TextView
@@ -60,15 +60,15 @@
             android:layout_centerHorizontal="true"
             android:layout_toStartOf="@id/tvMeasure"
             android:layout_alignParentTop="true"
-            android:textColor="@color/colorGreen"
+            android:textColor="@color/colorMutedGrey"
             android:alpha="0"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:layout_centerInParent="true"/>
 
         <Button
             android:id="@+id/btnRemove"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
             android:layout_marginEnd="5dp"
             android:layout_toStartOf="@+id/tvAmount"
             android:layout_alignParentTop="true"

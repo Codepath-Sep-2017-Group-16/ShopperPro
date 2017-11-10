@@ -20,4 +20,5 @@
     <color name="colorRed">#ee4a41</color>
     <color name="colorOrange">#ff8200</color>
     <color name="colorGrey">#bcbcbc</color>
+    <color name="colorMutedGrey">#2B3133</color>
 </resources>
