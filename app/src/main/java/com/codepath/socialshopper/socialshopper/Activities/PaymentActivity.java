@@ -2,6 +2,7 @@ package com.codepath.socialshopper.socialshopper.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.codepath.socialshopper.socialshopper.R;
+import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.google.android.gms.wallet.Cart;
 import com.google.android.gms.wallet.FullWallet;
 import com.google.android.gms.wallet.FullWalletRequest;
@@ -98,6 +100,7 @@ public class PaymentActivity extends StripeAndroidPayActivity {
 
         // This ID is what you would send to your server to create a charge.
         String id = paymentSource.getId();
+        DatabaseUtils.createNewPayment("10155844018118417", id);
         Intent returnIntent = new Intent();
         returnIntent.putExtra("result","SUCCESS");
         setResult(Activity.RESULT_OK,returnIntent);

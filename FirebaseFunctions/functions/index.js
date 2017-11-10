@@ -186,3 +186,76 @@ exports.sendListStatusUpdateNotification = functions.database.ref('/lists/{listI
     });
   });
 });
+
+
+
+/**
+ * Triggers when a Requester triggers a payment for a shopper
+ */
+exports.processPayments = functions.database.ref('/users/{userId}/payment').onWrite(event => {
+  const userId = event.params.userId;
+  const tokenId = event.data.val();
+
+  console.log('User ', userId);
+  console.log('TokenId :', tokenId);
+
+  
+  // Get the user's friend list
+  const getUserDetails = admin.database().ref(`/users/${userId}`).once('value');  
+  // Get the notification token for the user
+  const getDeviceTokensPromise = admin.database().ref(`/users/${userId}/gcmid`).once('value');
+
+
+  return Promise.all([getUserDetails, getDeviceTokensPromise]).then(results => {
+
+    const tokensSnapshot = results[1];
+    console.log(tokensSnapshot.val());
+
+    const userSnapshot = results[0];
+    var userMap = userSnapshot.val();
+    console.log("UserMap: " + userMap);
+
+    var stripeConnectedId = userMap["stripe_connected_id"];
+    console.log("Stripe connected id: " + stripeConnectedId);
+
+
+    // Notification details
+    const payload = {
+      data: {
+        payload: "Greeshma has transferred $10 to you",
+        amount: "$10",
+        type: "PAYMENT"
+      }
+    };
+
+    // Listing all tokens.
+    const token = tokensSnapshot.val();
+
+    // Send notifications to all tokens.
+    return admin.messaging().sendToDevice(token, payload).then(response => {
+      response.results.forEach((result, index) => {
+        const error = result.error;
+        if (error) {
+          console.error('Failure sending notification to', token, error);
+        }
+        else {
+          console.log("Message sent. Charging the user now");
+          // Set your secret key: remember to change this to your live secret key in production
+          // See your keys here: https://dashboard.stripe.com/account/apikeys
+          var stripe = require("stripe")("sk_test_GSaDbyGW8mvf1Wo6nCLPSJcb");
+
+          stripe.charges.create({
+            amount: 10,
+            currency: "usd",
+            source: "tok_visa",
+          }, {
+            stripe_account: "{CONNECTED_STRIPE_ACCOUNT_ID}",
+          }).then(function(charge) {
+            console.log("Charge Success: " + charge);
+          });
+        }
+      });
+      return 1;
+    });
+  });
+});
