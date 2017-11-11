@@ -55,17 +55,14 @@ public class VegetableFragment extends ItemsFragment {
         ShoppableItem itemTomato = new ShoppableItem(CommonUtils.getUuid(), "Tomato", "@drawable/tomato_file", 0, "DelMonte", "lbs");
         shoppableItems.add(itemTomato);
 
-        ShoppableItem itemCarrot1 = new ShoppableItem(CommonUtils.getUuid(), "Carrot", "@drawable/carrot_file", 0, "DelMonte", "lbs");
+        ShoppableItem itemCarrot1 = new ShoppableItem(CommonUtils.getUuid(), "Potatoes", "@drawable/potato_file", 0, "DelMonte", "lbs");
         shoppableItems.add(itemCarrot1);
 
-        ShoppableItem itemTomato2 = new ShoppableItem(CommonUtils.getUuid(), "Tomato", "@drawable/tomato_file", 0, "DelMonte", "lbs");
+        ShoppableItem itemTomato2 = new ShoppableItem(CommonUtils.getUuid(), "Broccoli", "@drawable/broccoli_file", 0, "DelMonte", "lbs");
         shoppableItems.add(itemTomato2);
 
-        ShoppableItem itemCauliflower3 = new ShoppableItem(CommonUtils.getUuid(), "Cauliflower", "@drawable/cauliflower_file", 0, "DelMonte", "lbs");
+        ShoppableItem itemCauliflower3 = new ShoppableItem(CommonUtils.getUuid(), "Corn", "@drawable/corn_file", 0, "DelMonte", "lbs");
         shoppableItems.add(itemCauliflower3);
-
-        ShoppableItem itemLettuce4 = new ShoppableItem(CommonUtils.getUuid(), "Lettuce", "@drawable/lettuce_file", 0, "DelMonte", "lbs");
-        shoppableItems.add(itemLettuce4);
 
         adapter.notifyDataSetChanged();
     }

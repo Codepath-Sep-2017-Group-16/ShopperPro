@@ -3,9 +3,10 @@
 
     <item
         android:id="@+id/half_overlay"
-        android:drawable="@drawable/milk"
-        android:width="80dp"
+        android:drawable="@drawable/coke"
+        android:width="120dp"
         android:height="120dp"
+
         />
 
 </layer-list>

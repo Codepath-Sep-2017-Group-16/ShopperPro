@@ -48,23 +48,24 @@ public class DairyFragment extends ItemsFragment {
         ShoppableItem itemCheese = new ShoppableItem(CommonUtils.getUuid(), "Cheese", "@drawable/cheese_file",0,"Cheddar","oz");
         shoppableItems.add(itemCheese);
 
-        ShoppableItem itemYogurt = new ShoppableItem(CommonUtils.getUuid(), "Yogurt", "@drawable/yogurt_file",0,"Noosa","gal");
+        ShoppableItem itemYogurt = new ShoppableItem(CommonUtils.getUuid(), "Yogurt", "@drawable/yogurt_file",0,"Noosa","gal.");
         shoppableItems.add(itemYogurt);
 
-        ShoppableItem itemAlmondMilk = new ShoppableItem(CommonUtils.getUuid(), "AlmondMilk", "@drawable/almond_file",0,"Silk","gal");
-        shoppableItems.add(itemAlmondMilk);
-
-        ShoppableItem itemMilk2 = new ShoppableItem(CommonUtils.getUuid(), "Milk", "@drawable/milk_file",0,"Horizon","gal");
+        ShoppableItem itemMilk2 = new ShoppableItem(CommonUtils.getUuid(), "Coffee", "@drawable/coffee_file",0,"Folgers","gal.");
         shoppableItems.add(itemMilk2);
 
-        ShoppableItem itemCheese3 = new ShoppableItem(CommonUtils.getUuid(), "Cheese", "@drawable/cheese_file",0,"Cheddar","oz");
+        ShoppableItem itemCheese3 = new ShoppableItem(CommonUtils.getUuid(), "Eggs", "@drawable/eggs_file",0,"Organic Valley","oz");
         shoppableItems.add(itemCheese3);
 
-        ShoppableItem itemYogurt4 = new ShoppableItem(CommonUtils.getUuid(), "Yogurt", "@drawable/yogurt_file",0,"Noosa","gal");
+        ShoppableItem itemYogurt4 = new ShoppableItem(CommonUtils.getUuid(), "Bread", "@drawable/bread_file",0,"Sara Lee","gal.");
         shoppableItems.add(itemYogurt4);
 
-        ShoppableItem itemAlmondMilk5 = new ShoppableItem(CommonUtils.getUuid(), "AlmondMilk", "@drawable/almond_file",0,"Silk","gal");
+        ShoppableItem itemAlmondMilk5 = new ShoppableItem(CommonUtils.getUuid(), "Coke", "@drawable/coke_file",0,"Coke","gal.");
         shoppableItems.add(itemAlmondMilk5);
+
+        ShoppableItem itemAlmondMilk = new ShoppableItem(CommonUtils.getUuid(), "AlmondMilk", "@drawable/almond_file",0,"Silk","gal.");
+        shoppableItems.add(itemAlmondMilk);
+
 
         adapter.notifyDataSetChanged();
     }
