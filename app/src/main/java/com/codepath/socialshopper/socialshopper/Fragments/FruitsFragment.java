@@ -51,6 +51,9 @@ public class FruitsFragment extends ItemsFragment {
         ShoppableItem itemApple = new ShoppableItem(CommonUtils.getUuid(), "Apple", "@drawable/apple_file",0,"DelMonte","lbs");
         shoppableItems.add(itemApple);
 
+        ShoppableItem itemLemon3 = new ShoppableItem(CommonUtils.getUuid(), "Pineapple", "@drawable/pineapple_file",0,"DelMonte","lbs");
+        shoppableItems.add(itemLemon3);
+
         ShoppableItem itemLemon = new ShoppableItem(CommonUtils.getUuid(), "Grapes", "@drawable/lemon_file",0,"DelMonte","lbs");
         shoppableItems.add(itemLemon);
 
@@ -62,10 +65,7 @@ public class FruitsFragment extends ItemsFragment {
 
         ShoppableItem itemApple2 = new ShoppableItem(CommonUtils.getUuid(), "Orange", "@drawable/orange_file",0,"DelMonte","lbs");
         shoppableItems.add(itemApple2);
-
-        ShoppableItem itemLemon3 = new ShoppableItem(CommonUtils.getUuid(), "Pineapple", "@drawable/pineapple_file",0,"DelMonte","lbs");
-        shoppableItems.add(itemLemon3);
-
+        
         ShoppableItem itemStrawberry4 = new ShoppableItem(CommonUtils.getUuid(), "Watermelon", "@drawable/watermelon_file",0,"DelMonte","lbs");
         shoppableItems.add(itemStrawberry4);
 

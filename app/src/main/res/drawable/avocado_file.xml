@@ -4,8 +4,8 @@
     <item
         android:id="@+id/half_overlay"
         android:drawable="@drawable/avocado"
-        android:width="120dp"
-        android:height="69dp"
+        android:width="180dp"
+        android:height="121dp"
 
         />
 
