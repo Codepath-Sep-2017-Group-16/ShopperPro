@@ -5,7 +5,6 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
     android:fitsSystemWindows="true"
     android:minHeight="?attr/actionBarSize"
     app:contentInsetLeft="0dp"
@@ -19,18 +18,25 @@
 
         <TextView
             android:id="@+id/toolbar_title"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:fontFamily="cursive"
             android:text="@string/app_name"
             android:textColor="@android:color/white"
-            android:layout_marginEnd="?attr/actionBarSize"
-            android:layout_marginStart="?attr/actionBarSize"
             android:textSize="26sp"
             android:textStyle="bold"
             fontPath="fonts/Abel-Regular.ttf"
             tools:context="" />
+        <ImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/ivChosenStore"
+            android:layout_alignTop="@+id/toolbar_title"
+            android:layout_toEndOf="@+id/toolbar_title"
+            android:layout_alignBottom="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/storelogo_wholefoods"/>
 
         <ImageView
             android:id="@+id/ivCart"

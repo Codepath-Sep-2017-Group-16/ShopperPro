@@ -69,6 +69,8 @@ dependencies {
     compile 'com.valdesekamdem.library:md-toast:0.9.0'
     compile 'com.github.vipulasri:timelineview:1.0.5'
     compile 'uk.co.chrisjenx:calligraphy:2.3.0'
+    compile 'com.github.Vatican-Cameos:CarouselPicker:v1.0'
+    compile 'com.google.android.gms:play-services-vision:11.4.2'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'org.parceler:parceler:1.1.6'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
