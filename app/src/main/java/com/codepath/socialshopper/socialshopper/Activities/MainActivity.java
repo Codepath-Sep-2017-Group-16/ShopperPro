@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity implements
         ObjectAnimator moveAnim = ObjectAnimator.ofFloat(toolbar, "Y", -1000, 0);
         moveAnim.setDuration(1300);
         moveAnim.setInterpolator(new DecelerateInterpolator());
+        moveAnim.setStartDelay(1000L);
         moveAnim.start();
     }
 

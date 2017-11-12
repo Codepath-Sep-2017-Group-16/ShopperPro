@@ -11,6 +11,8 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -40,6 +42,8 @@ public class LoginActivity extends AppCompatActivity {
 
     LoginButton loginButton;
     FacebookButton fbButton;
+    FrameVideoView videoview;
+    MediaPlayer mMediaPlayer;
     CallbackManager callbackManager;
     private ProfileTracker mProfileTracker;
 
@@ -73,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
             showHomeScreen();
             return;
         }
+        setupTransitions();
         setFacebookLogin();
     }
 
@@ -127,6 +132,7 @@ public class LoginActivity extends AppCompatActivity {
         fbButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mMediaPlayer.stop();
                 LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, FacebookUtils.getPermissions());
             }
         });
@@ -140,7 +146,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void setupBackgroundVideo() {
 
-        final FrameVideoView videoview = (FrameVideoView) findViewById(R.id.videoView);
+        videoview  = (FrameVideoView) findViewById(R.id.videoView);
         /*
         Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+ R.raw.background);
         videoview.setVideoURI(uri);
@@ -153,12 +159,12 @@ public class LoginActivity extends AppCompatActivity {
         });
         */
 
-        //videoview.setup(Uri.parse("android.resource://"+getPackageName()+"/"+ R.raw.background));
-        videoview.setup(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.background), getResources().getColor(R.color.colorGreen));
+        videoview.setup(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.background), R.color.colorGreen);
         videoview.setFrameVideoViewListener(new FrameVideoViewListener() {
             @Override
             public void mediaPlayerPrepared(final MediaPlayer mediaPlayer) {
-                mediaPlayer.start();
+                mMediaPlayer = mediaPlayer;
+                mMediaPlayer.start();
             }
 
             @Override
@@ -173,5 +179,17 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context context) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
+    }
+
+    private void setupTransitions() {
+        Transition exitSlide =
+                TransitionInflater.from(this).
+                        inflateTransition(R.transition.transition_slide_left);
+        Transition enterSlide =
+                TransitionInflater.from(this).
+                        inflateTransition(R.transition.transition_slide_bottom);
+        enterSlide.setDuration(500);
+        //getWindow().setExitTransition(exitSlide);
+        getWindow().setEnterTransition(enterSlide);
     }
 }
