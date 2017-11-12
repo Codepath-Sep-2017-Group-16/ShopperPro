@@ -52,7 +52,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if(recipient==null) { // Implies the first push notification for the shopper
             String messageContent = data.get("payload");
             String listId = data.get("listid");
-            displayNotification(messageContent, listId);
+            String messageType = data.get("type");
+
+            if (messageType != null && messageType.equals("PAYMENT"))
+                displayPaymentNotification(messageContent);
+            else
+                displayNotification(messageContent, listId);
         }
         else if(recipient.equals("REQUESTER")) {
             displayStatusTrackingNotification(data.get("payload"),data.get("listid"),data.get("status"));
@@ -129,6 +134,27 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         "No",
                         PendingIntent.getActivity(this, 0, new Intent(this, NotificationActivity.class), 0)));
 
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+
+        notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
+    }
+
+    private void displayPaymentNotification(String message){
+
+        int NOTIFICATION_ID = (int) System.currentTimeMillis();
+
+        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.ic_notification)
+                .setContentTitle("Payment Received!")
+                .setLargeIcon(bitmap)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
+                .setWhen(System.currentTimeMillis())
+                .setAutoCancel(true)
+                .setSound(defaultSoundUri);
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

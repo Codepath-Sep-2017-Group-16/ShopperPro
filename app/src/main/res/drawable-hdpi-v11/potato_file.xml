@@ -4,8 +4,8 @@
     <item
         android:id="@+id/half_overlay"
         android:drawable="@drawable/potato"
-        android:width="40dp"
-        android:height="40dp"
+        android:width="120dp"
+        android:height="85dp"
         />
 
 </layer-list>

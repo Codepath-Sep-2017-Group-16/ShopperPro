@@ -46,7 +46,18 @@
                 android:layout_marginTop="5dp"
                 android:id="@+id/text_timeline_title"
                 android:textColor="@android:color/black"
-                tools:text="We are letting your friensds know"/>
+                tools:text="We are letting your friends know"/>
+
+            <Button
+                android:id="@+id/btnPay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pay"
+                android:textAllCaps="false"
+                android:layout_gravity="left"
+                android:theme="@style/PrimaryButton"
+                android:visibility="gone"
+                />
 
         </LinearLayout>
 

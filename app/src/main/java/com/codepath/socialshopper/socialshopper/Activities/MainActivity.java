@@ -1,5 +1,8 @@
 package com.codepath.socialshopper.socialshopper.Activities;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -15,6 +18,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,7 +72,7 @@ import static com.codepath.socialshopper.socialshopper.Utils.FacebookUtils.getFa
 
 public class MainActivity extends AppCompatActivity implements
         DatabaseUtils.OnActiveListsFetchListener, DatabaseUtils.OnListFetchListener, AddItemDetailsDialogFragment.AddItemDetailsDialogListener,
-        LocationUtils.OnLocationFetchListener, StoresFragment.OnStoreFragmentInteractionListener, ShoppableItemsArrayAdapter.OnUpdateItemListener {
+        StoresFragment.OnStoreFragmentInteractionListener, ShoppableItemsArrayAdapter.OnUpdateItemListener {
 
     public static ShoppingList shoppingList = new ShoppingList();
     public final String TAG = "SocShpMainAct";
@@ -96,8 +102,6 @@ public class MainActivity extends AppCompatActivity implements
         ButterKnife.bind(this);
 
         databaseUtils = new DatabaseUtils();
-        locationUtils = new LocationUtils();
-        locationUtils.initializePlaces(this);
 
         setUpToolBar();
         setUpInitialScreen();
@@ -108,11 +112,13 @@ public class MainActivity extends AppCompatActivity implements
         mDrawer.addDrawerListener(drawerToggle);
         initializeShoppingList();
         initializeCart();
+        setupTransitions();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        updateCart();
         initializeCart();
     }
 
@@ -144,6 +150,12 @@ public class MainActivity extends AppCompatActivity implements
         final TextView toolbarTitle = (TextView) findViewById(toolbar_title);
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) toolbarTitle.getLayoutParams();
         layoutParams.setMarginStart(0);
+
+        ObjectAnimator moveAnim = ObjectAnimator.ofFloat(toolbar, "Y", -1000, 0);
+        moveAnim.setDuration(1300);
+        moveAnim.setInterpolator(new DecelerateInterpolator());
+        //moveAnim.setStartDelay(1000L);
+        moveAnim.start();
 
         appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
             @Override
@@ -341,31 +353,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_FINE_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    locationUtils.getCurrentPlace(this);
-                } else {
-                    Log.d(TAG, "permission denied");
-                }
-                return;
-            }
-        }
-    }
 
-
-    @Override
-    public void OnLocationFetchListener(ArrayList<String> locations) {
-        for (String location : locations) {
-            Toast.makeText(this, location, Toast.LENGTH_SHORT).show();
-            databaseUtils.setUserLocation(getFacebookId(), Profile.getCurrentProfile().getFirstName(), location);
-        }
-    }
 
     @Override
     public void onStoreSelection(String storeName) {
@@ -407,7 +395,8 @@ public class MainActivity extends AppCompatActivity implements
                 }
 
                 Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
-                startActivity(intent);
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
+                //startActivity(intent);
             }
         });
         ivCart = (ImageView) findViewById(R.id.ivCart);
@@ -432,7 +421,8 @@ public class MainActivity extends AppCompatActivity implements
                 }
 
                 Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
-                startActivity(intent);
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
+                //startActivity(intent);
             }
         });
         ivCart.setVisibility(View.VISIBLE);
@@ -466,6 +456,18 @@ public class MainActivity extends AppCompatActivity implements
 
     public void pickStore(View view) {
         shoppingList.setStore(stores[shopPosition]);
+    }
+
+    private void setupTransitions() {
+        Transition exitSlide =
+                TransitionInflater.from(this).
+                        inflateTransition(R.transition.transition_slide_left);
+        Transition enterSlide =
+                TransitionInflater.from(this).
+                        inflateTransition(R.transition.transition_slide_right);
+        enterSlide.setDuration(500);
+        getWindow().setExitTransition(exitSlide);
+        getWindow().setEnterTransition(enterSlide);
     }
 }
 

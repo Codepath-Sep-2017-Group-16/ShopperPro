@@ -112,14 +112,15 @@ public class ShoppingListArrayAdapter extends RecyclerView.Adapter<ShoppingListA
             addAnim.setDuration(200);
             addAnim.setRepeatMode(ValueAnimator.REVERSE);
             addAnim.setRepeatCount(1);
-            addAnim.start();
+
             addAnim.addListener(new AnimatorListenerAdapter() {
                 @Override
-                public void onAnimationEnd(Animator animation) {
+                public void onAnimationStart(Animator animation) {
                     updateQuantity(quantity);
                     notifyDataSetChanged();
                 }
             });
+            addAnim.start();
         }
 
         private void updateQuantity(int quantity) {

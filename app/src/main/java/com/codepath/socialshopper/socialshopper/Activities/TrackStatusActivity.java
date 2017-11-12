@@ -1,8 +1,10 @@
 package com.codepath.socialshopper.socialshopper.Activities;
 
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +17,7 @@ import com.codepath.socialshopper.socialshopper.Adapters.TimeLineAdapter;
 import com.codepath.socialshopper.socialshopper.Models.Location;
 import com.codepath.socialshopper.socialshopper.Models.TimeLineModel;
 import com.codepath.socialshopper.socialshopper.R;
+import com.codepath.socialshopper.socialshopper.Utils.Constants;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.codepath.socialshopper.socialshopper.Utils.DateTimeUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -26,6 +29,8 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.stripe.wrap.pay.AndroidPayConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +49,7 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
     private List<TimeLineModel> mDataList = new ArrayList<>();
     private static String status;
     private static String storeName;
+    private Location prevLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,7 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
         status = "SUBMITTED";
         initView();
         instantiateMapFragment();
+        initializePayments();
     }
 
 
@@ -80,7 +87,6 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
             String shopperName = message.split(" ")[0];
 
             Log.d(TAG, "status is " + status);
-            Log.d(TAG, "message: " + message);
             //TextView tvCheckBackStatus = (TextView) findViewById(R.id.tvCheckBackStatus);
             //ImageView ivReceiptImg = (ImageView) findViewById(R.id.ivReceiptImg);
             //Button btnRequestLocation = (Button) findViewById(R.id.btnRequestLocation);
@@ -122,6 +128,14 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
 
         CameraPosition cameraPosition = new CameraPosition.Builder().target(currentLocation).zoom(14).tilt(30).build();
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+        if(prevLocation !=null) {
+            map.addPolyline(new PolylineOptions()
+                    .add(new LatLng(prevLocation.getLatitude(), prevLocation.getLongitude()) , new LatLng(location.getLatitude(), location.getLongitude()))
+                    .width(5)
+                    .color(Color.GREEN));
+        }else
+            prevLocation = location;
     }
 
 
@@ -212,4 +226,25 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
     protected void attachBaseContext(Context context) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
     }
+
+    private void initializePayments() {
+        AndroidPayConfiguration payConfiguration = AndroidPayConfiguration.init(Constants.PUBLISHABLE_KEY, Constants.CURRENCY_CODE_USD);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                String result=data.getStringExtra("result");
+                mDataList.get(2).setPaymentStatus("PAID");
+                mTimeLineAdapter.notifyDataSetChanged();
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }
+
+
 }

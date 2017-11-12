@@ -49,6 +49,7 @@ public class DatabaseUtils {
     private static final String STATUS = "status";
     private static final String SHOPPER_NAME = "shopper_name";
     private static final String PROFILE_PIC = "profile_pic";
+    private static final String PAYMENT = "payment";
 
     public DatabaseUtils() {
 
@@ -241,6 +242,10 @@ public class DatabaseUtils {
 
     public static void updateListStatus(String listId, Enum status ){
         mDatabase.child(LISTS).child(listId).child(STATUS).setValue(status);
+    }
+
+    public static void createNewPayment(String userId, String token) {
+        mDatabase.child(USERS).child(userId).child(PAYMENT).setValue(token);
     }
 
     public interface OnActiveListsFetchListener {

@@ -10,7 +10,7 @@
 
     <!-- Blue Gray shades shades with accent color from the App icon-->
     <color name="colorPrimary">#43b02a</color>
-    <color name="colorPrimaryDark">#43b02a</color>
+    <color name="colorPrimaryDark">#007f00</color>
     <color name="colorPrimaryLight">#81c784</color>
     <color name="colorAccent">#FF9800</color>
     <color name="colorWhite">#ffffff</color>
@@ -20,4 +20,5 @@
     <color name="colorRed">#ee4a41</color>
     <color name="colorOrange">#ff8200</color>
     <color name="colorGrey">#bcbcbc</color>
+    <color name="colorMutedGrey">#2B3133</color>
 </resources>
