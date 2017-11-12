@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements
         layoutParams.setMarginStart(0);
 
         ObjectAnimator moveAnim = ObjectAnimator.ofFloat(toolbar, "Y", -1000, 0);
-        moveAnim.setDuration(1500);
+        moveAnim.setDuration(1300);
         moveAnim.setInterpolator(new DecelerateInterpolator());
         moveAnim.start();
     }
