@@ -42,13 +42,13 @@ public class DairyFragment extends ItemsFragment {
 
     public  void populateDefaultItems() {
         Log.i(TAG, "populateDefaultItems");
-        ShoppableItem itemMilk = new ShoppableItem(CommonUtils.getUuid(), "Milk", "@drawable/milk_file",0,"Horizon","gal");
+        ShoppableItem itemMilk = new ShoppableItem(CommonUtils.getUuid(), "Milk", "@drawable/milk_file",0,"Organic Valley","gal");
         shoppableItems.add(itemMilk);
 
-        ShoppableItem itemCheese = new ShoppableItem(CommonUtils.getUuid(), "Cheese", "@drawable/cheese_file",0,"Cheddar","oz");
+        ShoppableItem itemCheese = new ShoppableItem(CommonUtils.getUuid(), "Cheese", "@drawable/cheese_file",0,"Organic Valley","oz");
         shoppableItems.add(itemCheese);
 
-        ShoppableItem itemYogurt = new ShoppableItem(CommonUtils.getUuid(), "Yogurt", "@drawable/yogurt_file",0,"Noosa","gal.");
+        ShoppableItem itemYogurt = new ShoppableItem(CommonUtils.getUuid(), "Yogurt", "@drawable/yogurt_file",0,"Yoplait","gal.");
         shoppableItems.add(itemYogurt);
 
         ShoppableItem itemMilk2 = new ShoppableItem(CommonUtils.getUuid(), "Coffee", "@drawable/coffee_file",0,"Folgers","gal.");
