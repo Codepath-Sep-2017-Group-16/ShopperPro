@@ -72,6 +72,7 @@ dependencies {
     compile 'com.stripe:stripe-android:4.1.5'
     compile 'com.stripe:stripe-android-pay:4.1.5'
     compile 'com.google.android.gms:play-services-wallet:11.4.2'
+    compile 'com.takisoft.fix:preference-v7:26.+'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'org.parceler:parceler:1.1.6'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
