@@ -1,10 +1,12 @@
 package com.codepath.socialshopper.socialshopper.Activities;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +27,8 @@ import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.mklimek.frameviedoview.FrameVideoView;
+import com.mklimek.frameviedoview.FrameVideoViewListener;
 import com.shaishavgandhi.loginbuttons.FacebookButton;
 
 import java.security.MessageDigest;
@@ -102,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                             Profile profile = Profile.getCurrentProfile();
                             FacebookUtils.fbID = profile.getId();
                             Log.i(TAG+"fb-prof", profile.getFirstName());
+                            DatabaseUtils.saveGCMRegistrationIDAndUserInfo(FacebookUtils.getFacebookId(), profile.getFirstName());
                             showHomeScreen();
                         }
                     }
@@ -129,19 +134,36 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showHomeScreen() {
         Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         finish();
     }
 
     private void setupBackgroundVideo() {
-        VideoView videoview = (VideoView) findViewById(R.id.videoView);
+
+        final FrameVideoView videoview = (FrameVideoView) findViewById(R.id.videoView);
+        /*
         Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+ R.raw.background);
         videoview.setVideoURI(uri);
-        videoview.start();
         videoview.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
+                videoview.start();
                 mp.setLooping(true);
+            }
+        });
+        */
+
+        //videoview.setup(Uri.parse("android.resource://"+getPackageName()+"/"+ R.raw.background));
+        videoview.setup(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.background), getResources().getColor(R.color.colorGreen));
+        videoview.setFrameVideoViewListener(new FrameVideoViewListener() {
+            @Override
+            public void mediaPlayerPrepared(final MediaPlayer mediaPlayer) {
+                mediaPlayer.start();
+            }
+
+            @Override
+            public void mediaPlayerPrepareFailed(MediaPlayer mediaPlayer, String s) {
+
             }
         });
     }
