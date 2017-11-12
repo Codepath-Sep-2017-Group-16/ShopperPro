@@ -2,6 +2,7 @@ package com.codepath.socialshopper.socialshopper.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -11,6 +12,7 @@ import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.codepath.socialshopper.socialshopper.Adapters.ShoppingListArrayAdapter;
 import com.codepath.socialshopper.socialshopper.Models.ShoppableItem;
@@ -18,23 +20,30 @@ import com.codepath.socialshopper.socialshopper.Models.ShoppingList;
 import com.codepath.socialshopper.socialshopper.R;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.codepath.socialshopper.socialshopper.Utils.FacebookUtils;
+import com.codepath.socialshopper.socialshopper.Utils.LocationUtils;
 import com.codepath.socialshopper.socialshopper.Utils.Status;
 import com.ebanx.swipebtn.OnActiveListener;
 import com.ebanx.swipebtn.SwipeButton;
+import com.facebook.Profile;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.codepath.socialshopper.socialshopper.Activities.MainActivity.shoppingList;
+import static com.codepath.socialshopper.socialshopper.Utils.FacebookUtils.getFacebookId;
 
-public class ShoppingListActivity extends AppCompatActivity {
+public class ShoppingListActivity extends AppCompatActivity implements LocationUtils.OnLocationFetchListener {
     ShoppingListArrayAdapter adapter;
     RecyclerView rvShoppingListItems;
     SwipeButton swipeButton;
+    private LocationUtils locationUtils;
+    private DatabaseUtils databaseUtils;
     public final String TAG = "SocShpLstSub";
+    private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +68,8 @@ public class ShoppingListActivity extends AppCompatActivity {
             }
         });
         setupTransitions();
+        setupLocationService();
+
     }
 
     public void submitShoppingList(View view) {
@@ -98,5 +109,37 @@ public class ShoppingListActivity extends AppCompatActivity {
                 TransitionInflater.from(this).
                         inflateTransition(R.transition.transition_slide_right);
         getWindow().setEnterTransition(slide);
+    }
+
+    private void setupLocationService() {
+        locationUtils = new LocationUtils();
+        locationUtils.initializePlaces(this);
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    locationUtils.getCurrentPlace(this);
+                } else {
+                    Log.d(TAG, "permission denied");
+                }
+                return;
+            }
+        }
+    }
+
+
+    @Override
+    public void OnLocationFetchListener(ArrayList<String> locations) {
+        for (String location : locations) {
+            Toast.makeText(this, location, Toast.LENGTH_SHORT).show();
+            databaseUtils.setUserLocation(getFacebookId(), Profile.getCurrentProfile().getFirstName(), location);
+        }
     }
 }

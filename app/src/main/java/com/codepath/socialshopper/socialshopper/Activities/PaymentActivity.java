@@ -61,7 +61,7 @@ public class PaymentActivity extends StripeAndroidPayActivity {
     protected WalletFragmentStyle getWalletFragmentButtonStyle() {
         return new WalletFragmentStyle()
                 .setBuyButtonText(WalletFragmentStyle.BuyButtonText.BUY_WITH)
-                .setBuyButtonAppearance(WalletFragmentStyle.BuyButtonAppearance.ANDROID_PAY_LIGHT)
+                .setBuyButtonAppearance(WalletFragmentStyle.BuyButtonAppearance.ANDROID_PAY_LIGHT_WITH_BORDER)
                 .setBuyButtonWidth(WalletFragmentStyle.Dimension.MATCH_PARENT);
     }
 
@@ -74,8 +74,6 @@ public class PaymentActivity extends StripeAndroidPayActivity {
                     AndroidPayConfiguration.generateFullWalletRequest(
                             maskedWallet.getGoogleTransactionId(),
                             getCart());
-            // This is a good place to display a progress dialog
-            //mProgressDialogController.startProgress();
             // This method starts the final communication with Google's servers.
             loadFullWallet(walletRequest);
         }
@@ -86,8 +84,6 @@ public class PaymentActivity extends StripeAndroidPayActivity {
             FullWallet wallet,
             StripePaymentSource paymentSource) {
         super.onStripePaymentSourceReturned(wallet, paymentSource);
-        // If a progress dialog was launched, cancel it now.
-        //mProgressDialogController.finishProgress();
 
         // You can use the details in the returned wallet to confirm
         // to the user which card was used. You can also ignore it, as
@@ -105,6 +101,5 @@ public class PaymentActivity extends StripeAndroidPayActivity {
         returnIntent.putExtra("result","SUCCESS");
         setResult(Activity.RESULT_OK,returnIntent);
         finish();
-        //sendTokenIdToMyServer(id);
     }
 }

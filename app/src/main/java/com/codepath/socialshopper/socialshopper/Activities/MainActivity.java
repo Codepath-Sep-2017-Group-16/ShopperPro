@@ -1,5 +1,7 @@
 package com.codepath.socialshopper.socialshopper.Activities;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,12 +65,11 @@ import static com.codepath.socialshopper.socialshopper.Utils.FacebookUtils.getFa
 
 public class MainActivity extends AppCompatActivity implements
         DatabaseUtils.OnActiveListsFetchListener, DatabaseUtils.OnListFetchListener, AddItemDetailsDialogFragment.AddItemDetailsDialogListener,
-        LocationUtils.OnLocationFetchListener, StoresFragment.OnStoreFragmentInteractionListener, ShoppableItemsArrayAdapter.OnUpdateItemListener {
+        StoresFragment.OnStoreFragmentInteractionListener, ShoppableItemsArrayAdapter.OnUpdateItemListener {
 
     public final String TAG = "SocShpMainAct";
     private DatabaseUtils databaseUtils;
-    private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1;
-    private LocationUtils locationUtils;
+
     @BindView(R.id.nvView)
     NavigationView nvDrawer;
     @BindView(R.id.drawer_layout)
@@ -88,8 +90,6 @@ public class MainActivity extends AppCompatActivity implements
         ButterKnife.bind(this);
 
         databaseUtils = new DatabaseUtils();
-        locationUtils = new LocationUtils();
-        locationUtils.initializePlaces(this);
 
         setUpToolBar();
         setUpInitialScreen();
@@ -139,6 +139,12 @@ public class MainActivity extends AppCompatActivity implements
         TextView toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) toolbarTitle.getLayoutParams();
         layoutParams.setMarginStart(0);
+
+        ObjectAnimator moveAnim = ObjectAnimator.ofFloat(toolbar, "Y", -1000, 0);
+        moveAnim.setDuration(1300);
+        moveAnim.setInterpolator(new DecelerateInterpolator());
+        //moveAnim.setStartDelay(1000L);
+        moveAnim.start();
     }
 
     private void setUpInitialScreen() {
@@ -284,31 +290,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_FINE_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    locationUtils.getCurrentPlace(this);
-                } else {
-                    Log.d(TAG, "permission denied");
-                }
-                return;
-            }
-        }
-    }
 
-
-    @Override
-    public void OnLocationFetchListener(ArrayList<String> locations) {
-        for (String location : locations) {
-            Toast.makeText(this, location, Toast.LENGTH_SHORT).show();
-            databaseUtils.setUserLocation(getFacebookId(), Profile.getCurrentProfile().getFirstName(), location);
-        }
-    }
 
     @Override
     public void onStoreSelection(String storeName) {

@@ -46,17 +46,17 @@ public class VegetableFragment extends ItemsFragment {
         ShoppableItem itemCauliflower = new ShoppableItem(CommonUtils.getUuid(), "Cauliflower", "@drawable/cauliflower_file", 0, "DelMonte", "lbs");
         shoppableItems.add(itemCauliflower);
 
-        ShoppableItem itemLettuce = new ShoppableItem(CommonUtils.getUuid(), "Lettuce", "@drawable/lettuce_file", 0, "DelMonte", "lbs");
-        shoppableItems.add(itemLettuce);
-
-        ShoppableItem itemCarrot = new ShoppableItem(CommonUtils.getUuid(), "Carrot", "@drawable/carrot_file", 0, "DelMonte", "lbs");
-        shoppableItems.add(itemCarrot);
-
         ShoppableItem itemTomato = new ShoppableItem(CommonUtils.getUuid(), "Tomato", "@drawable/tomato_file", 0, "DelMonte", "lbs");
         shoppableItems.add(itemTomato);
 
         ShoppableItem itemCarrot1 = new ShoppableItem(CommonUtils.getUuid(), "Potatoes", "@drawable/potato_file", 0, "DelMonte", "lbs");
         shoppableItems.add(itemCarrot1);
+
+        ShoppableItem itemLettuce = new ShoppableItem(CommonUtils.getUuid(), "Lettuce", "@drawable/lettuce_file", 0, "DelMonte", "lbs");
+        shoppableItems.add(itemLettuce);
+
+        ShoppableItem itemCarrot = new ShoppableItem(CommonUtils.getUuid(), "Carrot", "@drawable/carrot_file", 0, "DelMonte", "lbs");
+        shoppableItems.add(itemCarrot);
 
         ShoppableItem itemTomato2 = new ShoppableItem(CommonUtils.getUuid(), "Broccoli", "@drawable/broccoli_file", 0, "DelMonte", "lbs");
         shoppableItems.add(itemTomato2);
