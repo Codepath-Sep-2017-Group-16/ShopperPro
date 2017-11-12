@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorGreen"
     tools:context="com.codepath.socialshopper.socialshopper.Activities.LoginActivity">
 
     <include layout="@layout/video_background" />
@@ -21,7 +22,7 @@
         app:roundedCorner="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        app:roundedCornerRadius="30dp"
+        app:roundedCornerRadius="5dp"
         android:layout_marginBottom="95dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
