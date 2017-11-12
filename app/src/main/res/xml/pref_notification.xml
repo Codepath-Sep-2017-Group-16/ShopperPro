@@ -4,13 +4,13 @@
         android:title="Notifications">
 
         <SwitchPreference
-            android:key="key1"
+            android:key="shopperNotifKey"
             android:title="Shopper Notifications"
             android:summary="Receive notifications on your list updates"
             android:defaultValue="true" />
 
         <SwitchPreference
-            android:key="key2"
+            android:key="requestorNotifKey"
             android:title="Requestor Notifications"
             android:summary="Receive notifications on new lists"
             android:defaultValue="true" />
