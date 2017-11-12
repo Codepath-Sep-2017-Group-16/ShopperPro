@@ -1,5 +1,7 @@
 package com.codepath.socialshopper.socialshopper.Activities;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -139,6 +142,11 @@ public class MainActivity extends AppCompatActivity implements
         TextView toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) toolbarTitle.getLayoutParams();
         layoutParams.setMarginStart(0);
+
+        ObjectAnimator moveAnim = ObjectAnimator.ofFloat(toolbar, "Y", -1000, 0);
+        moveAnim.setDuration(2000);
+        moveAnim.setInterpolator(new DecelerateInterpolator());
+        moveAnim.start();
     }
 
     private void setUpInitialScreen() {
