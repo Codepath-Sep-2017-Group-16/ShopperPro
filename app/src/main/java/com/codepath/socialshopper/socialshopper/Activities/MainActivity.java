@@ -1,11 +1,9 @@
 package com.codepath.socialshopper.socialshopper.Activities;
 
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -31,7 +29,6 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -51,7 +48,6 @@ import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.codepath.socialshopper.socialshopper.Utils.FacebookUtils;
 import com.codepath.socialshopper.socialshopper.Utils.LocationUtils;
 import com.crashlytics.android.Crashlytics;
-import com.facebook.Profile;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
 import org.parceler.Parcels;
@@ -65,7 +61,6 @@ import in.goodiebag.carouselpicker.CarouselPicker;
 import io.fabric.sdk.android.Fabric;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-import static com.codepath.socialshopper.socialshopper.R.drawable.storelogo_walmart;
 import static com.codepath.socialshopper.socialshopper.R.id.toolbar_title;
 import static com.codepath.socialshopper.socialshopper.Utils.FacebookUtils.getFacebookId;
 
@@ -201,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements
         List<CarouselPicker.PickerItem> imageItems = new ArrayList<>();
         //{"Costco Wholesale","Walmart","Whole Foods Market", "Target", "Safeway", "Lucky"};
         imageItems.add(new CarouselPicker.DrawableItem(R.drawable.storelogo_costco)); //Costco Wholesale
-        imageItems.add(new CarouselPicker.DrawableItem(storelogo_walmart)); //Walmart
+        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.storelogo_walmart)); //Walmart
         imageItems.add(new CarouselPicker.DrawableItem(R.drawable.storelogo_wholefoods)); // Whole Foods Market
         imageItems.add(new CarouselPicker.DrawableItem(R.drawable.storelogo_target)); //Target
         imageItems.add(new CarouselPicker.DrawableItem(R.drawable.storelogo_safeway)); //Safeway
