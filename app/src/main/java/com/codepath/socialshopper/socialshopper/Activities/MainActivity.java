@@ -29,6 +29,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -205,6 +206,8 @@ public class MainActivity extends AppCompatActivity implements
         CarouselPicker.CarouselViewAdapter imageAdapter = new CarouselPicker.CarouselViewAdapter(this, imageItems, 0);
         //Set the adapter
         carouselPicker.setAdapter(imageAdapter);
+        shoppingList.setStore(stores[0]);
+        ivChosenStore.setImageResource(store_logos[0]);
 
         carouselPicker.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -216,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements
             public void onPageSelected(int position) {
                 //position of the selected item
                 shopPosition = position;
-                //Toast.makeText(getBaseContext(), "clicked " + position, Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "clicked " + position, Toast.LENGTH_LONG).show();
                 shoppingList.setStore(stores[position]);
                 ivChosenStore.setImageResource(store_logos[shopPosition]);
             }

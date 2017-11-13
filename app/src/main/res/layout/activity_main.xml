@@ -53,10 +53,10 @@
                 <in.goodiebag.carouselpicker.CarouselPicker
                     android:paddingTop="50dp"
                     android:id="@+id/carousel"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true"
-                    app:items_visible="three" />
+                    app:items_visible="five" />
 
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
