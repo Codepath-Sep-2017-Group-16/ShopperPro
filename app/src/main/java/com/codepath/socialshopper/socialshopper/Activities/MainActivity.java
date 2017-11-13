@@ -8,10 +8,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -40,6 +42,7 @@ import com.codepath.socialshopper.socialshopper.Fragments.FruitsFragment;
 import com.codepath.socialshopper.socialshopper.Fragments.MeatFragment;
 import com.codepath.socialshopper.socialshopper.Fragments.StoresFragment;
 import com.codepath.socialshopper.socialshopper.Fragments.VegetableFragment;
+import com.codepath.socialshopper.socialshopper.Listeners.AppBarStateChangeListener;
 import com.codepath.socialshopper.socialshopper.Models.ShoppableItem;
 import com.codepath.socialshopper.socialshopper.Models.ShoppingList;
 import com.codepath.socialshopper.socialshopper.R;
@@ -54,12 +57,16 @@ import com.valdesekamdem.library.mdtoast.MDToast;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import in.goodiebag.carouselpicker.CarouselPicker;
 import io.fabric.sdk.android.Fabric;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static com.codepath.socialshopper.socialshopper.R.drawable.storelogo_walmart;
+import static com.codepath.socialshopper.socialshopper.R.id.toolbar_title;
 import static com.codepath.socialshopper.socialshopper.Utils.FacebookUtils.getFacebookId;
 
 
@@ -67,20 +74,25 @@ public class MainActivity extends AppCompatActivity implements
         DatabaseUtils.OnActiveListsFetchListener, DatabaseUtils.OnListFetchListener, AddItemDetailsDialogFragment.AddItemDetailsDialogListener,
         StoresFragment.OnStoreFragmentInteractionListener, ShoppableItemsArrayAdapter.OnUpdateItemListener {
 
+    public static ShoppingList shoppingList = new ShoppingList();
     public final String TAG = "SocShpMainAct";
-    private DatabaseUtils databaseUtils;
-
+    private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1;
     @BindView(R.id.nvView)
     NavigationView nvDrawer;
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawer;
     @BindView((R.id.toolbar))
     Toolbar toolbar;
+    @BindView(R.id.appbar) AppBarLayout appBarLayout;
+    @BindView(R.id.ivChosenStore) ImageView ivChosenStore;
     ActionBarDrawerToggle drawerToggle;
     TextView tvCartCount;
     ImageView ivCart;
-
-    public static ShoppingList shoppingList = new ShoppingList();
+    int shopPosition = 0;
+    String[] stores = {"Costco Wholesale","Walmart","Whole Foods Market", "Target", "Safeway", "Lucky"};
+    int[] store_logos = {R.drawable.storelogo_costco, R.drawable.storelogo_walmart,R.drawable.storelogo_wholefoods,R.drawable.storelogo_target,R.drawable.storelogo_safeway,R.drawable.storelogo_lucky };
+    private DatabaseUtils databaseUtils;
+    private LocationUtils locationUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +111,6 @@ public class MainActivity extends AppCompatActivity implements
         drawerToggle = setupDrawerToggle();
         mDrawer.addDrawerListener(drawerToggle);
         initializeShoppingList();
-        updateCart();
         initializeCart();
         setupTransitions();
     }
@@ -136,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        TextView toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
+        final TextView toolbarTitle = (TextView) findViewById(toolbar_title);
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) toolbarTitle.getLayoutParams();
         layoutParams.setMarginStart(0);
 
@@ -145,6 +156,22 @@ public class MainActivity extends AppCompatActivity implements
         moveAnim.setInterpolator(new DecelerateInterpolator());
         //moveAnim.setStartDelay(1000L);
         moveAnim.start();
+
+        appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
+            @Override
+            public void onStateChanged(AppBarLayout appBarLayout, State state) {
+                Log.d("SocShpSTATE", state.name());
+                if(state.name().equals("COLLAPSED")) {
+                    ivChosenStore.setVisibility(View.VISIBLE);
+                    //toolbarTitle.setVisibility(View.GONE);
+                    ivChosenStore.setImageResource(store_logos[shopPosition]);
+                }
+                if(state.name().equals("EXPANDED")) {
+                    ivChosenStore.setVisibility(View.GONE);
+                    //toolbarTitle.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     private void setUpInitialScreen() {
@@ -164,10 +191,46 @@ public class MainActivity extends AppCompatActivity implements
         FragmentTransaction ftMeat = getSupportFragmentManager().beginTransaction();
         ftMeat.replace(R.id.meatFragment, new MeatFragment());
         ftMeat.commit();
+//
+//        FragmentTransaction ftStore = getSupportFragmentManager().beginTransaction();
+//        ftStore.replace(R.id.storeFragment, new StoresFragment());
+//        ftStore.commit();
 
-        FragmentTransaction ftStore = getSupportFragmentManager().beginTransaction();
-        ftStore.replace(R.id.storeFragment, new StoresFragment());
-        ftStore.commit();
+        CarouselPicker carouselPicker = (CarouselPicker) findViewById(R.id.carousel);
+
+        List<CarouselPicker.PickerItem> imageItems = new ArrayList<>();
+        //{"Costco Wholesale","Walmart","Whole Foods Market", "Target", "Safeway", "Lucky"};
+        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.storelogo_costco)); //Costco Wholesale
+        imageItems.add(new CarouselPicker.DrawableItem(storelogo_walmart)); //Walmart
+        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.storelogo_wholefoods)); // Whole Foods Market
+        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.storelogo_target)); //Target
+        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.storelogo_safeway)); //Safeway
+        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.storelogo_lucky)); //Lucky
+        //Create an adapter
+        CarouselPicker.CarouselViewAdapter imageAdapter = new CarouselPicker.CarouselViewAdapter(this, imageItems, 0);
+        //Set the adapter
+        carouselPicker.setAdapter(imageAdapter);
+
+        carouselPicker.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                //position of the selected item
+                shopPosition = position;
+                //Toast.makeText(getBaseContext(), "clicked " + position, Toast.LENGTH_LONG).show();
+                shoppingList.setStore(stores[position]);
+                ivChosenStore.setImageResource(store_logos[shopPosition]);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
@@ -391,6 +454,10 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void attachBaseContext(Context context) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
+    }
+
+    public void pickStore(View view) {
+        shoppingList.setStore(stores[shopPosition]);
     }
 
     private void setupTransitions() {

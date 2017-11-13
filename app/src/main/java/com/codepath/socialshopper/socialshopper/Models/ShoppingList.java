@@ -112,5 +112,6 @@ public class ShoppingList {
     public void clear() {
         this.store = "";
         this.shoppableItems = new ArrayList<>();;
+        this.itemMap = new HashMap<String, Integer>();
     }
 }
