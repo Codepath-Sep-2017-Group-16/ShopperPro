@@ -10,7 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.codepath.socialshopper.socialshopper.R;
+import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
+import com.codepath.socialshopper.socialshopper.Utils.NotificationType;
+import com.facebook.Profile;
 import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 /**
  * Created by saripirala on 11/12/17.
@@ -20,6 +24,7 @@ public class SettingsFragment extends PreferenceFragmentCompat{
 
     private SwitchPreference mShopperSwitchPreference;
     private SwitchPreference mRequestorSwitchPreference;
+    private DatabaseUtils dbUtils;
 
 
     @Override
@@ -30,6 +35,9 @@ public class SettingsFragment extends PreferenceFragmentCompat{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        dbUtils = new DatabaseUtils();
+
         mShopperSwitchPreference = (SwitchPreference) getPreferenceManager().findPreference("shopperNotifKey");
         mRequestorSwitchPreference = (SwitchPreference) getPreferenceManager().findPreference("requestorNotifKey");
 
@@ -37,18 +45,29 @@ public class SettingsFragment extends PreferenceFragmentCompat{
         mShopperSwitchPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                return false;
+                boolean value = (Boolean)newValue;
+                dbUtils.setNotificationPreferences(Profile.getCurrentProfile().getId(), NotificationType.SHOPPER_NOTIFICATION_PREFERENCE, value);
+                MDToast mdToast = MDToast.makeText(getContext(), "Your notification preference is saved", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS);
+                mdToast.show();
+                return true;
             }
         });
 
         mRequestorSwitchPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                return false;
+                boolean value = (Boolean)newValue;
+                dbUtils.setNotificationPreferences(Profile.getCurrentProfile().getId(), NotificationType.SHOPPER_NOTIFICATION_PREFERENCE, value);
+                MDToast mdToast = MDToast.makeText(getContext(), "Your notification preference is saved", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS);
+                mdToast.show();
+                return true;
             }
         });
 
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
+
+
 
 }

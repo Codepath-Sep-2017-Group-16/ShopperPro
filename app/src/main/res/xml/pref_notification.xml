@@ -17,4 +17,15 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:title="Payments">
+
+        <EditTextPreference
+            android:key="edittext_preference"
+            android:summary="Your account is linked with Stripe"
+            android:textColor="@color/colorPrimary"
+            />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

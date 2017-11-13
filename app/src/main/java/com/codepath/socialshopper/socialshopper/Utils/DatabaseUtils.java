@@ -146,6 +146,10 @@ public class DatabaseUtils {
         mDatabase.child(USERS).child(userId).child(LOCATION).setValue(location);
     }
 
+    public static void setNotificationPreferences(String userId, Enum notificationType, boolean status){
+        mDatabase.child(USERS).child(userId).child(notificationType.toString().toLowerCase()).setValue(status);
+    }
+
     public static void saveList(String userId, ShoppingList shoppingList) {
         // Save list instance
         mDatabase.child(LISTS).child(shoppingList.getListId()).setValue(shoppingList);
