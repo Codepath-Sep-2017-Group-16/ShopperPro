@@ -7,7 +7,7 @@
     tools:context="com.codepath.socialshopper.socialshopper.Activities.PreviousOrdersActivity">
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar_main"
+        layout="@layout/shopper_toolbar_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
