@@ -95,11 +95,11 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
             //PICKED_UP, COMPLETED and OUT_FOR_DELIVERY
             if (status.equals("PICKED_UP")) {
                 mDataList.add(new TimeLineModel(shopperName + " is around " + storeName + " and is shopping for you!", DateTimeUtils.getCurrentDateTime(), "PICKED_UP"));
-                mTimeLineAdapter.notifyDataSetChanged();
+                updateAdapter();
             }
             if (status.equals("COMPLETED")) {
                 mDataList.add(new TimeLineModel(shopperName + " has completed shopping for you. \uD83D\uDD7A", DateTimeUtils.getCurrentDateTime(), "COMPLETED"));
-                mTimeLineAdapter.notifyDataSetChanged();
+                updateAdapter();
             }
         }
     }
@@ -230,7 +230,7 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
             if(resultCode == Activity.RESULT_OK){
                 String result=data.getStringExtra("result");
                 mDataList.get(2).setPaymentStatus("PAID");
-                mTimeLineAdapter.notifyDataSetChanged();
+                updateAdapter();
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
@@ -238,5 +238,14 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
         }
     }
 
+
+    private void updateAdapter(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mTimeLineAdapter.notifyDataSetChanged();
+            }
+        });
+    }
 
 }

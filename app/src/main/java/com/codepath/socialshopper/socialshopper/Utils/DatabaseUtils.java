@@ -48,6 +48,7 @@ public class DatabaseUtils {
     private static final String IMAGE_URL = "receiptImageURL";
     private static final String STATUS = "status";
     private static final String SHOPPER_NAME = "shopper_name";
+    private static final String SHOPPER_ID = "shopper_id";
     private static final String PROFILE_PIC = "profile_pic";
     private static final String PAYMENT = "payment";
 
@@ -192,6 +193,10 @@ public class DatabaseUtils {
 
     public static void saveNameOfShopperAfterPickUp(String listId){
         mDatabase.child(LISTS).child(listId).child(SHOPPER_NAME).setValue(Profile.getCurrentProfile().getFirstName());
+    }
+
+    public static void saveFBIdOfShopperAfterPickUp(String listId){
+        mDatabase.child(LISTS).child(listId).child(SHOPPER_ID).setValue(Profile.getCurrentProfile().getId());
     }
 
     public static void getShoppersLocation(Activity activity, final String listId) {

@@ -47,6 +47,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if(userId!=null && userId.contains(":")) {
             userId = userId.split(":")[1];
             bitmap = getBitmapfromUrl("https://graph.facebook.com/" + userId + "/picture?type=large");
+        }else if(userId !=null && !userId.contains(":")){
+            bitmap = getBitmapfromUrl("https://graph.facebook.com/" + userId + "/picture?type=large");
         }
 
         if(recipient==null) { // Implies the first push notification for the shopper
@@ -180,10 +182,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             return bitmap;
 
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             return null;
-
         }
     }
 
