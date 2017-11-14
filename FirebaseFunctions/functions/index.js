@@ -131,6 +131,7 @@ exports.sendListStatusUpdateNotification = functions.database.ref('/lists/{listI
   console.log('List Data :', listData.toString());
 
   var shopperName = "shopper_name" in listData ? listData["shopper_name"] : "";
+  var shopperId = "shopper_id" in listData ? listData["shopper_id"] : "";
   var storeName = listData["store"];
 
   var status = listData["status"];
@@ -167,7 +168,8 @@ exports.sendListStatusUpdateNotification = functions.database.ref('/lists/{listI
         payload: notificationMessage,
         listid: listId,
         recipient : recipient,
-        status : status
+        status : status,
+	userId : shopperId      
       }
     };
 

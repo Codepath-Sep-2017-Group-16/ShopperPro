@@ -81,6 +81,7 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
         Drawable top = ContextCompat.getDrawable(mContext, mContext.getResources().getIdentifier(shoppableItem.getmItemIconFileName(), "raw", mContext.getPackageName()));
         //holder.btnShoppableItem.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);
         holder.btnShoppableItem.setImageDrawable(top);
+        holder.tvBrand.setText(shoppableItem.getmItemBrand());
         holder.btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,6 +116,7 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
         Button btnAdd;
         Button btnRemove;
         TextView tvPlusOne;
+        TextView tvBrand;
 
         public ShoppableItemsViewHolder(View itemView) {
             super(itemView);
@@ -124,6 +126,7 @@ public class ShoppableItemsArrayAdapter extends RecyclerView.Adapter<ShoppableIt
             btnAdd = (Button) itemView.findViewById(R.id.btnAdd);
             btnRemove = (Button) itemView.findViewById(R.id.btnRemove);
             tvPlusOne = (TextView) itemView.findViewById(R.id.tvPLusOne);
+            tvBrand = (TextView) itemView.findViewById(R.id.tvBrand);
         }
 
         public void Bind(ShoppableItem shoppableItem) {
