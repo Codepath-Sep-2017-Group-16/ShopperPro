@@ -102,6 +102,7 @@ public class PickUpListActivity extends AppCompatActivity implements DatabaseUti
         // Currently getting the first list in item to avoid ezception
         dbUtils.getShoppingListByListId(this,lists.get(0));
         DatabaseUtils.saveNameOfShopperAfterPickUp(lists.get(0));
+        DatabaseUtils.saveFBIdOfShopperAfterPickUp(lists.get(0));
         DatabaseUtils.updateListStatus(lists.get(0), Status.PICKED_UP);
     }
 
