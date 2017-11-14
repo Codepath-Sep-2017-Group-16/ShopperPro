@@ -10,26 +10,21 @@
     android:minHeight="?attr/actionBarSize"
     app:contentInsetLeft="0dp"
     app:contentInsetStart="0dp"
-    app:titleTextColor="@android:color/white">
+    app:theme="@style/ToolbarStyle">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/app_name"
-            android:textColor="@android:color/white"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            fontPath="fonts/Abel-Regular.ttf"
-            android:textAlignment="center"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            tools:context="" />
+    <TextView
+        android:id="@+id/toolbar_title"
+        fontPath="fonts/Abel-Regular.ttf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@android:color/white"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        tools:context="" />
 
-    </RelativeLayout>
+
 </android.support.v7.widget.Toolbar>

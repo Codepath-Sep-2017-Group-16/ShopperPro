@@ -8,10 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.socialshopper.socialshopper.Adapters.ShoppingListArrayAdapter;
@@ -31,9 +35,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.codepath.socialshopper.socialshopper.Activities.MainActivity.shoppingList;
+import static com.codepath.socialshopper.socialshopper.R.id.toolbar_title;
 import static com.codepath.socialshopper.socialshopper.Utils.FacebookUtils.getFacebookId;
 
 public class ShoppingListActivity extends AppCompatActivity implements LocationUtils.OnLocationFetchListener {
@@ -44,11 +51,15 @@ public class ShoppingListActivity extends AppCompatActivity implements LocationU
     private DatabaseUtils databaseUtils;
     public final String TAG = "SocShpLstSub";
     private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1;
+    @BindView((R.id.toolbar))
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list);
+        ButterKnife.bind(this);
+        setUpToolBar();
 
         adapter = new ShoppingListArrayAdapter(shoppingList.getItems());
 
@@ -69,7 +80,17 @@ public class ShoppingListActivity extends AppCompatActivity implements LocationU
         });
         setupTransitions();
         setupLocationService();
+    }
 
+    private void setUpToolBar() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        final TextView toolbarTitle = (TextView) findViewById(toolbar_title);
+        //ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) toolbarTitle.getLayoutParams();
+        //layoutParams.setMarginStart(0);
+        toolbarTitle.setText(shoppingList.getStore());
     }
 
     public void submitShoppingList(View view) {
@@ -140,6 +161,17 @@ public class ShoppingListActivity extends AppCompatActivity implements LocationU
         for (String location : locations) {
             Toast.makeText(this, location, Toast.LENGTH_SHORT).show();
             databaseUtils.setUserLocation(getFacebookId(), Profile.getCurrentProfile().getFirstName(), location);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }
