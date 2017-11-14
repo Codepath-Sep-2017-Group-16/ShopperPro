@@ -4,9 +4,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:orientation="vertical"
     android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground">
+    android:foreground="?android:attr/selectableItemBackground"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="160dp"
@@ -16,79 +16,94 @@
 
         <TextView
             android:id="@+id/tvPLusOne"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
             android:text="+1"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_width="wrap_content"
-            android:visibility="gone"
-            android:layout_height="wrap_content" />
+            android:visibility="gone" />
+
         <Button
             android:id="@+id/btnAdd"
             android:layout_width="23dp"
             android:layout_height="23dp"
-            android:layout_marginEnd="5dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
+            android:layout_marginEnd="5dp"
+            android:alpha="0"
             android:background="@drawable/ic_add_black_24dp"
             android:textAllCaps="false"
-            android:alpha="0"
             android:textColor="@color/colorWhite" />
 
         <TextView
             android:id="@+id/tvMeasure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
             android:layout_alignParentTop="true"
-            android:layout_toStartOf="@+id/btnAdd"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="3dp"
             android:layout_marginEnd="5dp"
+            android:layout_toStartOf="@+id/btnAdd"
             android:alpha="0"
             android:textColor="@color/colorMutedGrey"
-            android:textStyle="bold"
             android:textSize="17sp"
-            android:layout_centerInParent="true"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             android:layout_marginBottom="3dp"
             android:layout_marginEnd="3dp"
-            android:textStyle="bold"
-            android:layout_centerHorizontal="true"
             android:layout_toStartOf="@id/tvMeasure"
-            android:layout_alignParentTop="true"
-            android:textColor="@color/colorMutedGrey"
             android:alpha="0"
+            android:textColor="@color/colorMutedGrey"
             android:textSize="17sp"
-            android:layout_centerInParent="true"/>
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnRemove"
             android:layout_width="23dp"
             android:layout_height="23dp"
+            android:layout_alignParentTop="true"
             android:layout_marginEnd="5dp"
             android:layout_toStartOf="@+id/tvAmount"
-            android:layout_alignParentTop="true"
+            android:alpha="0"
             android:background="@drawable/ic_remove"
             android:textAllCaps="false"
-            android:alpha="0"
             android:textColor="@color/colorWhite" />
 
         <ImageView
             android:id="@+id/btnShoppableItem"
             android:layout_width="100dp"
             android:layout_height="116dp"
-            android:layout_centerInParent="true"
             android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
             android:src="@drawable/banana_file"
             android:text="Banana"
-            android:scaleType="fitCenter"
             android:textAllCaps="false"
             android:textColor="#fff" />
+
+        <TextView
+            android:id="@+id/tvBrand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="5dp"
+            android:text="Brand"
+            android:textColor="@color/colorMutedGrey"
+            android:textStyle="bold"
+            android:visibility="gone"
+            />
 
 
     </RelativeLayout>
