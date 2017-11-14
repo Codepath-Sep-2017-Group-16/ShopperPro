@@ -7,8 +7,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.codepath.socialshopper.socialshopper.R;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.google.android.gms.wallet.Cart;
@@ -23,13 +26,32 @@ import com.stripe.android.model.StripePaymentSource;
 import com.stripe.wrap.pay.AndroidPayConfiguration;
 import com.stripe.wrap.pay.activity.StripeAndroidPayActivity;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class PaymentActivity extends StripeAndroidPayActivity {
 
+
+    @BindView(R.id.receiptImage)
+    ImageView iVReceiptImage;
+
+    @BindView(R.id.tvAmount)
+    TextView tvAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+        ButterKnife.bind(this);
+
+        String receiptURL = getIntent().getStringExtra("receiptURL");
+        Long amountDue = getIntent().getLongExtra("amount", 0L);
+
+        Glide.with(this)
+                .load(receiptURL)
+                .into(iVReceiptImage);
+
+        tvAmount.setText("Your total bill amount is: " + amountDue);
     }
 
     @Override
@@ -52,7 +74,7 @@ public class PaymentActivity extends StripeAndroidPayActivity {
     /**
      * Creates the {@link WalletFragmentStyle} for the buy button for this Activity.
      * Override to change the appearance of the button. The results of this method
-     * are used to build the {@link WalletFragmentOptions}.
+     * are used to build the {@link }.
      *
      * @return a {@link WalletFragmentStyle} used to display Android Pay options to the user
      */

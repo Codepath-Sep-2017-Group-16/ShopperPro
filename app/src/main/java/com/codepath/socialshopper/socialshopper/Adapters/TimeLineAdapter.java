@@ -151,7 +151,9 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapter.TimeLi
         try {
             Cart cart = cartManager.buildCart();
             Intent intent = new Intent(mContext, PaymentActivity.class)
-                    .putExtra(StripeAndroidPayActivity.EXTRA_CART, cart).putExtra("receiptURL", receiptURL);
+                    .putExtra(StripeAndroidPayActivity.EXTRA_CART, cart)
+                    .putExtra("receiptURL", receiptURL)
+                    .putExtra("amount", extractReceiptAmount);
             ((TrackStatusActivity) mContext).startActivityForResult(intent, 1);
         } catch (CartContentException e) {
             Toast.makeText(mContext, "error preparing cart", Toast.LENGTH_SHORT).show();
@@ -212,9 +214,10 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapter.TimeLi
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Log.d("TAG",response.body().string());
+                String jsonData = response.body().string();
+                //Log.d("TAG",response.body().string());
                 try {
-                    JSONObject result = new JSONObject(response.body().toString());
+                    JSONObject result = new JSONObject(jsonData);
 
                     JSONArray arr = result.getJSONArray("responses");
                     JSONObject responseObj = arr.getJSONObject(0);
@@ -226,6 +229,7 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapter.TimeLi
 
                     for(String element: elements){
                         try{
+                            element = element.replace("$","");
                             if(isNumericAndHasDot(element)){
                                 double value =	Double.parseDouble(element);
                                 maxValue = value > maxValue ? value: maxValue;
@@ -238,7 +242,7 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapter.TimeLi
                     extractReceiptAmount = Math.round(maxValue);
 
                 }catch (JSONException e){
-
+                    Log.d("Exception", e.getLocalizedMessage());
                 }
             }
         });
