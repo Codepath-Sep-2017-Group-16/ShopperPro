@@ -5,13 +5,13 @@
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     android:clickable="true"
+    card_view:cardCornerRadius="10dp"
     android:foreground="?android:attr/selectableItemBackground"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="160dp"
         android:layout_height="150dp"
-        android:background="@drawable/ic_background"
         card_view:cardElevation="10dp">
 
         <TextView
