@@ -9,8 +9,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.socialshopper.socialshopper.Adapters.TimeLineAdapter;
@@ -35,7 +38,12 @@ import com.stripe.wrap.pay.AndroidPayConfiguration;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
+import static com.codepath.socialshopper.socialshopper.Activities.MainActivity.shoppingList;
+import static com.codepath.socialshopper.socialshopper.R.id.toolbar_title;
 
 public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.OnMapLongClickListener, GoogleMap.OnMarkerDragListener, DatabaseUtils.OnLocationFetchListener,DatabaseUtils.OnImageFetchListenerInterface {
 
@@ -50,12 +58,15 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
     private static String status;
     private static String storeName;
     private Location prevLocation;
+    @BindView((R.id.toolbar))
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track_status);
-
+        ButterKnife.bind(this);
+        setUpToolBar();
         dbUtils = new DatabaseUtils();
         processIntentAction(getIntent());
         status = "SUBMITTED";
@@ -64,6 +75,13 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
         initializePayments();
     }
 
+    private void setUpToolBar() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        final TextView toolbarTitle = (TextView) findViewById(toolbar_title);
+    }
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -246,6 +264,27 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
                 mTimeLineAdapter.notifyDataSetChanged();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }
