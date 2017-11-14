@@ -13,6 +13,7 @@ public class TimeLineModel implements Parcelable {
     private String mDate;
     private String mStatus;
     private String paymentStatus;
+    public static String listID;
 
     public TimeLineModel() {
     }

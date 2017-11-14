@@ -83,6 +83,7 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
             String status = intent.getStringExtra("status");
             String listId = intent.getStringExtra("listId");
             String message = intent.getStringExtra("message");
+            TimeLineModel.listID = listId;
 
             String shopperName = message.split(" ")[0];
 
@@ -99,7 +100,6 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
             if (status.equals("COMPLETED")) {
                 mDataList.add(new TimeLineModel(shopperName + " has completed shopping for you. \uD83D\uDD7A", DateTimeUtils.getCurrentDateTime(), "COMPLETED"));
                 mTimeLineAdapter.notifyDataSetChanged();
-                //dbUtils.getImageForList(this,listId);
             }
         }
     }
@@ -128,14 +128,6 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
 
         CameraPosition cameraPosition = new CameraPosition.Builder().target(currentLocation).zoom(14).tilt(30).build();
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
-        if(prevLocation !=null) {
-            map.addPolyline(new PolylineOptions()
-                    .add(new LatLng(prevLocation.getLatitude(), prevLocation.getLongitude()) , new LatLng(location.getLatitude(), location.getLongitude()))
-                    .width(5)
-                    .color(Color.GREEN));
-        }else
-            prevLocation = location;
     }
 
 

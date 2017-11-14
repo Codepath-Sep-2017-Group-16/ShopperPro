@@ -53,7 +53,7 @@
             tools:replace="android:value" />
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
-            android:value="ocr"/>
+            android:value="ocr" />
 
         <activity
             android:name="com.facebook.FacebookActivity"

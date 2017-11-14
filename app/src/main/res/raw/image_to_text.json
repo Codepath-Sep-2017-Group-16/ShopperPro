@@ -1,0 +1,18 @@
+{
+  "requests":[
+    {
+      "image":{
+        "source":{
+          "imageUri":
+          "$__RECEIPT_URL__"
+        }
+      },
+      "features":[
+        {
+          "type":"TEXT_DETECTION",
+          "maxResults":1
+        }
+      ]
+    }
+  ]
+}

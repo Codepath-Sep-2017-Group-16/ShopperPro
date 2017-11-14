@@ -14,6 +14,9 @@ import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +27,13 @@ import java.util.List;
  */
 
 public class ImageToTextUtils {
+
     private TextRecognizer detector;
+
     public List<String> convert(Context context, android.net.Uri imageUri) {
+
+        detector = new TextRecognizer.Builder(context).build();
+
         List<String> returnWord = new ArrayList<String>();
         try {
             Bitmap bitmap = decodeBitmapUri(context, imageUri);
@@ -87,5 +95,27 @@ public class ImageToTextUtils {
 
         return BitmapFactory.decodeStream(ctx.getContentResolver()
                 .openInputStream(uri), null, bmOptions);
+    }
+
+
+    public Bitmap getBitmapfromUrl(String imageUrl) {
+        try {
+            URL url = new URL(imageUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+
+
+            Bitmap bitmap = BitmapFactory.decodeStream(input);
+
+            return bitmap;
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+
+        }
     }
 }
