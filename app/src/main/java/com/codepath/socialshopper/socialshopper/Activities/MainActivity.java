@@ -49,6 +49,8 @@ import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.codepath.socialshopper.socialshopper.Utils.FacebookUtils;
 import com.codepath.socialshopper.socialshopper.Utils.LocationUtils;
 import com.crashlytics.android.Crashlytics;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
 import org.parceler.Parcels;
@@ -144,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         final TextView toolbarTitle = (TextView) findViewById(toolbar_title);
+        toolbarTitle.setVisibility(View.GONE);
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) toolbarTitle.getLayoutParams();
         layoutParams.setMarginStart(0);
 
@@ -159,12 +162,12 @@ public class MainActivity extends AppCompatActivity implements
                 Log.d("SocShpSTATE", state.name());
                 if(state.name().equals("COLLAPSED")) {
                     ivChosenStore.setVisibility(View.VISIBLE);
-                    //toolbarTitle.setVisibility(View.GONE);
+                    toolbarTitle.setVisibility(View.VISIBLE);
                     ivChosenStore.setImageResource(store_logos[shopPosition]);
                 }
                 if(state.name().equals("EXPANDED")) {
                     ivChosenStore.setVisibility(View.GONE);
-                    //toolbarTitle.setVisibility(View.VISIBLE);
+                    toolbarTitle.setVisibility(View.GONE);
                 }
             }
         });
@@ -219,7 +222,6 @@ public class MainActivity extends AppCompatActivity implements
             public void onPageSelected(int position) {
                 //position of the selected item
                 shopPosition = position;
-                Toast.makeText(getBaseContext(), "clicked " + position, Toast.LENGTH_LONG).show();
                 shoppingList.setStore(stores[position]);
                 ivChosenStore.setImageResource(store_logos[shopPosition]);
             }
@@ -307,6 +309,11 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.nav_settings:
                 Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(settingsIntent);
+                break;
+            case R.id.nav_logout:
+                LoginManager.getInstance().logOut();
+                Intent logoutIntent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(logoutIntent);
                 break;
             default:
         }
