@@ -142,7 +142,7 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
         currentLocationMarker = map.addMarker(new MarkerOptions()
                 .position(currentLocation)
                 .title("Shopper")
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_car)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location_on_black_24dp)));
 
         CameraPosition cameraPosition = new CameraPosition.Builder().target(currentLocation).zoom(14).tilt(30).build();
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
