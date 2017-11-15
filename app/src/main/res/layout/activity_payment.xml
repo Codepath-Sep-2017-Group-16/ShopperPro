@@ -17,10 +17,12 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginBottom="52dp"
+        android:visibility="gone"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true">
 
     </FrameLayout>
+
 
     <ImageView
         android:id="@+id/receiptImage"
@@ -32,16 +34,57 @@
         app:srcCompat="@drawable/apple" />
 
     <TextView
-        android:id="@+id/tvAmount"
+        android:id="@+id/tvMessage"
+        tools:text="Total Amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+
         android:layout_below="@+id/receiptImage"
-        android:layout_marginStart="22dp"
+
         android:layout_marginTop="20dp"
         android:layout_marginLeft="5dp"
-        android:textColor="@color/colorGreen"
-        android:textSize="18sp"
+        android:layout_centerHorizontal="true"
+
+        android:textSize="16sp"
         android:text="TextView" />
+    <TextView
+        android:id="@+id/tvAmount"
+        android:text="$7.90"
+        android:textSize="20sp"
+        android:layout_below="@+id/tvMessage"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ProgressBar
+        android:id="@+id/progressPayment"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tvAmount"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="wrap_content" />
+    <com.ebanx.swipebtn.SwipeButton
+        android:id="@+id/btnPayment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:button_image_width="58dp"
+        app:button_image_height="58dp"
+        app:inner_text="Swipe to Pay"
+        app:inner_text_color="@android:color/white"
+        app:inner_text_size="16sp"
+        app:inner_text_top_padding="18dp"
+        app:inner_text_bottom_padding="18dp"
+        app:inner_text_background="@drawable/swipebutton"
+        app:button_image_disabled="@drawable/ic_attach_money_black_24dp"
+        app:button_image_enabled="@drawable/ic_attach_money_black_24dp"
+        app:button_left_padding="15dp"
+        app:button_right_padding="15dp"
+        app:button_top_padding="15dp"
+        app:button_bottom_padding="15dp"
+        app:button_background="@drawable/shape_button"
+        app:button_trail_enabled="true"
+        app:button_trail_drawable="@drawable/swipebutton_trail"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

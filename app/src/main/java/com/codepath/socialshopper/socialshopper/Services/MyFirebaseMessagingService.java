@@ -41,7 +41,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         String from = remoteMessage.getFrom();
         Map<String,String> data = remoteMessage.getData();
-        Log.i(TAG+"Push received", data.toString());
+        Log.i(TAG+" Push received", data.toString());
         String recipient = data.get("recipient");
         String userId = data.get("userId");
         if(userId!=null && userId.contains(":")) {

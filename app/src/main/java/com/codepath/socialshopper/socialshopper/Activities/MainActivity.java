@@ -29,7 +29,6 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -49,7 +48,6 @@ import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
 import com.codepath.socialshopper.socialshopper.Utils.FacebookUtils;
 import com.codepath.socialshopper.socialshopper.Utils.LocationUtils;
 import com.crashlytics.android.Crashlytics;
-import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
@@ -87,8 +85,8 @@ public class MainActivity extends AppCompatActivity implements
     TextView tvCartCount;
     ImageView ivCart;
     int shopPosition = 0;
-    String[] stores = {"Costco Wholesale","Walmart","Whole Foods Market", "Target", "Safeway", "Lucky"};
-    int[] store_logos = {R.drawable.storelogo_costco, R.drawable.storelogo_walmart,R.drawable.storelogo_wholefoods,R.drawable.storelogo_target,R.drawable.storelogo_safeway,R.drawable.storelogo_lucky };
+    String[] stores = {"Costco Wholesale","Walmart", "Lucky" ,"Whole Foods Market", "Target", "Safeway"};
+    int[] store_logos = {R.drawable.storelogo_costco, R.drawable.storelogo_walmart,R.drawable.storelogo_lucky, R.drawable.storelogo_wholefoods,R.drawable.storelogo_target,R.drawable.storelogo_safeway };
     private DatabaseUtils databaseUtils;
     private LocationUtils locationUtils;
 
@@ -201,10 +199,10 @@ public class MainActivity extends AppCompatActivity implements
         //{"Costco Wholesale","Walmart","Whole Foods Market", "Target", "Safeway", "Lucky"};
         imageItems.add(new CarouselPicker.DrawableItem(R.drawable.storelogo_costco)); //Costco Wholesale
         imageItems.add(new CarouselPicker.DrawableItem(R.drawable.storelogo_walmart)); //Walmart
+        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.storelogo_lucky)); //Lucky
         imageItems.add(new CarouselPicker.DrawableItem(R.drawable.storelogo_wholefoods)); // Whole Foods Market
         imageItems.add(new CarouselPicker.DrawableItem(R.drawable.storelogo_target)); //Target
         imageItems.add(new CarouselPicker.DrawableItem(R.drawable.storelogo_safeway)); //Safeway
-        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.storelogo_lucky)); //Lucky
         //Create an adapter
         CarouselPicker.CarouselViewAdapter imageAdapter = new CarouselPicker.CarouselViewAdapter(this, imageItems, 0);
         //Set the adapter

@@ -2,9 +2,6 @@ package com.codepath.socialshopper.socialshopper.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -104,6 +101,8 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapter.TimeLi
 
             DatabaseReference ref = mDatabase.child("lists").child(TimeLineModel.listID).child("receiptImageURL");
             ref.addListenerForSingleValueEvent(
+
+
                     new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {

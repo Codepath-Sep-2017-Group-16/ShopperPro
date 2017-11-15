@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,7 +31,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolylineOptions;
 import com.stripe.wrap.pay.AndroidPayConfiguration;
 
 import java.util.ArrayList;
@@ -42,7 +40,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-import static com.codepath.socialshopper.socialshopper.Activities.MainActivity.shoppingList;
 import static com.codepath.socialshopper.socialshopper.R.id.toolbar_title;
 
 public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.OnMapLongClickListener, GoogleMap.OnMarkerDragListener, DatabaseUtils.OnLocationFetchListener,DatabaseUtils.OnImageFetchListenerInterface {
@@ -142,7 +139,7 @@ public class TrackStatusActivity extends AppCompatActivity implements GoogleMap.
         currentLocationMarker = map.addMarker(new MarkerOptions()
                 .position(currentLocation)
                 .title("Shopper")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location_on_black_24dp)));
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_car)));
 
         CameraPosition cameraPosition = new CameraPosition.Builder().target(currentLocation).zoom(14).tilt(30).build();
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));

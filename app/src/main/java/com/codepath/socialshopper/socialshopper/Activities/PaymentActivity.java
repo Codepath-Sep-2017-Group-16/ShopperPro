@@ -5,32 +5,33 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Matrix;
 import android.graphics.PointF;
-import android.provider.ContactsContract;
+import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.codepath.socialshopper.socialshopper.R;
 import com.codepath.socialshopper.socialshopper.Utils.DatabaseUtils;
-import com.google.android.gms.wallet.Cart;
+import com.ebanx.swipebtn.OnActiveListener;
+import com.ebanx.swipebtn.SwipeButton;
 import com.google.android.gms.wallet.FullWallet;
 import com.google.android.gms.wallet.FullWalletRequest;
 import com.google.android.gms.wallet.InstrumentInfo;
 import com.google.android.gms.wallet.MaskedWallet;
-import com.google.android.gms.wallet.WalletConstants;
 import com.google.android.gms.wallet.fragment.SupportWalletFragment;
 import com.google.android.gms.wallet.fragment.WalletFragmentStyle;
 import com.stripe.android.model.StripePaymentSource;
 import com.stripe.wrap.pay.AndroidPayConfiguration;
 import com.stripe.wrap.pay.activity.StripeAndroidPayActivity;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,8 +43,17 @@ public class PaymentActivity extends StripeAndroidPayActivity implements View.On
     @BindView(R.id.receiptImage)
     ImageView iVReceiptImage;
 
+    @BindView(R.id.tvMessage)
+    TextView tvMeasure;
     @BindView(R.id.tvAmount)
     TextView tvAmount;
+
+    @BindView(R.id.btnPayment)
+    SwipeButton btnPayment;
+
+
+    @BindView(R.id.progressPayment)
+    ProgressBar progressPayment;
 
     private static final String TAG = "Touch";
     @SuppressWarnings("unused")
@@ -79,9 +89,24 @@ public class PaymentActivity extends StripeAndroidPayActivity implements View.On
                 .load(receiptURL)
                 .into(iVReceiptImage);
 
-        tvAmount.setText("Your total bill amount is: " + amountDue);
-
+        tvMeasure.setText("Total Amount");
+        tvAmount.setText("$7.90");
         iVReceiptImage.setOnTouchListener(this);
+        btnPayment.setOnActiveListener(new OnActiveListener() {
+            @Override
+            public void onActive() {
+                progressPayment.setVisibility(View.VISIBLE);
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressPayment.setVisibility(View.GONE);
+                        createPayment();
+                    }
+                },3000);
+
+            }
+        });
     }
 
     @Override
@@ -147,10 +172,15 @@ public class PaymentActivity extends StripeAndroidPayActivity implements View.On
 
         // This ID is what you would send to your server to create a charge.
         String id = paymentSource.getId();
-        DatabaseUtils.createNewPayment("10155844018118417", id);
+
+    }
+
+    private void createPayment() {
+        DatabaseUtils.createNewPayment("10212869948696604", "1234");
         Intent returnIntent = new Intent();
         returnIntent.putExtra("result","SUCCESS");
         setResult(Activity.RESULT_OK,returnIntent);
+        MDToast.makeText(this, "Payment successful", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
         finish();
     }
 
